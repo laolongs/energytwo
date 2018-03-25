@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/border"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:background="@mipmap/bg_identity"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/identity_image"
+            android:layout_marginTop="20dp"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:background="@mipmap/ic_me" />
+
+        <TextView
+            android:id="@+id/identity_username"
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"
+            android:textColor="@color/white"
+            android:text="南阳印染"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/layout_password"
+        style="@style/identity_layout">
+
+        <ImageView
+            style="@style/identity_imageview"
+            android:src="@mipmap/ic_lock" />
+
+        <TextView
+            style="@style/identity_textview"
+            android:text="密码修改" />
+    </LinearLayout>
+
+
+    <ImageView
+        style="@style/cut_off_line_9dp"/>
+
+    <LinearLayout
+        android:id="@+id/layout_contact"
+        style="@style/identity_layout">
+
+        <ImageView
+            style="@style/identity_imageview"
+            android:src="@mipmap/ic_telephone" />
+
+        <TextView
+            style="@style/identity_textview"
+            android:text="联系我们" />
+    </LinearLayout>
+
+    <ImageView
+        style="@style/cut_off_line_1dp"/>
+
+    <LinearLayout
+        android:id="@+id/layout_feedback"
+        style="@style/identity_layout">
+
+        <ImageView
+            style="@style/identity_imageview"
+            android:src="@mipmap/ic_message" />
+
+        <TextView
+            style="@style/identity_textview"
+            android:text="意见反馈" />
+    </LinearLayout>
+
+    <ImageView
+        style="@style/cut_off_line_1dp"/>
+
+    <LinearLayout
+        android:id="@+id/layout_about"
+        style="@style/identity_layout">
+
+        <ImageView
+            style="@style/identity_imageview"
+            android:src="@mipmap/ic_about" />
+
+        <TextView
+            style="@style/identity_textview"
+            android:text="关于我们" />
+    </LinearLayout>
+
+    <ImageView
+        style="@style/cut_off_line_9dp"/>
+
+    <LinearLayout
+        android:id="@+id/layout_logout"
+        style="@style/identity_layout">
+
+        <ImageView
+            style="@style/identity_imageview"
+            android:src="@mipmap/ic_logout" />
+
+        <TextView
+            style="@style/identity_textview"
+            android:text="退出登录" />
+    </LinearLayout>
+
+</LinearLayout>
