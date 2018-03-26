@@ -21,17 +21,19 @@
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
                 android:gravity="center"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="50dp"
                 android:layout_height="wrap_content">
-                <ImageView
-                    android:gravity="center_vertical"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:background="@mipmap/ic_me" />
+               <tties.cn.energy.common.CircleProgressBar
+                   android:id="@+id/tasks_view"
+                   android:layout_width="120dp"
+                   android:layout_height="120dp"
+                   app:radius="50dip"
+                   app:ringColor="#BEDCFE"
+                   app:strokeWidth="10dip"/>
 
             </LinearLayout>
             <TextView
-                android:id="@+id/identity_company"
+                android:id="@+id/energy_usermark"
                 android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -46,6 +48,9 @@
             android:layout_height="0dp"
             android:layout_weight="2">
             <RatingBar
+                android:id="@+id/energy_bar"
+                android:numStars="5"
+                android:stepSize="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
@@ -71,6 +76,7 @@
                 android:orientation="horizontal"
                 >
                 <LinearLayout
+                    android:id="@+id/energy_baseenergy"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
@@ -91,6 +97,7 @@
                     android:background="@color/border"
                     android:layout_width="1dp" />
                 <LinearLayout
+                    android:id="@+id/energy_electrical"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
@@ -111,6 +118,7 @@
                     android:background="@color/border"
                     android:layout_width="1dp" />
                 <LinearLayout
+                    android:id="@+id/energy_force"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
@@ -131,6 +139,7 @@
             <View
                 style="@style/cut_off_line_1dp"/>
             <LinearLayout
+                android:id="@+id/energy_transformer"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -158,6 +167,7 @@
                     android:background="@color/border"
                     android:layout_width="1dp" />
                 <LinearLayout
+                    android:id="@+id/energy_ops"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
@@ -178,6 +188,7 @@
                     android:background="@color/border"
                     android:layout_width="1dp" />
                 <LinearLayout
+                    android:id="@+id/energy_energy"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"

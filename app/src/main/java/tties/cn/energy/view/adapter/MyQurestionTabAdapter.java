@@ -46,4 +46,5 @@ public class MyQurestionTabAdapter extends FragmentPagerAdapter{
     public CharSequence getPageTitle(int position) {
         return array[position];
     }
+
 }

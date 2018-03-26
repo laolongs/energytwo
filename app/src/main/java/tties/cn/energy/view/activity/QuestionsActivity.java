@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -88,6 +89,7 @@ public class QuestionsActivity extends BaseActivity<QuestionsPresenter> implemen
         MyQurestionTabAdapter adapter=new MyQurestionTabAdapter(getSupportFragmentManager(),array,list);
         quVp.setAdapter(adapter);
         quTab.setupWithViewPager(quVp);
+//        quTab.set
         //设置可以滑动
 //        quTab.setTabMode(TabLayout.MODE_SCROLLABLE);
     }

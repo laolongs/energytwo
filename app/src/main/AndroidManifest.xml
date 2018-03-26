@@ -94,7 +94,16 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <!-- 切换表号 -->
         <activity android:name=".view.activity.TablenNumberActivity" />
-        <activity android:name=".view.activity.VersionActivity"></activity>
+        <activity android:name=".view.activity.VersionActivity" />
+        <activity android:name=".view.activity.Energy_BaseenergyActivity" />
+        <activity android:name=".view.activity.Energy_ElectricalActivity" />
+        <activity android:name=".view.activity.Energy_ForceActivity" />
+        <activity android:name=".view.activity.Energy_TransformerActivity" />
+        <activity android:name=".view.activity.Energy_OpsActivity" />
+        <activity android:name=".view.activity.Energy_EnergyActivity"
+            android:theme="@style/AppTheme.NoActionBar" >
+
+        </activity>
     </application>
 
 </manifest>

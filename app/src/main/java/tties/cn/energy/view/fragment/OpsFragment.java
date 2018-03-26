@@ -29,6 +29,7 @@ import tties.cn.energy.model.result.Opsbean;
 import tties.cn.energy.presenter.OpsPresenter;
 import tties.cn.energy.utils.PtrClassicFoot;
 import tties.cn.energy.utils.PtrClassicHeader;
+import tties.cn.energy.utils.ToastUtil;
 import tties.cn.energy.view.activity.QuestionsActivity;
 import tties.cn.energy.view.adapter.MyOpsrightAdapter;
 import tties.cn.energy.view.iview.IOpsView;
@@ -72,6 +73,7 @@ public class OpsFragment extends BaseFragment<OpsPresenter> implements IOpsView 
     private List<Opsbean.ResultBean> list;
     boolean flag=false;
     int item=5;
+    int allnumber=0;
     Opsbean opsbean;
     private MyOpsrightAdapter adapter;
 
@@ -137,6 +139,7 @@ public class OpsFragment extends BaseFragment<OpsPresenter> implements IOpsView 
     public void setOpsRightData(Opsbean opsbean) {
         View view=View.inflate(getActivity(),R.layout.activity_ops_item_right_no,null);
         this.opsbean=opsbean;
+        allnumber=opsbean.getResult().size();
         Log.i("--------", "setOpsRightData: "+opsbean.getResult().size());
         list = new ArrayList<>();
         setlist(item);
@@ -158,16 +161,21 @@ public class OpsFragment extends BaseFragment<OpsPresenter> implements IOpsView 
         });
     }
     public void setlist(int item){
-        if(flag){
-            for (int i = 0; i < item; i++) {
-                list.add(opsbean.getResult().get(i));
+            if(flag&&item<=allnumber){
+                for (int i = 0; i < item; i++) {
+                    list.add(opsbean.getResult().get(i));
+                }
+            }else{
+                if(item>=allnumber){
+                    for (int i = 0; i < item-allnumber; i++) {
+                        list.add(opsbean.getResult().get(i));
+                        ToastUtil.showShort(getActivity(),"数据已加载完毕");
+                    }
+                }
+                for (int i = 0; i < item; i++) {
+                    list.add(opsbean.getResult().get(i));
+                }
             }
-        }else{
-            for (int i = 0; i < item; i++) {
-                list.add(opsbean.getResult().get(i));
-            }
-        }
-
     }
 
 }
