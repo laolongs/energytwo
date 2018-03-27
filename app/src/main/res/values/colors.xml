@@ -216,4 +216,9 @@
     <color name="darkblue">#00008B</color> <!--暗蓝色 -->
     <color name="navy">#000080</color> <!--海军色 -->
     <color name="black">#000000</color> <!--黑色 -->
+    <color name="colorbg">#90ffffff</color>
+    <color name="menu_item_normal_bg">#FFFFFFFF</color>
+    <color name="menu_item_press_bg">#d6d2d3</color>
+    <color name="menu_item_divider_color">#d6d2d3</color>
+    <color name="menu_item_text_color">#FFFF4081</color>
 </resources>

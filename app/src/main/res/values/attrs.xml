@@ -8,4 +8,10 @@
         <attr name="ringColor" format="color"/>
         <attr name="ringBgColor" format="color"/>
     </declare-styleable>
+    <declare-styleable name="MyProgressRound">
+        <attr name="progressColor" format="color"/>
+        <attr name="textSize" format="dimension"/>
+        <attr name="ringSize" format="dimension"/>
+        <attr name="radiuSize" format="dimension"/>
+    </declare-styleable>
 </resources>

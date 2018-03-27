@@ -6,6 +6,7 @@ import java.util.List;
 import tties.cn.energy.R;
 import tties.cn.energy.api.Api;
 import tties.cn.energy.api.RetrofitApi;
+import tties.cn.energy.api.RetrofitApiOps;
 
 /**
  * Created by li on 2018/3/23
@@ -16,7 +17,7 @@ import tties.cn.energy.api.RetrofitApi;
 public class OpsDataModel implements IOpsModel {
     @Override
     public Api getOpsData() {
-        return RetrofitApi.getServer();
+        return RetrofitApiOps.getServer();
     }
 
 //    CallBack callBack;

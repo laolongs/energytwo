@@ -105,7 +105,6 @@ public class OpsFragment extends BaseFragment<OpsPresenter> implements IOpsView 
             public void onLoadMoreBegin(PtrFrameLayout frame) {
                 Log.i("-----------", "onLoadMoreBegin: "+"111111");
                 flag=true;
-                item=item+5;
                 setlist(item);
                 adapter.notifyDataSetChanged();
                 opsRefreshLayout.refreshComplete();
@@ -140,7 +139,7 @@ public class OpsFragment extends BaseFragment<OpsPresenter> implements IOpsView 
         View view=View.inflate(getActivity(),R.layout.activity_ops_item_right_no,null);
         this.opsbean=opsbean;
         allnumber=opsbean.getResult().size();
-        Log.i("--------", "setOpsRightData: "+opsbean.getResult().size());
+        Log.i("--------", "setOpsRightData: "+allnumber);
         list = new ArrayList<>();
         setlist(item);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
@@ -162,7 +161,7 @@ public class OpsFragment extends BaseFragment<OpsPresenter> implements IOpsView 
     }
     public void setlist(int item){
             if(flag&&item<=allnumber){
-                for (int i = 0; i < item; i++) {
+                for (int i = 0; i < item+5; i++) {
                     list.add(opsbean.getResult().get(i));
                 }
             }else{
@@ -177,5 +176,6 @@ public class OpsFragment extends BaseFragment<OpsPresenter> implements IOpsView 
                 }
             }
     }
+
 
 }

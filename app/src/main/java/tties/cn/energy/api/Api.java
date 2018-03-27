@@ -7,6 +7,7 @@ import io.reactivex.Observable;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
+import tties.cn.energy.model.result.Data_Pressbean;
 import tties.cn.energy.model.result.Loginbean;
 import tties.cn.energy.model.result.Opsbean;
 import tties.cn.energy.model.result.Versionbean;
@@ -26,6 +27,10 @@ public interface Api {
     @POST("queryQuertionAction.do")
     @FormUrlEncoded
     Observable<Opsbean> getOps(@FieldMap Map<String,Object> map);
+    //电压电流不平衡
+    @POST("queryUnbalance.htm")
+    @FormUrlEncoded
+    Observable<Data_Pressbean> getData_Press(@FieldMap Map<String,Object> map);
 //    //获取订单计划详情
 //    @POST(Content.PAGE_DETAILS)
 //    Observable<ConfirmBean> getDetatlsData(@Query("id") int id);

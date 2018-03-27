@@ -82,6 +82,7 @@ public class AboutActivity extends BaseActivity<MainPresenter> implements IMainV
                 VersionSend.getVersionData(AboutActivity.this);
             }
         });
+
     }
 
     private void initToolBar() {

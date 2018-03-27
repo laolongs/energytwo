@@ -23,7 +23,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_width="match_parent"
-            android:layout_height="280dp"
+            android:layout_height="300dp"
             >
             <RelativeLayout
                 android:id="@+id/electrical_Rl"
@@ -53,18 +53,30 @@
                         android:text="2018-02"
                         />
                 </RelativeLayout>
-
-                <tties.cn.energy.chart.LineDataChart
-                    android:id="@+id/chart"
-                    android:layout_marginTop="10dp"
+                <RelativeLayout
                     android:layout_below="@+id/electrical_rl"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:padding="12dp" >
-                </tties.cn.energy.chart.LineDataChart>
+                    android:id="@+id/electrical_r2"
+                    android:layout_width="200dp"
+                    android:layout_centerInParent="true"
+                    android:layout_height="200dp"
+                    android:orientation="vertical">
+                    <tties.cn.energy.common.MyProgressRound
+                        android:id="@+id/electrical_myview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:ringSize="10dp"
+                        app:progressColor="#883399"
+                        app:textSize="30sp"
+                        android:layout_centerInParent="true"/>
+                    <ImageView
+                        android:layout_centerInParent="true"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@mipmap/ic_me"/>
+                </RelativeLayout>
                 <LinearLayout
                     android:id="@+id/electrical_r3"
-                    android:layout_below="@+id/chart"
+                    android:layout_below="@+id/electrical_r2"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="60dp">
