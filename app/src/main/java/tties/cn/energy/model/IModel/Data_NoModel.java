@@ -10,9 +10,9 @@ import tties.cn.energy.api.RetrofitApiPub;
  * author：guojlli
  */
 
-public class Data_PressModel implements IData_PressModel {
+public class Data_NoModel implements IData_NoModel {
     @Override
-    public Api getData_PressData() {
+    public Api getData_NoData() {
         return RetrofitApi.getServer();
     }
 

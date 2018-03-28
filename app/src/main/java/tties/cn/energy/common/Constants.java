@@ -7,6 +7,7 @@ public class Constants {
 
       public static final String OpsBASE_RUL = "http://192.168.2.127:8080/api/";//自己本地Ip
       public static final String BASE_RUL = "http://192.168.2.127:8083/phoneInterface/";//自己本地Ip
+      public static final String PUBBASE_RUL = "https://app.tties.cn/phoneInterface/";//自己本地Ip
 //      public static final String BASE_RUL = "http://192.168.2.127:8080/phoneInterface/";//自己本地Ip
 //    public static final String BASE_RUL = "http://192.168.2.116:8080/phoneInterface/";
 //    public static final String BASE_RUL =  "https://app.tties.cn/phoneInterface/";

@@ -8,7 +8,7 @@ import tties.cn.energy.api.Api;
  * author：guojlli
  */
 
-public interface IData_PressModel {
-    public Api getData_PressData();
+public interface IData_NoModel {
+    public Api getData_NoData();
     public Api getAllElectricitySendData();
 }

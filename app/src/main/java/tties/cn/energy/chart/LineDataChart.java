@@ -215,6 +215,12 @@ public class LineDataChart extends  LineChart {
         MyXValueFormatter ff = new MyXValueFormatter(dayList);
         xAxis.setValueFormatter(ff);
     }
+    public void setDayYAxis(List<String> dayList) {
+        YAxis yAxis =getAxisLeft();
+        MyXValueFormatter ff = new MyXValueFormatter(dayList);
+        yAxis.setValueFormatter(ff);
+    }
+
 
     public class MyXValueFormatter implements IAxisValueFormatter {
 
@@ -229,4 +235,18 @@ public class LineDataChart extends  LineChart {
             return labels.get((int) value % labels.size());
         }
     }
+    public class MyYValueFormatter implements IAxisValueFormatter {
+
+        private List<String> labels;
+
+        public MyYValueFormatter(List<String> labels) {
+            this.labels = labels;
+        }
+
+        @Override
+        public String getFormattedValue(float value, AxisBase axis) {
+            return labels.get((int) value % labels.size());
+        }
+    }
+
 }

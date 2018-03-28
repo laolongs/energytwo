@@ -11,21 +11,57 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <include layout="@layout/toobar"/>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="30dp">
+            <TextView
+                android:paddingLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="不平衡最大值"/>
+        </LinearLayout>
         <tties.cn.energy.chart.LineDataChart
             android:id="@+id/data_press_chart1"
             android:layout_width="match_parent"
             android:layout_height="200dp">
         </tties.cn.energy.chart.LineDataChart>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="30dp">
+            <TextView
+                android:paddingLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="不平衡最大值发生时间"/>
+        </LinearLayout>
         <tties.cn.energy.chart.LineDataChart
             android:id="@+id/data_press_chart2"
             android:layout_width="match_parent"
             android:layout_height="200dp">
         </tties.cn.energy.chart.LineDataChart>
-        <tties.cn.energy.chart.PieDataChart
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="30dp">
+            <TextView
+                android:paddingLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="不平衡度越限日累计时间"/>
+        </LinearLayout>
+        <tties.cn.energy.chart.LineDataChart
             android:id="@+id/data_press_chart3"
             android:layout_width="match_parent"
             android:layout_height="200dp">
-        </tties.cn.energy.chart.PieDataChart>
+        </tties.cn.energy.chart.LineDataChart>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="49dp"
@@ -40,7 +76,7 @@
                 android:gravity="center"
                 android:layout_weight="1">
                 <TextView
-                    android:id="@+id/data_time_tv"
+                    android:id="@+id/data_press_time_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"

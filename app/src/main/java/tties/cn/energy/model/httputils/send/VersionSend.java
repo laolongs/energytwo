@@ -18,7 +18,7 @@ import tties.cn.energy.view.activity.SplashActivity;
 
 /**
  * Created by li on 2018/3/22
- * description：
+ * description：版本更新
  * author：guojlli
  */
 
