@@ -4,6 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="100dp">
     <ImageView
+        android:src="@mipmap/energy_energy_pdf"
         android:layout_marginLeft="24dp"
         android:layout_width="0dp"
         android:layout_weight="2"
@@ -30,6 +31,7 @@
            />
     </LinearLayout>
     <ImageView
+        android:src="@mipmap/energy_energy_download"
         android:layout_marginRight="24dp"
         android:layout_width="0dp"
         android:layout_weight="2"

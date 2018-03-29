@@ -58,4 +58,6 @@ dependencies {
     compile 'com.google.code.gson:gson:2.2.4'
     //下拉刷新
     compile 'in.srain.cube:ptr-load-more:1.0.6'
+    //版本更新
+    compile 'pub.devrel:easypermissions:1.0.1'
 }

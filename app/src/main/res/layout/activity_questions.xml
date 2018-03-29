@@ -24,7 +24,7 @@
                 android:layout_weight="3"
                 android:paddingLeft="24dp"
                 android:gravity="center"
-                android:src="@mipmap/ic_me"/>
+                android:src="@mipmap/ops_electricity_pending"/>
             <LinearLayout
                 android:layout_width="0dp"
                 android:orientation="vertical"
@@ -191,6 +191,8 @@
                     android:textColor="@color/white"
                     android:text="联系工程师"/>
                 <ImageView
+                    android:src="@mipmap/arrows"
+                    android:layout_marginLeft="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     />
@@ -208,6 +210,8 @@
                     android:textColor="@color/white"
                     android:text="回复"/>
                 <ImageView
+                    android:src="@mipmap/arrows"
+                    android:layout_marginLeft="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"/>

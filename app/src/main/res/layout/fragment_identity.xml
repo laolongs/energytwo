@@ -6,165 +6,234 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical">
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="@mipmap/bg_identity"
-        android:gravity="center_horizontal"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/orangered"
         android:orientation="vertical">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginTop="100dp"
-            android:layout_height="wrap_content">
+        <android.support.v7.widget.Toolbar
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/identity_toolbar"
+            style="@style/toolbar"
+            android:background="@color/orangered"
+            app:layout_scrollFlags="scroll|enterAlways">
             <ImageView
-                android:layout_marginTop="5dp"
-                android:id="@+id/identity_image"
-                android:gravity="center_vertical"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:background="@mipmap/ic_me" />
-            <TextView
-                android:layout_gravity="center_vertical"
-                android:id="@+id/identity_username"
-                android:layout_marginTop="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textColor="@color/white"
-                android:text="张辛福"/>
+                android:src="@mipmap/ic_logo"
+                style="@style/toolbar_center"/>
+        </android.support.v7.widget.Toolbar>
+        <LinearLayout
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:orientation="vertical"
+            android:background="@drawable/btn_date_dwmy_normal"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="80dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_marginTop="20dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="客户名称"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/identity_name"
+                        android:layout_marginTop="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:text="张丰富"/>
+                    <TextView
+                        android:id="@+id/identity_company"
+                        android:layout_marginTop="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="绍兴市科普织造有限公司"/>
+                </LinearLayout>
+
+            </LinearLayout>
+            <View
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                style="@style/cut_off_line_1dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="80dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:src="@mipmap/identity_electricity"
+                        android:layout_marginTop="20dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="客户名称"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_marginTop="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="使用中的电表号"/>
+                    <TextView
+                        android:id="@+id/identity_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:text="9824234234234"/>
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:layout_gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="切换电表"/>
+                        <ImageView
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/head_right"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+
         </LinearLayout>
 
 
-        <TextView
-            android:id="@+id/identity_company"
-            android:layout_marginTop="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="17sp"
-            android:textColor="@color/white"
-            android:text="绍兴市科普织造有限公司"/>
+
     </LinearLayout>
-
-
     <LinearLayout
-        android:id="@+id/layout_tablenumber"
-        style="@style/identity_layout">
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/layout_password"
+            style="@style/identity_layout">
+
+            <ImageView
+                style="@style/identity_imageview"
+                android:src="@mipmap/identity_password" />
+
+            <TextView
+                style="@style/identity_textview"
+                android:text="修改密码" />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+            <ImageView
+                style="@style/data_textview"
+               android:src="@mipmap/head_right"
+                />
+        </LinearLayout>
+
 
         <ImageView
-            style="@style/identity_imageview"
-            android:src="@mipmap/ic_lock" />
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24sp"
+            style="@style/cut_off_line_1dp"/>
+        <LinearLayout
+            android:id="@+id/layout_version"
+            style="@style/identity_layout">
 
-        <TextView
-            style="@style/identity_textview"
-            android:text="切换表号" />
-        <View
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-        <TextView
-            style="@style/data_textview"
-            android:text=">"
-            />
-    </LinearLayout>
+            <ImageView
+                style="@style/identity_imageview"
+                android:src="@mipmap/identity_version" />
 
-
-    <ImageView
-        style="@style/cut_off_line_1dp"/>
-    <LinearLayout
-        android:id="@+id/layout_password"
-        style="@style/identity_layout">
-
-        <ImageView
-            style="@style/identity_imageview"
-            android:src="@mipmap/ic_telephone" />
-
-        <TextView
-            style="@style/identity_textview"
-            android:text="修改密码" />
-        <View
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-        <TextView
-            style="@style/data_textview"
-            android:text=">"
-            />
-    </LinearLayout>
-
-    <ImageView
-        style="@style/cut_off_line_1dp"/>
-
-    <LinearLayout
-        android:id="@+id/layout_version"
-        style="@style/identity_layout">
+            <TextView
+                style="@style/identity_textview"
+                android:text="版本更新" />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+            <ImageView
+                style="@style/data_textview"
+                android:src="@mipmap/head_right"
+                />
+        </LinearLayout>
 
         <ImageView
-            style="@style/identity_imageview"
-            android:src="@mipmap/ic_message" />
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24sp"
+            style="@style/cut_off_line_1dp"/>
 
-        <TextView
-            style="@style/identity_textview"
-            android:text="版本更新" />
-        <View
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-        <TextView
-            style="@style/data_textview"
-            android:text=">"
-            />
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/identity_about"
+            style="@style/identity_layout">
 
-    <ImageView
-        style="@style/cut_off_line_1dp"/>
+            <ImageView
+                style="@style/identity_imageview"
+                android:src="@mipmap/identity_we" />
 
-    <LinearLayout
-        android:id="@+id/layout_about"
-        style="@style/identity_layout">
-
-        <ImageView
-            style="@style/identity_imageview"
-            android:src="@mipmap/ic_about" />
-
-        <TextView
-            style="@style/identity_textview"
-            android:text="关于我们" />
-        <View
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-        <TextView
-            style="@style/data_textview"
-            android:text=">"
-            />
-    </LinearLayout>
-
-    <ImageView
-        style="@style/cut_off_line_1dp"/>
-
-    <LinearLayout
-        android:id="@+id/layout_logout"
-        style="@style/identity_layout">
+            <TextView
+                style="@style/identity_textview"
+                android:text="关于我们" />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+            <ImageView
+                style="@style/data_textview"
+               android:src="@mipmap/head_right"
+                />
+        </LinearLayout>
 
         <ImageView
-            style="@style/identity_imageview"
-            android:src="@mipmap/ic_logout" />
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24sp"
+            style="@style/cut_off_line_1dp"/>
 
-        <TextView
-            style="@style/identity_textview"
-            android:text="设置" />
-        <View
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-        <TextView
-            style="@style/data_textview"
-            android:text=">"
-            />
+        <LinearLayout
+            android:id="@+id/layout_loginout"
+            style="@style/identity_layout">
+
+            <ImageView
+                style="@style/identity_imageview"
+                android:src="@mipmap/identity_logout" />
+
+            <TextView
+                style="@style/identity_textview"
+                android:text="推出登录" />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+            <ImageView
+                style="@style/data_textview"
+                android:src="@mipmap/head_right"
+                />
+        </LinearLayout>
     </LinearLayout>
-    <ImageView
-        style="@style/cut_off_line_1dp"/>
+
+
 </LinearLayout>

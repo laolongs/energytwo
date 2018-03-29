@@ -2,9 +2,11 @@ package tties.cn.energy.view.activity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
@@ -33,7 +35,7 @@ import tties.cn.energy.view.iview.IData_PressView;
 public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implements IData_PressView {
 
     @BindView(R.id.toolbar_left)
-    TextView toolbarLeft;
+    ImageView toolbarLeft;
     @BindView(R.id.toolbar_text)
     TextView toolbarText;
     @BindView(R.id.data_press_chart1)
@@ -57,15 +59,18 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-//        YAxis axisLeft = dataPressChart2.getAxisLeft();
-//        axisLeft.setAxisMaxValue(60*24);
-//        axisLeft.setAxisMinValue(0);
         mPresenter.getData_PressData(1);
         mPresenter.getAllElectricityData();
         initView();
     }
 
     private void initView() {
+        toolbarLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         toolbarText.setText("电压不平衡");
         dataPressTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -174,6 +179,10 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
     public void setAllElectricitySend(AllElectricitybean allElectricitySend) {
         dialog=new BottomStyleDialog(Data_PressActivity.this,allElectricitySend);
     }
-
+    public static float minuteParse(String duration) {
+        float allnumber = Float.parseFloat(duration);//1640
+        float minute = allnumber * 60 ;
+        return minute ;
+    }
 
 }

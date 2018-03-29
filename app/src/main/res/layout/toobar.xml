@@ -6,13 +6,12 @@
     android:id="@+id/data_toolbar"
     style="@style/toolbar"
     app:layout_scrollFlags="scroll|enterAlways">
-    <TextView
+    <ImageView
         android:id="@+id/toolbar_left"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
+        android:src="@mipmap/head_left"
         />
     <TextView android:id="@+id/toolbar_text"
         style="@style/toolbar_center"/>
-
 </android.support.v7.widget.Toolbar>

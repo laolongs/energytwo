@@ -23,6 +23,7 @@
                 android:text="显示异常报警，正常开启亮度不适，显示文字不清晰，时钟不正确，操作不灵活，屏幕屏保不正"
                 />
             <ImageView
+                android:src="@mipmap/ops_cabinet_pending"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -54,19 +55,26 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="5dp"
                 android:layout_height="match_parent">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    />
-                <TextView
-                    android:id="@+id/ops_item_address"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
-                    android:textColor="@color/main"
-                    android:textSize="15sp"
-                    android:text="88#高压室"/>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:src="@mipmap/ops_location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        />
+                    <TextView
+                        android:layout_marginLeft="3dp"
+                        android:id="@+id/ops_item_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:text="88#高压室"/>
+                </LinearLayout>
+
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

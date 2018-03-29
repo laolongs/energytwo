@@ -34,7 +34,7 @@ import tties.cn.energy.view.iview.IMainView;
 public class DataActivity extends BaseActivity<MainPresenter> implements IMainView, View.OnClickListener {
 
     @BindView(R.id.toolbar_left)
-    TextView toolbarLeft;
+    ImageView toolbarLeft;
     @BindView(R.id.toolbar_text)
     TextView toolbarText;
     @BindView(R.id.data_toolbar)

@@ -97,7 +97,7 @@
                <ImageView
                    android:layout_gravity="center"
                    style="@style/identity_imageview"
-                   android:src="@mipmap/ic_lock" />
+                   android:src="@mipmap/data_charge" />
 
                <TextView
                    android:layout_gravity="center"
@@ -107,9 +107,9 @@
                    android:layout_width="0dp"
                    android:layout_height="match_parent"
                    android:layout_weight="1"/>
-               <TextView
+               <ImageView
                    style="@style/data_textview"
-                   android:text=">"
+                   android:src="@mipmap/head_right"
                    />
           </LinearLayout>
 
@@ -124,7 +124,7 @@
                <ImageView
                    android:layout_gravity="center"
                    style="@style/identity_imageview"
-                   android:src="@mipmap/ic_lock" />
+                   android:src="@mipmap/data_electric" />
 
                <TextView
                    android:layout_gravity="center"
@@ -134,9 +134,9 @@
                    android:layout_width="0dp"
                    android:layout_height="match_parent"
                    android:layout_weight="1"/>
-               <TextView
+               <ImageView
                    style="@style/data_textview"
-                   android:text=">"
+                   android:src="@mipmap/head_right"
                    />
           </LinearLayout>
 
@@ -151,7 +151,7 @@
                <ImageView
                    android:layout_gravity="center"
                    style="@style/identity_imageview"
-                   android:src="@mipmap/ic_lock" />
+                   android:src="@mipmap/data_rate" />
 
                <TextView
                    android:layout_gravity="center"
@@ -161,9 +161,9 @@
                    android:layout_width="0dp"
                    android:layout_height="match_parent"
                    android:layout_weight="1"/>
-               <TextView
+               <ImageView
                    style="@style/data_textview"
-                   android:text=">"
+                   android:src="@mipmap/head_right"
                    />
           </LinearLayout>
 
@@ -178,7 +178,7 @@
                <ImageView
                    android:layout_gravity="center"
                    style="@style/identity_imageview"
-                   android:src="@mipmap/ic_lock" />
+                   android:src="@mipmap/data_factor" />
 
                <TextView
                    android:layout_gravity="center"
@@ -188,9 +188,9 @@
                    android:layout_width="0dp"
                    android:layout_height="match_parent"
                    android:layout_weight="1"/>
-               <TextView
+               <ImageView
                    style="@style/data_textview"
-                   android:text=">"
+                   android:src="@mipmap/head_right"
                    />
           </LinearLayout>
 
@@ -205,7 +205,7 @@
                <ImageView
                    android:layout_gravity="center"
                    style="@style/identity_imageview"
-                   android:src="@mipmap/ic_lock" />
+                   android:src="@mipmap/data_current" />
 
                <TextView
                    android:layout_gravity="center"
@@ -215,9 +215,9 @@
                    android:layout_width="0dp"
                    android:layout_height="match_parent"
                    android:layout_weight="1"/>
-               <TextView
+               <ImageView
                    style="@style/data_textview"
-                   android:text=">"
+                   android:src="@mipmap/head_right"
                    />
           </LinearLayout>
 
@@ -232,7 +232,7 @@
                <ImageView
                    android:layout_gravity="center"
                    style="@style/identity_imageview"
-                   android:src="@mipmap/ic_lock" />
+                   android:src="@mipmap/data_no" />
 
                <TextView
                    android:layout_gravity="center"
@@ -242,9 +242,9 @@
                    android:layout_width="0dp"
                    android:layout_height="match_parent"
                    android:layout_weight="1"/>
-               <TextView
+               <ImageView
                    style="@style/data_textview"
-                   android:text=">"
+                   android:src="@mipmap/head_right"
                    />
           </LinearLayout>
 
@@ -259,7 +259,7 @@
                <ImageView
                    android:layout_gravity="center"
                    style="@style/identity_imageview"
-                   android:src="@mipmap/ic_lock" />
+                   android:src="@mipmap/data_press" />
 
                <TextView
                    android:layout_gravity="center"
@@ -269,9 +269,9 @@
                    android:layout_width="0dp"
                    android:layout_height="match_parent"
                    android:layout_weight="1"/>
-               <TextView
+               <ImageView
                    style="@style/data_textview"
-                   android:text=">"
+                   android:src="@mipmap/head_right"
                    />
           </LinearLayout>
      </LinearLayout>

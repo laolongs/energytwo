@@ -24,6 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_gravity="center"
+                android:src="@mipmap/ic_logo"
                 />
             <TextView android:id="@+id/ops_toolbar_text"
                 style="@style/toolbar_center"/>
@@ -69,15 +70,7 @@
                 android:background="@color/border"
                 />
 
-                <!--<android.support.v7.widget.RecyclerView-->
-                    <!--android:id="@+id/ops_rcy_left"-->
-                    <!--android:layout_width="0dp"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:background="@drawable/btn_date_dwmy_normal"-->
-                    <!--android:layout_weight="1"-->
-                    <!--&gt;-->
-                <!--</android.support.v7.widget.RecyclerView>-->
-                <RadioGroup
+            <RadioGroup
                     android:paddingTop="10dp"
                     android:id="@+id/ops_rcy_left_rg"
                     android:layout_width="0dp"
@@ -92,7 +85,7 @@
                         android:layout_weight="1"
                         android:layout_gravity="center"
                         android:button="@null"
-                        android:drawableTop="@drawable/selector_radiobtn_ops_imgtwo"
+                        android:drawableTop="@drawable/selector_radiobtn_ops_imgone"
                         android:textColor="@drawable/selector_radiobtn_ops_text"
                         android:text="全部"
                         />
@@ -114,7 +107,7 @@
                         android:layout_weight="1"
                         android:layout_gravity="center"
                         android:button="@null"
-                        android:drawableTop="@drawable/selector_radiobtn_ops_imgtwo"
+                        android:drawableTop="@drawable/selector_radiobtn_ops_imgthree"
                         android:textColor="@drawable/selector_radiobtn_ops_text"
                         android:text="柜子"
                         />
@@ -125,7 +118,7 @@
                         android:layout_weight="1"
                         android:layout_gravity="center"
                         android:button="@null"
-                        android:drawableTop="@drawable/selector_radiobtn_ops_imgtwo"
+                        android:drawableTop="@drawable/selector_radiobtn_ops_imgfour"
                         android:textColor="@drawable/selector_radiobtn_ops_text"
                         android:text="变压器"
                         />
@@ -136,7 +129,7 @@
                         android:layout_weight="1"
                         android:layout_gravity="center"
                         android:button="@null"
-                        android:drawableTop="@drawable/selector_radiobtn_ops_imgtwo"
+                        android:drawableTop="@drawable/selector_radiobtn_ops_imgfive"
                         android:textColor="@drawable/selector_radiobtn_ops_text"
                         android:text="绝缘器"
                     />
@@ -147,7 +140,7 @@
                         android:layout_weight="1"
                         android:layout_gravity="center"
                         android:button="@null"
-                        android:drawableTop="@drawable/selector_radiobtn_ops_imgtwo"
+                        android:drawableTop="@drawable/selector_radiobtn_ops_imgsix"
                         android:textColor="@drawable/selector_radiobtn_ops_text"
                         android:text="环境"
                     />

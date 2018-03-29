@@ -85,7 +85,7 @@
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:src="@mipmap/ic_me"/>
+                        android:src="@mipmap/energy_base"/>
                     <TextView
                         android:layout_marginTop="5dp"
                         android:text="基本电费优化"
@@ -106,7 +106,7 @@
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:src="@mipmap/ic_me"/>
+                        android:src="@mipmap/energy_charge"/>
                     <TextView
                         android:layout_marginTop="5dp"
                         android:text="电度电费优化"
@@ -127,7 +127,7 @@
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:src="@mipmap/ic_me"/>
+                        android:src="@mipmap/energy_force"/>
                     <TextView
                         android:layout_marginTop="5dp"
                         android:text="力调电费优化"
@@ -155,7 +155,7 @@
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:src="@mipmap/ic_me"/>
+                        android:src="@mipmap/energy_transformer"/>
                     <TextView
                         android:layout_marginTop="5dp"
                         android:text="变压器优化"
@@ -176,7 +176,7 @@
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:src="@mipmap/ic_me"/>
+                        android:src="@mipmap/energy_ops"/>
                     <TextView
                         android:layout_marginTop="5dp"
                         android:text="运维月报"
@@ -197,7 +197,7 @@
                     <ImageView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:src="@mipmap/ic_me"/>
+                        android:src="@mipmap/energy_energy"/>
                     <TextView
                         android:layout_marginTop="5dp"
                         android:text="能效月报"

@@ -113,6 +113,8 @@
                 style="@style/identity_textview"
                 android:text="2018年" />
             <ImageView
+                android:src="@mipmap/arrows"
+                android:background="@color/black"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
                 />

@@ -2,6 +2,7 @@ package tties.cn.energy.view.activity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -19,7 +20,7 @@ import tties.cn.energy.view.iview.IMainView;
 public class Energy_ForceActivity extends BaseActivity<MainPresenter> implements IMainView {
 
     @BindView(R.id.toolbar_left)
-    TextView toolbarLeft;
+    ImageView toolbarLeft;
     @BindView(R.id.toolbar_text)
     TextView toolbarText;
 

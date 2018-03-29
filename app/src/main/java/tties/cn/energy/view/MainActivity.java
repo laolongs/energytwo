@@ -27,17 +27,6 @@ import tties.cn.energy.view.iview.IMainView;
 
 public class MainActivity extends BaseActivity<MainPresenter> implements IMainView {
 
-    //    @BindView(R.id.view_pager)
-//    ViewPager viewPager;
-//    @BindView(R.id.magic_indicator)
-//    MagicIndicator magicIndicator;
-//    private static final String TEXT_ARRAY[] = new String[]{"运维", "能效", "数据", "我的"};
-//    private static final String ID_ARRAY[] = new String[]{"OpsActivity", "EnergyActivity", "DataActivity", "IdentityActivity", "IdentityActivity"};
-//    private int IMAGE_ARRAY[] = {R.mipmap.ic_home, R.mipmap.ic_monitor, R.mipmap.ic_analysis, R.mipmap.ic_statement};
-//    private int IMAGE_ARRAY_SEL[] = {R.mipmap.ic_home_sel, R.mipmap.ic_monitor_sel, R.mipmap.ic_analysis_sel, R.mipmap.ic_statement_sel};
-//    LocalActivityManager manager = null;
-//    @BindView(R.id.main_fl)
-//    FrameLayout mainFl;
     @BindView(R.id.main_bottom_tab_bar)
     BottomTabBar mainBottomTabBar;
     private List<View> mViews;
@@ -47,7 +36,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainVi
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
         initVIewtwo();
-        checkVersion();
+//        checkVersion();
     }
     @Override
     protected void createPresenter() {
@@ -60,14 +49,15 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainVi
     }
 
     public void initVIewtwo(){
+        int color = Color.parseColor("#38A7FF");
         mainBottomTabBar.init(getSupportFragmentManager())
                 //参数1：选中后的颜色，参数2：选中前的颜色
-                .setChangeColor(Color.RED, Color.DKGRAY)
+                .setChangeColor(color, Color.DKGRAY)
                 //参数1：文字内容。参数2：导航图片。参数3：切换哪个fragment类
-                .addTabItem("运维",R.mipmap.ic_home, OpsFragment.class)
-                .addTabItem("能效",R.mipmap.ic_monitor, EnergyFragment.class)
-                .addTabItem("数据",R.mipmap.ic_analysis, DataFragment.class)
-                .addTabItem("我的",R.mipmap.ic_statement, IdentityFragment.class)
+                .addTabItem("运维",R.mipmap.bottom_ops_unselected, OpsFragment.class)
+                .addTabItem("能效",R.mipmap.bottom_energy_unselected, EnergyFragment.class)
+                .addTabItem("数据",R.mipmap.bottom_data_unselected, DataFragment.class)
+                .addTabItem("我的",R.mipmap.bottom_identity_unselected, IdentityFragment.class)
                 //是否显示导航和上边的fragment的区分线(黑色的线太难看了一般我不喜欢在那里设)
                 //false为不显示那条区分线，true为显示那条区分线
                 .isShowDivider(true);

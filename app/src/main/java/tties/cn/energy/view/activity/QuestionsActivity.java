@@ -33,7 +33,7 @@ import tties.cn.energy.view.iview.IQuestionsView;
 public class QuestionsActivity extends BaseActivity<QuestionsPresenter> implements IQuestionsView {
 
     @BindView(R.id.toolbar_left)
-    TextView toolbarLeft;
+    ImageView toolbarLeft;
     @BindView(R.id.toolbar_text)
     TextView toolbarText;
     @BindView(R.id.qu_tab)

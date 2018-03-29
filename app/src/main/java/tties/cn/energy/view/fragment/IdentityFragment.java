@@ -4,10 +4,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -36,20 +36,23 @@ import tties.cn.energy.view.dialog.ConfirmDialog;
 public class IdentityFragment extends BaseFragment<MainPresenter> implements View.OnClickListener {
 
     Unbinder unbinder;
-    @BindView(R.id.identity_image)
-    ImageView identityImage;
-    @BindView(R.id.identity_username)
-    TextView identityUsername;
-    @BindView(R.id.layout_tablenumber)
-    LinearLayout layoutTablenumber;
+    @BindView(R.id.identity_toolbar)
+    Toolbar identityToolbar;
+    @BindView(R.id.identity_name)
+    TextView identityName;
+    @BindView(R.id.identity_company)
+    TextView identityCompany;
+    @BindView(R.id.identity_number)
+    TextView identityNumber;
     @BindView(R.id.layout_password)
     LinearLayout layoutPassword;
     @BindView(R.id.layout_version)
     LinearLayout layoutVersion;
-    @BindView(R.id.layout_about)
-    LinearLayout layoutAbout;
-    @BindView(R.id.layout_logout)
-    LinearLayout layoutLogout;
+    @BindView(R.id.identity_about)
+    LinearLayout identityAbout;
+    @BindView(R.id.layout_loginout)
+    LinearLayout layoutLoginout;
+
 
     @Nullable
     @Override
@@ -57,11 +60,10 @@ public class IdentityFragment extends BaseFragment<MainPresenter> implements Vie
         super.onCreateView(inflater, container, savedInstanceState);
         View inflate = inflater.inflate(R.layout.fragment_identity, null);
         unbinder = ButterKnife.bind(this, inflate);
-        layoutTablenumber.setOnClickListener(this);
         layoutPassword.setOnClickListener(this);
         layoutVersion.setOnClickListener(this);
-        layoutAbout.setOnClickListener(this);
-        layoutLogout.setOnClickListener(this);
+        identityAbout.setOnClickListener(this);
+        layoutLoginout.setOnClickListener(this);
         return inflate;
     }
 
@@ -75,10 +77,10 @@ public class IdentityFragment extends BaseFragment<MainPresenter> implements Vie
         Intent intent;
         switch (view.getId()) {
             //切换表号
-            case R.id.layout_tablenumber:
-                intent = new Intent(getActivity(), TablenNumberActivity.class);
-                startActivity(intent);
-                break;
+//            case R.id.layout_tablenumber:
+//                intent = new Intent(getActivity(), TablenNumberActivity.class);
+//                startActivity(intent);
+//                break;
             //修改密码
             case R.id.layout_password:
                 intent = new Intent(getActivity(), PasswordActivity.class);
@@ -90,12 +92,12 @@ public class IdentityFragment extends BaseFragment<MainPresenter> implements Vie
                 startActivity(intent);
                 break;
             //关于我们
-            case R.id.layout_about:
+            case R.id.identity_about:
                 intent = new Intent(getActivity(), AboutActivity.class);
                 startActivity(intent);
                 break;
             //设置
-            case R.id.layout_logout:
+            case R.id.layout_loginout:
                 ConfirmDialog dialog = new ConfirmDialog(getActivity());
                 dialog.loadDialog("退出登录", "", new DialogInterface.OnClickListener() {
                     @Override

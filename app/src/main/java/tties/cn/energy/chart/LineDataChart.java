@@ -170,7 +170,8 @@ public class LineDataChart extends  LineChart {
 
         //获取左边的轴线
         YAxis leftAxis = getAxisLeft();
-
+        leftAxis.setMaxWidth(144000);
+        leftAxis.setMinWidth(0);
         //leftAxis.setEnabled(false);
         //设置网格线为虚线效果
         //leftAxis.enableGridDashedLine(10f, 10f, 0f);
@@ -217,7 +218,7 @@ public class LineDataChart extends  LineChart {
     }
     public void setDayYAxis(List<String> dayList) {
         YAxis yAxis =getAxisLeft();
-        MyXValueFormatter ff = new MyXValueFormatter(dayList);
+        MyYValueFormatter ff = new MyYValueFormatter(dayList);
         yAxis.setValueFormatter(ff);
     }
 
@@ -245,7 +246,7 @@ public class LineDataChart extends  LineChart {
 
         @Override
         public String getFormattedValue(float value, AxisBase axis) {
-            return labels.get((int) value % labels.size());
+            return labels.get((int) (value%labels.size()));
         }
     }
 

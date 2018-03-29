@@ -3,6 +3,7 @@ package tties.cn.energy.view.activity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -35,7 +36,7 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
 
 
     @BindView(R.id.toolbar_left)
-    TextView toolbarLeft;
+    ImageView toolbarLeft;
     @BindView(R.id.toolbar_text)
     TextView toolbarText;
     @BindView(R.id.data_toolbar)

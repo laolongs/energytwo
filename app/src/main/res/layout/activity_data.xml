@@ -76,7 +76,7 @@
                    android:layout_weight="1">
                     <ImageView
                         android:id="@+id/data_charge_img1"
-                        android:background="#00ff00"
+                        android:src="@mipmap/data_checking"
                         android:layout_marginLeft="5dp"
                         android:layout_gravity="center"
                         android:layout_width="15dp"
@@ -156,7 +156,7 @@
                    android:layout_weight="1">
                     <ImageView
                         android:id="@+id/data_charge_img2"
-                        android:background="#00ff00"
+                        android:src="@mipmap/data_checking"
                         android:layout_marginLeft="5dp"
                         android:layout_gravity="center"
                         android:layout_width="15dp"
@@ -235,7 +235,7 @@
                    android:layout_weight="1">
                     <ImageView
                         android:id="@+id/data_charge_img3"
-                        android:background="#00ff00"
+                        android:src="@mipmap/data_checking"
                         android:layout_marginLeft="5dp"
                         android:layout_gravity="center"
                         android:layout_width="15dp"
@@ -295,9 +295,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:textColor="@color/statment_layout_title_h_line"
+                        android:textColor="@color/orangered"
                         android:paddingTop="5dp"
-                        android:text="校验后"/>
+                        android:text="校验中"/>
                     <TextView
                         android:layout_below="@+id/tv8"
                         android:layout_width="wrap_content"
@@ -305,7 +305,7 @@
                         android:layout_alignParentRight="true"
                         android:paddingTop="5dp"
                         android:textSize="20sp"
-                        android:textColor="@color/statment_layout_title_h_line"
+                        android:textColor="@color/orangered"
                         android:text="￥768678.03"/>
                </RelativeLayout>
                <LinearLayout
@@ -314,7 +314,7 @@
                    android:layout_weight="1">
                     <ImageView
                         android:id="@+id/data_charge_img4"
-                        android:background="#00ff00"
+                        android:src="@mipmap/data_checkout"
                         android:layout_marginLeft="5dp"
                         android:layout_gravity="center"
                         android:layout_width="15dp"
@@ -371,6 +371,8 @@
                         android:textColor="@color/white"
                         android:text="2018年2月"/>
                     <ImageView
+                        android:src="@mipmap/arrows"
+                        android:layout_marginLeft="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                       />
@@ -388,6 +390,8 @@
                         android:textColor="@color/white"
                         android:text="总电量"/>
                     <ImageView
+                        android:src="@mipmap/arrows"
+                        android:layout_marginLeft="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"/>
