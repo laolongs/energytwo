@@ -170,8 +170,9 @@ public class LineDataChart extends  LineChart {
 
         //获取左边的轴线
         YAxis leftAxis = getAxisLeft();
-        leftAxis.setMaxWidth(144000);
-        leftAxis.setMinWidth(0);
+        //最大值，最小值
+//        leftAxis.setMaxWidth(144000);
+//        leftAxis.setMinWidth(0);
         //leftAxis.setEnabled(false);
         //设置网格线为虚线效果
         //leftAxis.enableGridDashedLine(10f, 10f, 0f);
@@ -179,6 +180,8 @@ public class LineDataChart extends  LineChart {
         leftAxis.setDrawZeroLine(false);
         leftAxis.setAxisLineWidth(0f);
         leftAxis.setDrawAxisLine(false); //无轴线
+        // 设置y轴的标签数量
+//        leftAxis.setLabelCount(6,true);
 
 
         setTouchEnabled(true); // 设置是否可以触摸

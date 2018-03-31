@@ -16,17 +16,13 @@ import tties.cn.energy.view.adapter.StyleAdapter;
 
 /**
  * Created by li on 2018/3/28
- * description：
+ * description：总电量弹出框（从底部）
  * author：guojlli
  */
 
 public class BottomStyleDialog extends Dialog implements AdapterView.OnItemClickListener {
     int postion=0;
     AllElectricitybean allElectricitybean;
-    private String[] mNames = new String[] {
-            "我是条目1", "我是条目2", "我是条目3", "我是条目4", "我是条目5","我是条目6","我是条目7"
-    };
-
     private ListView mLv;
 
 

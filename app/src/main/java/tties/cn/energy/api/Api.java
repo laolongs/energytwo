@@ -7,10 +7,12 @@ import io.reactivex.Observable;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 import tties.cn.energy.model.result.AllElectricitybean;
 import tties.cn.energy.model.result.Data_Nobean;
 import tties.cn.energy.model.result.Data_Pressbean;
 import tties.cn.energy.model.result.Loginbean;
+import tties.cn.energy.model.result.OpsLoginbean;
 import tties.cn.energy.model.result.Opsbean;
 import tties.cn.energy.model.result.Versionbean;
 
@@ -26,7 +28,7 @@ public interface Api {
     @POST("getUpdateVersion.htm")
     Observable<Versionbean> getVersion();
     //Ops问题接口
-    @POST("queryQuertionAction.do")
+    @POST("queryQuertionForEnergy.do")
     @FormUrlEncoded
     Observable<Opsbean> getOps(@FieldMap Map<String,Object> map);
     //电压不平衡
@@ -41,6 +43,9 @@ public interface Api {
     @POST("getMeterListByLedgerOrMeterId.htm")
     @FormUrlEncoded
     Observable<AllElectricitybean> getAllElectricity(@FieldMap Map<String,Object> map);
+    //运维信息登录
+    @POST("queryMaintStaff.do")
+    Observable<OpsLoginbean> getOpsLogin(@Query("accountId") String id);
 //    //获取订单计划详情
 //    @POST(Content.PAGE_DETAILS)
 //    Observable<ConfirmBean> getDetatlsData(@Query("id") int id);

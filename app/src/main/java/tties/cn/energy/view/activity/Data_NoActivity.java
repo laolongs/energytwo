@@ -7,7 +7,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
 import com.jzxiang.pickerview.listener.OnDateSetListener;
@@ -120,20 +122,29 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
             //不平衡最大值
             ArrayList<Entry> values1 = new ArrayList<>();
             List<String> listDate = new ArrayList<String>();
-            List<String> listYDate = new ArrayList<String>();
+//            List<String> listYDate = new ArrayList<String>();
             for (int i = 0; i < bean.getMaxTimeData().size(); i++) {
                 Entry entry = new Entry(i, 0f);
-                String sub2 = new String();
+//                String sub2 = new String();
                 String[] split = StringUtil.split(bean.getMaxTimeData().get(i).getIUMAXTIME(), ":");
-                sub2 = split[0] + ":" + split[1];
-                entry.setY(Float.parseFloat(split[0] + split[1]));
+//                sub2 = split[0] + ":" + split[1];
+                entry.setY(Float.parseFloat(split[0]));
                 values1.add(entry);
                 listDate.add(bean.getMaxTimeData().get(i).getFREEZETIME());
-                listYDate.add(sub2);
+//                listYDate.add(sub2);
             }
             dataNoChart2.setDataSet(values1, "");
             dataNoChart2.setDayXAxis(listDate);
-            dataNoChart2.setDayYAxis(listYDate);
+//            dataNoChart2.setDayYAxis(listYDate);
+            dataNoChart2.getAxisLeft().setValueFormatter(new IAxisValueFormatter() {
+                @Override
+                public String getFormattedValue(float value, AxisBase axis) {
+                    int i= (int) value;
+//                    i*100/24
+                    String str=i+":00";
+                    return str;
+                }
+            });
             dataNoChart2.loadChart();
             //不平衡最大值发生时间
             ArrayList<Entry> values2 = new ArrayList<>();

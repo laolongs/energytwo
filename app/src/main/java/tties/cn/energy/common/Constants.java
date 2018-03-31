@@ -14,6 +14,7 @@ public class Constants {
 //    public static final String BASE_RUL = "http://192.168.2.111:8080/phoneInterface/";
 
     public static final String CACHE_LOGIN_STATUS = "CACHE_LOGIN_STATUS";
+    public static final String CACHE_OPSLOGIN_STATUS = "CACHE_OPSLOGIN_STATUS";
     public static final String CACHE_LOGIN_USERNAME = "CACHE_LOGIN_USERNAME";
     public static final String CACHE_LOGIN_PASSWORD = "CACHE_LOGIN_PASSWORD";
     public static final String CACHE_USERINFO = "CACHE_USERINFO";

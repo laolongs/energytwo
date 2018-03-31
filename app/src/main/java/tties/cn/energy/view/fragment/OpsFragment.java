@@ -16,7 +16,10 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,8 +28,11 @@ import in.srain.cube.views.ptr.PtrDefaultHandler2;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import tties.cn.energy.R;
 import tties.cn.energy.base.BaseFragment;
+import tties.cn.energy.common.Constants;
+import tties.cn.energy.model.result.OpsLoginbean;
 import tties.cn.energy.model.result.Opsbean;
 import tties.cn.energy.presenter.OpsPresenter;
+import tties.cn.energy.utils.ACache;
 import tties.cn.energy.utils.PtrClassicFoot;
 import tties.cn.energy.utils.PtrClassicHeader;
 import tties.cn.energy.utils.ToastUtil;
@@ -70,25 +76,80 @@ public class OpsFragment extends BaseFragment<OpsPresenter> implements IOpsView 
     TextView opsNumber;
     @BindView(R.id.ops_refreshLayout)
     PtrFrameLayout opsRefreshLayout;
-    private List<Opsbean.ResultBean> list;
-    boolean flag=false;
-    int item=5;
-    int allnumber=0;
-    Opsbean opsbean;
+    List<Opsbean.ResultBean.QuestionListBean> list;
+    int pagenum=1;
     private MyOpsrightAdapter adapter;
-
+    boolean flag;
+    private static final String TAG = "OpsFragment";
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View inflate = inflater.inflate(R.layout.fragment_ops, null);
         unbinder = ButterKnife.bind(this, inflate);
-        opsRcyLeftRg.check(R.id.ops_rcy_left_bt1);
         initView();
         initRefresh();
-        mPresenter.getOpsRightData();
-
         return inflate;
+    }
+
+    private void initView() {
+        list=new ArrayList<>();
+        mPresenter.setPageNum(pagenum);
+        mPresenter.setPatrolType(0);
+        mPresenter.getOpsRightData();
+        opsRcyLeftRg.check(R.id.ops_rcy_left_bt1);
+        opsRcyLeftRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch (i){
+                    //里头patrolType对应左边竖列
+//                  0  全部 1, 柜子 2 变压器 4 绝缘 5 房间  6 附属环境
+                    //全部
+                    case R.id.ops_rcy_left_bt1:
+                        adapter.notifyDataSetChanged();
+                        mPresenter.setPageNum(pagenum);
+                        mPresenter.setPatrolType(0);
+                        mPresenter.getOpsRightData();
+                        break;
+                        //房间
+                    case R.id.ops_rcy_left_bt2:
+                        adapter.notifyDataSetChanged();
+                        mPresenter.setPageNum(pagenum);
+                        mPresenter.setPatrolType(5);
+                        mPresenter.getOpsRightData();
+                        break;
+                        //柜子
+                    case R.id.ops_rcy_left_bt3:
+                        adapter.notifyDataSetChanged();
+                        mPresenter.setPageNum(pagenum);
+                        mPresenter.setPatrolType(1);
+                        mPresenter.getOpsRightData();
+                        break;
+                        //变压器
+                    case R.id.ops_rcy_left_bt4:
+                        adapter.notifyDataSetChanged();
+                        mPresenter.setPageNum(pagenum);
+                        mPresenter.setPatrolType(2);
+                        mPresenter.getOpsRightData();
+                        break;
+                        //绝缘器
+                    case R.id.ops_rcy_left_bt5:
+                        adapter.notifyDataSetChanged();
+                        mPresenter.setPageNum(pagenum);
+                        mPresenter.setPatrolType(4);
+                        mPresenter.getOpsRightData();
+                        break;
+                        //环境
+                    case R.id.ops_rcy_left_bt6:
+                        adapter.notifyDataSetChanged();
+                        mPresenter.setPageNum(pagenum);
+                        mPresenter.setPatrolType(6);
+                        mPresenter.getOpsRightData();
+                        break;
+
+                }
+            }
+        });
     }
 
     private void initRefresh() {
@@ -103,9 +164,9 @@ public class OpsFragment extends BaseFragment<OpsPresenter> implements IOpsView 
         opsRefreshLayout.setPtrHandler(new PtrDefaultHandler2() {
             @Override
             public void onLoadMoreBegin(PtrFrameLayout frame) {
-                Log.i("-----------", "onLoadMoreBegin: "+"111111");
-                flag=true;
-                setlist(item);
+                pagenum++;
+                mPresenter.setPageNum(pagenum);
+                mPresenter.getOpsRightData();
                 adapter.notifyDataSetChanged();
                 opsRefreshLayout.refreshComplete();
             }
@@ -116,10 +177,6 @@ public class OpsFragment extends BaseFragment<OpsPresenter> implements IOpsView 
                 opsRefreshLayout.refreshComplete();
             }
         });
-    }
-
-    private void initView() {
-
     }
 
     @Override
@@ -136,45 +193,30 @@ public class OpsFragment extends BaseFragment<OpsPresenter> implements IOpsView 
 
     @Override
     public void setOpsRightData(Opsbean opsbean) {
-        View view=View.inflate(getActivity(),R.layout.activity_ops_item_right_no,null);
-        this.opsbean=opsbean;
-        allnumber=opsbean.getResult().size();
-        Log.i("--------", "setOpsRightData: "+allnumber);
-        list = new ArrayList<>();
-        setlist(item);
-        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
-        opsRcyRight.setLayoutManager(manager);
-        adapter = new MyOpsrightAdapter(list);
-        adapter.setHeadView(view);
-        adapter.setAllOpsbean(opsbean);
-        opsRcyRight.setAdapter(adapter);
-        opsNumber.setText(adapter.getQuestionflag() + "");
-        adapter.notifyDataSetChanged();
-        adapter.setonClickListener(new MyOpsrightAdapter.onClickListener() {
-            @Override
-            public void onClickItemListener(int postion) {
-                Intent intent = new Intent(getActivity(), QuestionsActivity.class);
-                intent.putExtra("questionid", postion);
-                startActivity(intent);
-            }
-        });
-    }
-    public void setlist(int item){
-            if(flag&&item<=allnumber){
-                for (int i = 0; i < item+5; i++) {
-                    list.add(opsbean.getResult().get(i));
-                }
+        if(opsbean.getResult().getQuestionList().size()>0){
+            View view=View.inflate(getActivity(),R.layout.activity_ops_item_right_no,null);
+            LinearLayoutManager manager = new LinearLayoutManager(getActivity());
+            opsRcyRight.setLayoutManager(manager);
+            if(flag){
+                list.addAll(opsbean.getResult().getQuestionList());
             }else{
-                if(item>=allnumber){
-                    for (int i = 0; i < item-allnumber; i++) {
-                        list.add(opsbean.getResult().get(i));
-                        ToastUtil.showShort(getActivity(),"数据已加载完毕");
-                    }
-                }
-                for (int i = 0; i < item; i++) {
-                    list.add(opsbean.getResult().get(i));
-                }
+                list=opsbean.getResult().getQuestionList();
             }
+            adapter = new MyOpsrightAdapter(list);
+            adapter.setOpsbean(opsbean);
+            adapter.setHeadView(view);
+            opsRcyRight.setAdapter(adapter);
+            opsNumber.setText(opsbean.getResult().getCount() + "");
+            adapter.setonClickListener(new MyOpsrightAdapter.onClickListener() {
+                @Override
+                public void onClickItemListener(int postion) {
+                    Intent intent = new Intent(getActivity(), QuestionsActivity.class);
+                    intent.putExtra("questionId",list.get(postion).getQuestionId()+"");
+                    startActivity(intent);
+                }
+            });
+        }
+
     }
 
 

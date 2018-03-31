@@ -1,17 +1,21 @@
 package tties.cn.energy.view.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
 import com.jzxiang.pickerview.listener.OnDateSetListener;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -59,6 +63,8 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
+//        YAxis axisLeft = dataPressChart2.getAxisLeft();
+//        axisLeft.setLabelCount(6);
         mPresenter.getData_PressData(1);
         mPresenter.getAllElectricityData();
         initView();
@@ -126,20 +132,30 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
             //不平衡最大值
             ArrayList<Entry> values1 = new ArrayList<>();
             List<String> listDate = new ArrayList<String>();
-            List<String> listYDate = new ArrayList<String>();
+//            List<String> listYDate = new ArrayList<String>();
             for (int i = 0; i < bean.getMaxTimeData().size(); i++) {
                 Entry entry = new Entry(i, 0f);
-                String sub2 = new String();
+//                String sub2 = new String();
                 String[] split = StringUtil.split(bean.getMaxTimeData().get(i).getVUMAXTIME(), ":");
-                sub2 = split[0] + ":" + split[1];
-                entry.setY(Float.parseFloat(split[0] + split[1]));
+//                sub2 = split[0] + ":" + split[1];
+//                entry.setY(Float.parseFloat(split[0] + split[1]));
+                entry.setY(Float.parseFloat(split[0]));
                 values1.add(entry);
                 listDate.add(bean.getMaxTimeData().get(i).getFREEZETIME());
-                listYDate.add(sub2);
+//                listYDate.add(sub2);
             }
             dataPressChart2.setDataSet(values1, "");
             dataPressChart2.setDayXAxis(listDate);
-            dataPressChart2.setDayYAxis(listYDate);
+//            dataPressChart2.setDayYAxis(listYDate);
+            dataPressChart2.getAxisLeft().setValueFormatter(new IAxisValueFormatter() {
+                @Override
+                public String getFormattedValue(float value, AxisBase axis) {
+                    int i= (int) value;
+//                    i*100/24
+                    String str=i+":00";
+                    return str;
+                }
+            });
             dataPressChart2.loadChart();
             //不平衡最大值发生时间
             ArrayList<Entry> values2 = new ArrayList<>();
@@ -184,5 +200,22 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
         float minute = allnumber * 60 ;
         return minute ;
     }
+    public int  getTime(String str){
+//        String str="1640";
+        int hour=0;
+        SimpleDateFormat sdf=new SimpleDateFormat("hhmm");
+        long time = 0;
+        try {
+            time = sdf.parse(str).getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Date newTime = new Date(time); //就得到普通的时间了
+        hour = newTime.getHours();//就得到了小时
+        Log.i("-------ss----", "onCreate: "+time);
+        Log.i("-------sxxxs----", "onCreate: "+hour);
+        return hour;
+    }
+
 
 }

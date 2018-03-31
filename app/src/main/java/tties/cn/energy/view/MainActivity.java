@@ -2,16 +2,17 @@ package tties.cn.energy.view;
 
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-
-import com.hjm.bottomtabbar.BottomTabBar;
+import android.widget.FrameLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import tties.cn.energy.R;
 import tties.cn.energy.base.BaseActivity;
 import tties.cn.energy.common.Constants;
@@ -27,17 +28,53 @@ import tties.cn.energy.view.iview.IMainView;
 
 public class MainActivity extends BaseActivity<MainPresenter> implements IMainView {
 
-    @BindView(R.id.main_bottom_tab_bar)
-    BottomTabBar mainBottomTabBar;
+    @BindView(R.id.main_fl)
+    FrameLayout mainFl;
+    @BindView(R.id.main_bt1)
+    RadioButton mainBt1;
+    @BindView(R.id.main_bt2)
+    RadioButton mainBt2;
+    @BindView(R.id.main_bt3)
+    RadioButton mainBt3;
+    @BindView(R.id.main_bt4)
+    RadioButton mainBt4;
+    @BindView(R.id.main_rg)
+    RadioGroup mainRg;
     private List<View> mViews;
+    private Unbinder bind;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
-        initVIewtwo();
+        bind = ButterKnife.bind(this);
+        initView();
 //        checkVersion();
     }
+
+    private void initView() {
+        mainRg.check(R.id.main_bt1);
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_fl,new OpsFragment()).addToBackStack(null).commit();
+        mainRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch (i){
+                    case R.id.main_bt1:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.main_fl,new OpsFragment()).commit();
+                        break;
+                    case R.id.main_bt2:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.main_fl,new EnergyFragment()).commit();
+                        break;
+                    case R.id.main_bt3:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.main_fl,new DataFragment()).commit();
+                        break;
+                    case R.id.main_bt4:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.main_fl,new IdentityFragment()).commit();
+                        break;
+                }
+            }
+        });
+    }
+
     @Override
     protected void createPresenter() {
         mPresenter = new MainPresenter(this);
@@ -48,24 +85,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainVi
         return R.layout.activity_main;
     }
 
-    public void initVIewtwo(){
-        int color = Color.parseColor("#38A7FF");
-        mainBottomTabBar.init(getSupportFragmentManager())
-                //参数1：选中后的颜色，参数2：选中前的颜色
-                .setChangeColor(color, Color.DKGRAY)
-                //参数1：文字内容。参数2：导航图片。参数3：切换哪个fragment类
-                .addTabItem("运维",R.mipmap.bottom_ops_unselected, OpsFragment.class)
-                .addTabItem("能效",R.mipmap.bottom_energy_unselected, EnergyFragment.class)
-                .addTabItem("数据",R.mipmap.bottom_data_unselected, DataFragment.class)
-                .addTabItem("我的",R.mipmap.bottom_identity_unselected, IdentityFragment.class)
-                //是否显示导航和上边的fragment的区分线(黑色的线太难看了一般我不喜欢在那里设)
-                //false为不显示那条区分线，true为显示那条区分线
-                .isShowDivider(true);
-    }
-
     @Override
     public void setViewPageData(List<View> list) {
     }
+
     private void checkVersion() {
         try {
             Versionbean ret = ACache.getInstance().getAsObject(Constants.CACHEE_VERSION);
@@ -83,5 +106,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainVi
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        bind.unbind();
     }
 }

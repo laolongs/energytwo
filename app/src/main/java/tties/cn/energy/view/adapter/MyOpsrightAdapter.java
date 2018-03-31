@@ -1,7 +1,6 @@
 package tties.cn.energy.view.adapter;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -26,24 +25,20 @@ import tties.cn.energy.model.result.Opsbean;
 public class MyOpsrightAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public static final int TYPE_ONE = 0;
     public static final int TYPE_TWO = 1;
-    int flag = 0;
-    int questionflag = 0;
-    Opsbean bean;
-    List<Opsbean.ResultBean> listbean;
-    List<View> listhead=new ArrayList<>();
+    List<Opsbean.ResultBean.QuestionListBean> listbean;
+    List<View> listhead = new ArrayList<>();
     onClickListener listener;
-
-    public void setAllOpsbean(Opsbean bean){
-        this.bean=bean;
-    }
+    Opsbean opsbean;
     public void setonClickListener(onClickListener listener) {
         this.listener = listener;
     }
 
-    public MyOpsrightAdapter(List<Opsbean.ResultBean> listbean) {
+    public MyOpsrightAdapter(List<Opsbean.ResultBean.QuestionListBean> listbean) {
         this.listbean = listbean;
     }
-
+    public void setOpsbean(Opsbean opsbean){
+        this.opsbean=opsbean;
+    }
     public void setHeadView(View view) {
         listhead.add(view);
     }
@@ -63,7 +58,7 @@ public class MyOpsrightAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 //        if (holder instanceof MyNoQuestionViewHoder) {
-//
+//            ((MyNoQuestionViewHoder) holder).opsItemRightNoTv.setText("无问题");
 //        }
         if (holder instanceof MyViewHoder) {
             ((MyViewHoder) holder).opsItemTitle.setText(listbean.get(position).getTitle());
@@ -82,7 +77,7 @@ public class MyOpsrightAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public int getItemViewType(int position) {
 
-        if (flag == bean.getResult().size()&&position<listhead.size()) {
+        if (opsbean.getResult().getCount() == 0 && position < listhead.size()) {
             return TYPE_ONE;
         } else {
             return TYPE_TWO;
@@ -104,6 +99,7 @@ public class MyOpsrightAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         TextView opsItemAddress;
         @BindView(R.id.ops_item_ll)
         LinearLayout opsItemLl;
+
         public MyViewHoder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
@@ -111,22 +107,14 @@ public class MyOpsrightAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public class MyNoQuestionViewHoder extends RecyclerView.ViewHolder {
+        @BindView(R.id.ops_item_right_no_tv)
+        TextView opsItemRightNoTv;
         public MyNoQuestionViewHoder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
     }
 
-    public int getQuestionflag() {
-        for (int i = 0; i < bean.getResult().size(); i++) {
-            if (bean.getResult().get(i).getStatus() == 0) {
-                flag++;
-            } else {
-                questionflag++;
-            }
-        }
-        return questionflag;
-    }
 
     public interface onClickListener {
         void onClickItemListener(int postion);

@@ -5,11 +5,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.bumptech.glide.util.LogTime;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -17,15 +21,18 @@ import butterknife.Unbinder;
 import tties.cn.energy.R;
 import tties.cn.energy.base.BaseFragment;
 import tties.cn.energy.common.Constants;
-import tties.cn.energy.presenter.MainPresenter;
+import tties.cn.energy.model.result.Loginbean;
+import tties.cn.energy.model.result.OpsLoginbean;
+import tties.cn.energy.presenter.IdentityFragmentPresenter;
 import tties.cn.energy.utils.ACache;
 import tties.cn.energy.utils.ToastUtil;
 import tties.cn.energy.view.activity.AboutActivity;
 import tties.cn.energy.view.activity.LoginActivity;
 import tties.cn.energy.view.activity.PasswordActivity;
-import tties.cn.energy.view.activity.TablenNumberActivity;
 import tties.cn.energy.view.activity.VersionActivity;
 import tties.cn.energy.view.dialog.ConfirmDialog;
+import tties.cn.energy.view.dialog.MyElectricityPopupWindow;
+import tties.cn.energy.view.iview.IIdentityFragmentView;
 
 /**
  * Created by li on 2018/3/21
@@ -33,8 +40,8 @@ import tties.cn.energy.view.dialog.ConfirmDialog;
  * author：guojlli
  */
 
-public class IdentityFragment extends BaseFragment<MainPresenter> implements View.OnClickListener {
-
+public class IdentityFragment extends BaseFragment<IdentityFragmentPresenter> implements View.OnClickListener, IIdentityFragmentView {
+    private static final String TAG = "IdentityFragment";
     Unbinder unbinder;
     @BindView(R.id.identity_toolbar)
     Toolbar identityToolbar;
@@ -52,24 +59,36 @@ public class IdentityFragment extends BaseFragment<MainPresenter> implements Vie
     LinearLayout identityAbout;
     @BindView(R.id.layout_loginout)
     LinearLayout layoutLoginout;
-
-
+    @BindView(R.id.identity_switch_electricity)
+    TextView identitySwitchElectricity;
+    @BindView(R.id.identity_img)
+    ImageView identityImg;
+    MyElectricityPopupWindow popupWindow;
+    MyElectricityPopupWindow.OnclickItem onclickItem;
+    OpsLoginbean bean;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
+
         View inflate = inflater.inflate(R.layout.fragment_identity, null);
         unbinder = ButterKnife.bind(this, inflate);
+        Loginbean loginbean = ACache.getInstance().getAsObject(Constants.CACHE_USERINFO);
+//        Log.i("----------", "onCreateView: "+loginbean.getAccountId());
+        mPresenter.getOpsloginData(loginbean.getAccountId()+"");//1502183891109
+//        long accountid=1502183891109;
+//        mPresenter.getOpsloginData();
         layoutPassword.setOnClickListener(this);
         layoutVersion.setOnClickListener(this);
         identityAbout.setOnClickListener(this);
         layoutLoginout.setOnClickListener(this);
+        identitySwitchElectricity.setOnClickListener(this);
         return inflate;
     }
 
     @Override
     protected void createPresenter() {
-
+        mPresenter = new IdentityFragmentPresenter(this);
     }
 
     @Override
@@ -111,6 +130,25 @@ public class IdentityFragment extends BaseFragment<MainPresenter> implements Vie
                     }
                 });
                 break;
+            //切换表号
+            case R.id.identity_switch_electricity:
+                    if(popupWindow!=null){
+                        popupWindow.showTipPopupWindow(identitySwitchElectricity);
+//                        onclickItem=new MyElectricityPopupWindow.OnclickItem() {
+//                            @Override
+//                            public void OnclickItemListener(int i) {
+//                                identityNumber.setText(bean.getResult().getEnergyLedgerList().get(i).getEnergyLedgerId()+"");
+//                            }
+//                        };
+                        popupWindow.setOnclickItem(new MyElectricityPopupWindow.OnclickItem() {
+                            @Override
+                            public void OnclickItemListener(int i) {
+                                identityNumber.setText(bean.getResult().getEnergyLedgerList().get(i).getEnergyLedgerId()+"");
+                            }
+                        });
+                    }
+
+                break;
         }
     }
 
@@ -118,5 +156,13 @@ public class IdentityFragment extends BaseFragment<MainPresenter> implements Vie
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void getOpsLoginData(OpsLoginbean opsLoginbean) {
+            this.bean=opsLoginbean;
+            identityName.setText(opsLoginbean.getResult().getMaintUser().getStaffName());
+            popupWindow=new MyElectricityPopupWindow(getActivity(),opsLoginbean);
+//            identityImg.setImageResource();
     }
 }

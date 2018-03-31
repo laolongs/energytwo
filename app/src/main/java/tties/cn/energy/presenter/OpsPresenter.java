@@ -11,8 +11,11 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import tties.cn.energy.base.BasePresenter;
+import tties.cn.energy.common.Constants;
 import tties.cn.energy.model.IModel.OpsDataModel;
+import tties.cn.energy.model.result.OpsLoginbean;
 import tties.cn.energy.model.result.Opsbean;
+import tties.cn.energy.utils.ACache;
 import tties.cn.energy.view.iview.IOpsView;
 
 /**
@@ -22,16 +25,39 @@ import tties.cn.energy.view.iview.IOpsView;
  */
 
 public class OpsPresenter extends BasePresenter<IOpsView> {
+    private static final String TAG = "OpsPresenter";
+    OpsLoginbean bean = ACache.getInstance().getAsObject(Constants.CACHE_OPSLOGIN_STATUS);
     IOpsView view;
     OpsDataModel model;
+    int pagenum;
+    int patrolType;
+
+    public int getPatrolType() {
+        return patrolType;
+    }
+
+    public void setPatrolType(int patrolType) {
+        this.patrolType = patrolType;
+    }
+
     public OpsPresenter(IOpsView view) {
         this.view = view;
         this.model = new OpsDataModel();
     }
+    public void setPageNum(int pagenum){
+        this.pagenum=pagenum;
+    }
+    public int getPageNum(){
+        return pagenum;
+    }
     public void getOpsRightData(){
-        Map<String,Object> map=new HashMap<>();
-        map.put("compamyId",53);
-        map.put("staffId",169);
+        HashMap<String,Object> map=new HashMap<>();
+//        map.put("compamyId",bean.getResult().getEnergyLedgerList().get(0).getCompanyId());
+//        map.put("staffId",bean.getResult().getMaintUser().getStaffId());
+        map.put("companyId",54);
+        map.put("patrolType",getPatrolType());
+        map.put("pagesize",10);
+        map.put("pagenum",getPageNum());
         model.getOpsData().getOps(map).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Opsbean>() {
@@ -42,13 +68,18 @@ public class OpsPresenter extends BasePresenter<IOpsView> {
 
                     @Override
                     public void onNext(Opsbean value) {
-                        Log.i("-----------", "onNext: ");
-                        view.setOpsRightData(value);
+                        if(value!=null&&value.getErrorCode()==0){
+                            Log.i(TAG, "onNext: ");
+                            view.setOpsRightData(value);
+                        }else{
+                            Log.i(TAG, "onError: "+"数据有误");
+                        }
+
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.i("-----------", "onError: ");
+                        Log.i(TAG, "onError: "+e.getMessage());
                     }
 
                     @Override
