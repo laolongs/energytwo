@@ -19,11 +19,11 @@ import tties.cn.energy.view.fragment.Questions_progressFragment;
 
 public class QuestionsModel implements IQuestionsModel {
     String[] array={"维修进度","问题讨论"};
-    List<Fragment> list=new ArrayList<>();
+//    List<Fragment> list=new ArrayList<>();
    public void getQuestaionsTab(CallBack callBack){
-       list.add(new Questions_progressFragment());
-       list.add(new Questions_discussFragment());
-        callBack.getTabArray(array,list);
+//       list.add(new Questions_progressFragment());
+//       list.add(new Questions_discussFragment());
+        callBack.getTabArray(array);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class QuestionsModel implements IQuestionsModel {
     }
 
     public interface CallBack{
-        void getTabArray(String[] array,List<Fragment> list);
+        void getTabArray(String[] array);
 
     }
 }

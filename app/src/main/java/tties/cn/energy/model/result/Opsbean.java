@@ -1,7 +1,12 @@
 package tties.cn.energy.model.result;
 
+import com.lzy.imagepicker.bean.ImageItem;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+
+import tties.cn.energy.common.Constants;
 
 /**
  * Created by li on 2018/3/24
@@ -11,8 +16,9 @@ import java.util.List;
 
 public class Opsbean implements Serializable{
 
+
     /**
-     * result : {"count":0,"questionList":[{"patrolItemTypeId":81,"questionId":198,"patrolType":6,"maintUser":{"profilePhoto":"\\photo\\头像1.jpg","staffNo":"000","loginPwd":"$shiro1$SHA-256$500000$e3Pw3VvYELfLCge5No91JA==$chpacZcYFz1kvPkImRrUvNE5jbrSl1DCOmNpXzk7PDk=","createTime":"2018-03-14 18:52:06","staffTel":"13701125155","staffName":"fdsv4","staffId":168,"email":"3425324743@qq.com","status":0},"descriptionList":[],"description":"[附属环境]","patrolRecordId":778,"title":"清除偷盗隐患","equipmentId":141,"equipmentType":6,"questionIndex":"Q6000778","patrolItemId":180,"scheduleList":[{"questionId":198,"questionScheduleId":68,"createTime":"2018-03-16 13:45:15","content":"宸ョ▼甯�tuo姝ｅ湪澶勭悊","staffId":168},{"questionId":198,"questionScheduleId":81,"createTime":"2018-03-16 13:50:20","content":"宸ョ▼甯�tuo宸茶В鍐虫闂","staffId":168}],"createTime":"2018-03-16 13:45:13.0","valueType":0,"faultType":3,"equipmentName":"附属环境","hasquestion":true,"adviceList":[],"status":1},{"patrolItemTypeId":81,"questionId":186,"patrolType":6,"maintUser":{"profilePhoto":"\\photo\\头像1.jpg","staffNo":"000","loginPwd":"$shiro1$SHA-256$500000$e3Pw3VvYELfLCge5No91JA==$chpacZcYFz1kvPkImRrUvNE5jbrSl1DCOmNpXzk7PDk=","createTime":"2018-03-14 18:52:06","staffTel":"13701125155","staffName":"fdsv4","staffId":168,"email":"3425324743@qq.com","status":0},"descriptionList":[],"description":"[附属环境]","patrolRecordId":766,"title":"清除地势低洼水浸隐患","equipmentId":141,"equipmentType":6,"questionIndex":"Q6000766","patrolItemId":168,"scheduleList":[{"questionId":186,"questionScheduleId":56,"createTime":"2018-03-16 13:45:14","content":"宸ョ▼甯�tuo姝ｅ湪澶勭悊","staffId":168},{"questionId":186,"questionScheduleId":94,"createTime":"2018-03-16 13:50:57","content":"宸ョ▼甯�tuo宸茶В鍐虫闂","staffId":168}],"createTime":"2018-03-16 13:45:13.0","valueType":0,"faultType":3,"equipmentName":"附属环境","hasquestion":true,"adviceList":[],"status":1},{"patrolItemTypeId":81,"questionId":187,"patrolType":6,"maintUser":{"profilePhoto":"\\photo\\头像1.jpg","staffNo":"000","loginPwd":"$shiro1$SHA-256$500000$e3Pw3VvYELfLCge5No91JA==$chpacZcYFz1kvPkImRrUvNE5jbrSl1DCOmNpXzk7PDk=","createTime":"2018-03-14 18:52:06","staffTel":"13701125155","staffName":"fdsv4","staffId":168,"email":"3425324743@qq.com","status":0},"descriptionList":[],"description":"[附属环境]","patrolRecordId":767,"title":"清除塌方隐患","equipmentId":141,"equipmentType":6,"questionIndex":"Q6000767","patrolItemId":169,"scheduleList":[{"questionId":187,"questionScheduleId":57,"createTime":"2018-03-16 13:45:14","content":"宸ョ▼甯�tuo姝ｅ湪澶勭悊","staffId":168},{"questionId":187,"questionScheduleId":80,"createTime":"2018-03-16 13:50:18","content":"宸ョ▼甯�tuo宸茶В鍐虫闂","staffId":168}],"createTime":"2018-03-16 13:45:13.0","valueType":0,"faultType":3,"equipmentName":"附属环境","hasquestion":true,"adviceList":[],"status":1},{"patrolItemTypeId":81,"questionId":188,"patrolType":6,"maintUser":{"profilePhoto":"\\photo\\头像1.jpg","staffNo":"000","loginPwd":"$shiro1$SHA-256$500000$e3Pw3VvYELfLCge5No91JA==$chpacZcYFz1kvPkImRrUvNE5jbrSl1DCOmNpXzk7PDk=","createTime":"2018-03-14 18:52:06","staffTel":"13701125155","staffName":"fdsv4","staffId":168,"email":"3425324743@qq.com","status":0},"descriptionList":[],"description":"[附属环境]","patrolRecordId":768,"title":"清除车辆碰撞隐患","equipmentId":141,"equipmentType":6,"questionIndex":"Q6000768","patrolItemId":170,"scheduleList":[{"questionId":188,"questionScheduleId":58,"createTime":"2018-03-16 13:45:14","content":"宸ョ▼甯�tuo姝ｅ湪澶勭悊","staffId":168},{"questionId":188,"questionScheduleId":79,"createTime":"2018-03-16 13:50:06","content":"宸ョ▼甯�tuo宸茶В鍐虫闂","staffId":168}],"createTime":"2018-03-16 13:45:13.0","valueType":0,"faultType":3,"equipmentName":"附属环境","hasquestion":true,"adviceList":[],"status":1},{"patrolItemTypeId":81,"questionId":189,"patrolType":6,"maintUser":{"profilePhoto":"\\photo\\头像1.jpg","staffNo":"000","loginPwd":"$shiro1$SHA-256$500000$e3Pw3VvYELfLCge5No91JA==$chpacZcYFz1kvPkImRrUvNE5jbrSl1DCOmNpXzk7PDk=","createTime":"2018-03-14 18:52:06","staffTel":"13701125155","staffName":"fdsv4","staffId":168,"email":"3425324743@qq.com","status":0},"descriptionList":[],"description":"[附属环境]","patrolRecordId":769,"title":"清除马路边扬尘隐患","equipmentId":141,"equipmentType":6,"questionIndex":"Q6000769","patrolItemId":171,"scheduleList":[{"questionId":189,"questionScheduleId":59,"createTime":"2018-03-16 13:45:14","content":"宸ョ▼甯�tuo姝ｅ湪澶勭悊","staffId":168},{"questionId":189,"questionScheduleId":71,"createTime":"2018-03-16 13:46:18","content":"宸ョ▼甯�tuo宸茶В鍐虫闂","staffId":168}],"createTime":"2018-03-16 13:45:13.0","valueType":0,"faultType":3,"equipmentName":"附属环境","hasquestion":true,"adviceList":[],"status":1},{"patrolItemTypeId":81,"questionId":190,"patrolType":6,"maintUser":{"profilePhoto":"\\photo\\头像1.jpg","staffNo":"000","loginPwd":"$shiro1$SHA-256$500000$e3Pw3VvYELfLCge5No91JA==$chpacZcYFz1kvPkImRrUvNE5jbrSl1DCOmNpXzk7PDk=","createTime":"2018-03-14 18:52:06","staffTel":"13701125155","staffName":"fdsv4","staffId":168,"email":"3425324743@qq.com","status":0},"descriptionList":[],"description":"[附属环境]","patrolRecordId":770,"title":"清除燃爆粉尘隐患","equipmentId":141,"equipmentType":6,"questionIndex":"Q6000770","patrolItemId":172,"scheduleList":[{"questionId":190,"questionScheduleId":60,"createTime":"2018-03-16 13:45:14","content":"宸ョ▼甯�tuo姝ｅ湪澶勭悊","staffId":168},{"questionId":190,"questionScheduleId":69,"createTime":"2018-03-16 13:46:13","content":"宸ョ▼甯�tuo宸茶В鍐虫闂","staffId":168}],"createTime":"2018-03-16 13:45:13.0","valueType":0,"faultType":3,"equipmentName":"附属环境","hasquestion":true,"adviceList":[],"status":1},{"patrolItemTypeId":81,"questionId":191,"patrolType":6,"maintUser":{"profilePhoto":"\\photo\\头像1.jpg","staffNo":"000","loginPwd":"$shiro1$SHA-256$500000$e3Pw3VvYELfLCge5No91JA==$chpacZcYFz1kvPkImRrUvNE5jbrSl1DCOmNpXzk7PDk=","createTime":"2018-03-14 18:52:06","staffTel":"13701125155","staffName":"fdsv4","staffId":168,"email":"3425324743@qq.com","status":0},"descriptionList":[],"description":"[附属环境]","patrolRecordId":771,"title":"清除易燃材料、杂物消防隐患","equipmentId":141,"equipmentType":6,"questionIndex":"Q6000771","patrolItemId":173,"scheduleList":[{"questionId":191,"questionScheduleId":61,"createTime":"2018-03-16 13:45:14","content":"宸ョ▼甯�tuo姝ｅ湪澶勭悊","staffId":168},{"questionId":191,"questionScheduleId":70,"createTime":"2018-03-16 13:46:16","content":"宸ョ▼甯�tuo宸茶В鍐虫闂","staffId":168}],"createTime":"2018-03-16 13:45:13.0","valueType":0,"faultType":3,"equipmentName":"附属环境","hasquestion":true,"adviceList":[],"status":1},{"patrolItemTypeId":81,"questionId":192,"patrolType":6,"maintUser":{"profilePhoto":"\\photo\\头像1.jpg","staffNo":"000","loginPwd":"$shiro1$SHA-256$500000$e3Pw3VvYELfLCge5No91JA==$chpacZcYFz1kvPkImRrUvNE5jbrSl1DCOmNpXzk7PDk=","createTime":"2018-03-14 18:52:06","staffTel":"13701125155","staffName":"fdsv4","staffId":168,"email":"3425324743@qq.com","status":0},"descriptionList":[],"description":"[附属环境]","patrolRecordId":772,"title":"清除通道堵塞隐患","equipmentId":141,"equipmentType":6,"questionIndex":"Q6000772","patrolItemId":174,"scheduleList":[{"questionId":192,"questionScheduleId":62,"createTime":"2018-03-16 13:45:14","content":"宸ョ▼甯�tuo姝ｅ湪澶勭悊","staffId":168},{"questionId":192,"questionScheduleId":72,"createTime":"2018-03-16 13:46:20","content":"宸ョ▼甯�tuo宸茶В鍐虫闂","staffId":168}],"createTime":"2018-03-16 13:45:13.0","valueType":0,"faultType":3,"equipmentName":"附属环境","hasquestion":true,"adviceList":[],"status":1},{"patrolItemTypeId":81,"questionId":193,"patrolType":6,"maintUser":{"profilePhoto":"\\photo\\头像1.jpg","staffNo":"000","loginPwd":"$shiro1$SHA-256$500000$e3Pw3VvYELfLCge5No91JA==$chpacZcYFz1kvPkImRrUvNE5jbrSl1DCOmNpXzk7PDk=","createTime":"2018-03-14 18:52:06","staffTel":"13701125155","staffName":"fdsv4","staffId":168,"email":"3425324743@qq.com","status":0},"descriptionList":[],"description":"[附属环境]","patrolRecordId":773,"title":"清除蜂巢、白蚁隐患","equipmentId":141,"equipmentType":6,"questionIndex":"Q6000773","patrolItemId":175,"scheduleList":[{"questionId":193,"questionScheduleId":63,"createTime":"2018-03-16 13:45:15","content":"宸ョ▼甯�tuo姝ｅ湪澶勭悊","staffId":168},{"questionId":193,"questionScheduleId":73,"createTime":"2018-03-16 13:46:22","content":"宸ョ▼甯�tuo宸茶В鍐虫闂","staffId":168}],"createTime":"2018-03-16 13:45:13.0","valueType":0,"faultType":3,"equipmentName":"附属环境","hasquestion":true,"adviceList":[],"status":1},{"patrolItemTypeId":81,"questionId":194,"patrolType":6,"maintUser":{"profilePhoto":"\\photo\\头像1.jpg","staffNo":"000","loginPwd":"$shiro1$SHA-256$500000$e3Pw3VvYELfLCge5No91JA==$chpacZcYFz1kvPkImRrUvNE5jbrSl1DCOmNpXzk7PDk=","createTime":"2018-03-14 18:52:06","staffTel":"13701125155","staffName":"fdsv4","staffId":168,"email":"3425324743@qq.com","status":0},"descriptionList":[],"description":"[附属环境]","patrolRecordId":774,"title":"清除圈养动物隐患","equipmentId":141,"equipmentType":6,"questionIndex":"Q6000774","patrolItemId":176,"scheduleList":[{"questionId":194,"questionScheduleId":64,"createTime":"2018-03-16 13:45:15","content":"宸ョ▼甯�tuo姝ｅ湪澶勭悊","staffId":168},{"questionId":194,"questionScheduleId":74,"createTime":"2018-03-16 13:46:25","content":"宸ョ▼甯�tuo宸茶В鍐虫闂","staffId":168}],"createTime":"2018-03-16 13:45:13.0","valueType":0,"faultType":3,"equipmentName":"附属环境","hasquestion":true,"adviceList":[],"status":1}]}
+     * result : {"count":0,"questionList":[{"patrolItemTypeId":8,"questionId":170,"patrolType":3,"maintUser":{"profilePhoto":"\\photo\\头像1.jpg","staffNo":"000","loginPwd":"$shiro1$SHA-256$500000$e3Pw3VvYELfLCge5No91JA==$chpacZcYFz1kvPkImRrUvNE5jbrSl1DCOmNpXzk7PDk=","createTime":"2018-03-14 18:52:06","staffTel":"13701125155","staffName":"fdsv4","staffId":168,"email":"3425324743@qq.com","status":0},"descriptionList":[{"questionId":170,"createTime":"2018-03-16 11:56:09","questionDescriptionId":26,"imageList":[{"createTime":"2018-03-16 11:56:12","imagePath":"questionDescription\\1521172572395.jpg","questionDescriptionImageId":22,"questionDescriptionId":26}],"staffId":168,"content":"牌子未挂，有可能会出重大问题"}],"description":"[电房]","faultHarm":"设备标志缺失，严重存在人员误操作，误伤害风险","patrolRecordId":750,"isTransfomer":true,"title":"变压器室或箱体未挂\u201c#x变压器\u201d字样的标示牌。","equipmentId":140,"equipmentType":5,"questionIndex":"Q5000750","patrolItemId":26,"scheduleList":[{"questionId":170,"questionScheduleId":34,"createTime":"2018-03-16 11:53:57","content":"宸ョ▼甯�tuo姝ｅ湪澶勭悊","staffId":168},{"questionId":170,"questionScheduleId":45,"createTime":"2018-03-16 11:56:30","content":"正在处理中","staffId":168},{"questionId":170,"questionScheduleId":46,"createTime":"2018-03-16 11:57:57","content":"宸ョ▼甯�tuo宸茶В鍐虫闂","staffId":168}],"createTime":"2018-03-16 11:54:00.0","valueType":0,"faultType":2,"equipmentName":"电房","hasquestion":true,"adviceList":[{"mbStaff":{"profilePhoto":"\\photo\\头像1.jpg","staffNo":"000","loginPwd":"$shiro1$SHA-256$500000$e3Pw3VvYELfLCge5No91JA==$chpacZcYFz1kvPkImRrUvNE5jbrSl1DCOmNpXzk7PDk=","createTime":"2018-03-14 18:52:06","staffTel":"13701125155","staffName":"fdsv4","staffId":168,"email":"3425324743@qq.com","status":0},"questionId":170,"createTime":"2018-03-16 11:56:51","questionAdviceId":15,"staffId":168,"content":"及时更替"}],"dealDesc":"补充完善","status":1}]}
      * errorMessage : 成功
      * errorCode : 0
      */
@@ -48,7 +54,7 @@ public class Opsbean implements Serializable{
     public static class ResultBean {
         /**
          * count : 0
-         * questionList : [{"patrolItemTypeId":81,"questionId":198,"patrolType":6,"maintUser":{"profilePhoto":"\\photo\\头像1.jpg","staffNo":"000","loginPwd":"$shiro1$SHA-256$500000$e3Pw3VvYELfLCge5No91JA==$chpacZcYFz1kvPkImRrUvNE5jbrSl1DCOmNpXzk7PDk=","createTime":"2018-03-14 18:52:06","staffTel":"13701125155","staffName":"fdsv4","staffId":168,"email":"3425324743@qq.com","status":0},"descriptionList":[],"description":"[附属环境]","patrolRecordId":778,"title":"清除偷盗隐患","equipmentId":141,"equipmentType":6,"questionIndex":"Q6000778","patrolItemId":180,"scheduleList":[{"questionId":198,"questionScheduleId":68,"createTime":"2018-03-16 13:45:15","content":"宸ョ▼甯�tuo姝ｅ湪澶勭悊","staffId":168},{"questionId":198,"questionScheduleId":81,"createTime":"2018-03-16 13:50:20","content":"宸ョ▼甯�tuo宸茶В鍐虫闂","staffId":168}],"createTime":"2018-03-16 13:45:13.0","valueType":0,"faultType":3,"equipmentName":"附属环境","hasquestion":true,"adviceList":[],"status":1},{"patrolItemTypeId":81,"questionId":186,"patrolType":6,"maintUser":{"profilePhoto":"\\photo\\头像1.jpg","staffNo":"000","loginPwd":"$shiro1$SHA-256$500000$e3Pw3VvYELfLCge5No91JA==$chpacZcYFz1kvPkImRrUvNE5jbrSl1DCOmNpXzk7PDk=","createTime":"2018-03-14 18:52:06","staffTel":"13701125155","staffName":"fdsv4","staffId":168,"email":"3425324743@qq.com","status":0},"descriptionList":[],"description":"[附属环境]","patrolRecordId":766,"title":"清除地势低洼水浸隐患","equipmentId":141,"equipmentType":6,"questionIndex":"Q6000766","patrolItemId":168,"scheduleList":[{"questionId":186,"questionScheduleId":56,"createTime":"2018-03-16 13:45:14","content":"宸ョ▼甯�tuo姝ｅ湪澶勭悊","staffId":168},{"questionId":186,"questionScheduleId":94,"createTime":"2018-03-16 13:50:57","content":"宸ョ▼甯�tuo宸茶В鍐虫闂","staffId":168}],"createTime":"2018-03-16 13:45:13.0","valueType":0,"faultType":3,"equipmentName":"附属环境","hasquestion":true,"adviceList":[],"status":1},{"patrolItemTypeId":81,"questionId":187,"patrolType":6,"maintUser":{"profilePhoto":"\\photo\\头像1.jpg","staffNo":"000","loginPwd":"$shiro1$SHA-256$500000$e3Pw3VvYELfLCge5No91JA==$chpacZcYFz1kvPkImRrUvNE5jbrSl1DCOmNpXzk7PDk=","createTime":"2018-03-14 18:52:06","staffTel":"13701125155","staffName":"fdsv4","staffId":168,"email":"3425324743@qq.com","status":0},"descriptionList":[],"description":"[附属环境]","patrolRecordId":767,"title":"清除塌方隐患","equipmentId":141,"equipmentType":6,"questionIndex":"Q6000767","patrolItemId":169,"scheduleList":[{"questionId":187,"questionScheduleId":57,"createTime":"2018-03-16 13:45:14","content":"宸ョ▼甯�tuo姝ｅ湪澶勭悊","staffId":168},{"questionId":187,"questionScheduleId":80,"createTime":"2018-03-16 13:50:18","content":"宸ョ▼甯�tuo宸茶В鍐虫闂","staffId":168}],"createTime":"2018-03-16 13:45:13.0","valueType":0,"faultType":3,"equipmentName":"附属环境","hasquestion":true,"adviceList":[],"status":1},{"patrolItemTypeId":81,"questionId":188,"patrolType":6,"maintUser":{"profilePhoto":"\\photo\\头像1.jpg","staffNo":"000","loginPwd":"$shiro1$SHA-256$500000$e3Pw3VvYELfLCge5No91JA==$chpacZcYFz1kvPkImRrUvNE5jbrSl1DCOmNpXzk7PDk=","createTime":"2018-03-14 18:52:06","staffTel":"13701125155","staffName":"fdsv4","staffId":168,"email":"3425324743@qq.com","status":0},"descriptionList":[],"description":"[附属环境]","patrolRecordId":768,"title":"清除车辆碰撞隐患","equipmentId":141,"equipmentType":6,"questionIndex":"Q6000768","patrolItemId":170,"scheduleList":[{"questionId":188,"questionScheduleId":58,"createTime":"2018-03-16 13:45:14","content":"宸ョ▼甯�tuo姝ｅ湪澶勭悊","staffId":168},{"questionId":188,"questionScheduleId":79,"createTime":"2018-03-16 13:50:06","content":"宸ョ▼甯�tuo宸茶В鍐虫闂","staffId":168}],"createTime":"2018-03-16 13:45:13.0","valueType":0,"faultType":3,"equipmentName":"附属环境","hasquestion":true,"adviceList":[],"status":1},{"patrolItemTypeId":81,"questionId":189,"patrolType":6,"maintUser":{"profilePhoto":"\\photo\\头像1.jpg","staffNo":"000","loginPwd":"$shiro1$SHA-256$500000$e3Pw3VvYELfLCge5No91JA==$chpacZcYFz1kvPkImRrUvNE5jbrSl1DCOmNpXzk7PDk=","createTime":"2018-03-14 18:52:06","staffTel":"13701125155","staffName":"fdsv4","staffId":168,"email":"3425324743@qq.com","status":0},"descriptionList":[],"description":"[附属环境]","patrolRecordId":769,"title":"清除马路边扬尘隐患","equipmentId":141,"equipmentType":6,"questionIndex":"Q6000769","patrolItemId":171,"scheduleList":[{"questionId":189,"questionScheduleId":59,"createTime":"2018-03-16 13:45:14","content":"宸ョ▼甯�tuo姝ｅ湪澶勭悊","staffId":168},{"questionId":189,"questionScheduleId":71,"createTime":"2018-03-16 13:46:18","content":"宸ョ▼甯�tuo宸茶В鍐虫闂","staffId":168}],"createTime":"2018-03-16 13:45:13.0","valueType":0,"faultType":3,"equipmentName":"附属环境","hasquestion":true,"adviceList":[],"status":1},{"patrolItemTypeId":81,"questionId":190,"patrolType":6,"maintUser":{"profilePhoto":"\\photo\\头像1.jpg","staffNo":"000","loginPwd":"$shiro1$SHA-256$500000$e3Pw3VvYELfLCge5No91JA==$chpacZcYFz1kvPkImRrUvNE5jbrSl1DCOmNpXzk7PDk=","createTime":"2018-03-14 18:52:06","staffTel":"13701125155","staffName":"fdsv4","staffId":168,"email":"3425324743@qq.com","status":0},"descriptionList":[],"description":"[附属环境]","patrolRecordId":770,"title":"清除燃爆粉尘隐患","equipmentId":141,"equipmentType":6,"questionIndex":"Q6000770","patrolItemId":172,"scheduleList":[{"questionId":190,"questionScheduleId":60,"createTime":"2018-03-16 13:45:14","content":"宸ョ▼甯�tuo姝ｅ湪澶勭悊","staffId":168},{"questionId":190,"questionScheduleId":69,"createTime":"2018-03-16 13:46:13","content":"宸ョ▼甯�tuo宸茶В鍐虫闂","staffId":168}],"createTime":"2018-03-16 13:45:13.0","valueType":0,"faultType":3,"equipmentName":"附属环境","hasquestion":true,"adviceList":[],"status":1},{"patrolItemTypeId":81,"questionId":191,"patrolType":6,"maintUser":{"profilePhoto":"\\photo\\头像1.jpg","staffNo":"000","loginPwd":"$shiro1$SHA-256$500000$e3Pw3VvYELfLCge5No91JA==$chpacZcYFz1kvPkImRrUvNE5jbrSl1DCOmNpXzk7PDk=","createTime":"2018-03-14 18:52:06","staffTel":"13701125155","staffName":"fdsv4","staffId":168,"email":"3425324743@qq.com","status":0},"descriptionList":[],"description":"[附属环境]","patrolRecordId":771,"title":"清除易燃材料、杂物消防隐患","equipmentId":141,"equipmentType":6,"questionIndex":"Q6000771","patrolItemId":173,"scheduleList":[{"questionId":191,"questionScheduleId":61,"createTime":"2018-03-16 13:45:14","content":"宸ョ▼甯�tuo姝ｅ湪澶勭悊","staffId":168},{"questionId":191,"questionScheduleId":70,"createTime":"2018-03-16 13:46:16","content":"宸ョ▼甯�tuo宸茶В鍐虫闂","staffId":168}],"createTime":"2018-03-16 13:45:13.0","valueType":0,"faultType":3,"equipmentName":"附属环境","hasquestion":true,"adviceList":[],"status":1},{"patrolItemTypeId":81,"questionId":192,"patrolType":6,"maintUser":{"profilePhoto":"\\photo\\头像1.jpg","staffNo":"000","loginPwd":"$shiro1$SHA-256$500000$e3Pw3VvYELfLCge5No91JA==$chpacZcYFz1kvPkImRrUvNE5jbrSl1DCOmNpXzk7PDk=","createTime":"2018-03-14 18:52:06","staffTel":"13701125155","staffName":"fdsv4","staffId":168,"email":"3425324743@qq.com","status":0},"descriptionList":[],"description":"[附属环境]","patrolRecordId":772,"title":"清除通道堵塞隐患","equipmentId":141,"equipmentType":6,"questionIndex":"Q6000772","patrolItemId":174,"scheduleList":[{"questionId":192,"questionScheduleId":62,"createTime":"2018-03-16 13:45:14","content":"宸ョ▼甯�tuo姝ｅ湪澶勭悊","staffId":168},{"questionId":192,"questionScheduleId":72,"createTime":"2018-03-16 13:46:20","content":"宸ョ▼甯�tuo宸茶В鍐虫闂","staffId":168}],"createTime":"2018-03-16 13:45:13.0","valueType":0,"faultType":3,"equipmentName":"附属环境","hasquestion":true,"adviceList":[],"status":1},{"patrolItemTypeId":81,"questionId":193,"patrolType":6,"maintUser":{"profilePhoto":"\\photo\\头像1.jpg","staffNo":"000","loginPwd":"$shiro1$SHA-256$500000$e3Pw3VvYELfLCge5No91JA==$chpacZcYFz1kvPkImRrUvNE5jbrSl1DCOmNpXzk7PDk=","createTime":"2018-03-14 18:52:06","staffTel":"13701125155","staffName":"fdsv4","staffId":168,"email":"3425324743@qq.com","status":0},"descriptionList":[],"description":"[附属环境]","patrolRecordId":773,"title":"清除蜂巢、白蚁隐患","equipmentId":141,"equipmentType":6,"questionIndex":"Q6000773","patrolItemId":175,"scheduleList":[{"questionId":193,"questionScheduleId":63,"createTime":"2018-03-16 13:45:15","content":"宸ョ▼甯�tuo姝ｅ湪澶勭悊","staffId":168},{"questionId":193,"questionScheduleId":73,"createTime":"2018-03-16 13:46:22","content":"宸ョ▼甯�tuo宸茶В鍐虫闂","staffId":168}],"createTime":"2018-03-16 13:45:13.0","valueType":0,"faultType":3,"equipmentName":"附属环境","hasquestion":true,"adviceList":[],"status":1},{"patrolItemTypeId":81,"questionId":194,"patrolType":6,"maintUser":{"profilePhoto":"\\photo\\头像1.jpg","staffNo":"000","loginPwd":"$shiro1$SHA-256$500000$e3Pw3VvYELfLCge5No91JA==$chpacZcYFz1kvPkImRrUvNE5jbrSl1DCOmNpXzk7PDk=","createTime":"2018-03-14 18:52:06","staffTel":"13701125155","staffName":"fdsv4","staffId":168,"email":"3425324743@qq.com","status":0},"descriptionList":[],"description":"[附属环境]","patrolRecordId":774,"title":"清除圈养动物隐患","equipmentId":141,"equipmentType":6,"questionIndex":"Q6000774","patrolItemId":176,"scheduleList":[{"questionId":194,"questionScheduleId":64,"createTime":"2018-03-16 13:45:15","content":"宸ョ▼甯�tuo姝ｅ湪澶勭悊","staffId":168},{"questionId":194,"questionScheduleId":74,"createTime":"2018-03-16 13:46:25","content":"宸ョ▼甯�tuo宸茶В鍐虫闂","staffId":168}],"createTime":"2018-03-16 13:45:13.0","valueType":0,"faultType":3,"equipmentName":"附属环境","hasquestion":true,"adviceList":[],"status":1}]
+         * questionList : [{"patrolItemTypeId":8,"questionId":170,"patrolType":3,"maintUser":{"profilePhoto":"\\photo\\头像1.jpg","staffNo":"000","loginPwd":"$shiro1$SHA-256$500000$e3Pw3VvYELfLCge5No91JA==$chpacZcYFz1kvPkImRrUvNE5jbrSl1DCOmNpXzk7PDk=","createTime":"2018-03-14 18:52:06","staffTel":"13701125155","staffName":"fdsv4","staffId":168,"email":"3425324743@qq.com","status":0},"descriptionList":[{"questionId":170,"createTime":"2018-03-16 11:56:09","questionDescriptionId":26,"imageList":[{"createTime":"2018-03-16 11:56:12","imagePath":"questionDescription\\1521172572395.jpg","questionDescriptionImageId":22,"questionDescriptionId":26}],"staffId":168,"content":"牌子未挂，有可能会出重大问题"}],"description":"[电房]","faultHarm":"设备标志缺失，严重存在人员误操作，误伤害风险","patrolRecordId":750,"isTransfomer":true,"title":"变压器室或箱体未挂\u201c#x变压器\u201d字样的标示牌。","equipmentId":140,"equipmentType":5,"questionIndex":"Q5000750","patrolItemId":26,"scheduleList":[{"questionId":170,"questionScheduleId":34,"createTime":"2018-03-16 11:53:57","content":"宸ョ▼甯�tuo姝ｅ湪澶勭悊","staffId":168},{"questionId":170,"questionScheduleId":45,"createTime":"2018-03-16 11:56:30","content":"正在处理中","staffId":168},{"questionId":170,"questionScheduleId":46,"createTime":"2018-03-16 11:57:57","content":"宸ョ▼甯�tuo宸茶В鍐虫闂","staffId":168}],"createTime":"2018-03-16 11:54:00.0","valueType":0,"faultType":2,"equipmentName":"电房","hasquestion":true,"adviceList":[{"mbStaff":{"profilePhoto":"\\photo\\头像1.jpg","staffNo":"000","loginPwd":"$shiro1$SHA-256$500000$e3Pw3VvYELfLCge5No91JA==$chpacZcYFz1kvPkImRrUvNE5jbrSl1DCOmNpXzk7PDk=","createTime":"2018-03-14 18:52:06","staffTel":"13701125155","staffName":"fdsv4","staffId":168,"email":"3425324743@qq.com","status":0},"questionId":170,"createTime":"2018-03-16 11:56:51","questionAdviceId":15,"staffId":168,"content":"及时更替"}],"dealDesc":"补充完善","status":1}]
          */
 
         private int count;
@@ -72,25 +78,28 @@ public class Opsbean implements Serializable{
 
         public static class QuestionListBean {
             /**
-             * patrolItemTypeId : 81
-             * questionId : 198
-             * patrolType : 6
+             * patrolItemTypeId : 8
+             * questionId : 170
+             * patrolType : 3
              * maintUser : {"profilePhoto":"\\photo\\头像1.jpg","staffNo":"000","loginPwd":"$shiro1$SHA-256$500000$e3Pw3VvYELfLCge5No91JA==$chpacZcYFz1kvPkImRrUvNE5jbrSl1DCOmNpXzk7PDk=","createTime":"2018-03-14 18:52:06","staffTel":"13701125155","staffName":"fdsv4","staffId":168,"email":"3425324743@qq.com","status":0}
-             * descriptionList : []
-             * description : [附属环境]
-             * patrolRecordId : 778
-             * title : 清除偷盗隐患
-             * equipmentId : 141
-             * equipmentType : 6
-             * questionIndex : Q6000778
-             * patrolItemId : 180
-             * scheduleList : [{"questionId":198,"questionScheduleId":68,"createTime":"2018-03-16 13:45:15","content":"宸ョ▼甯�tuo姝ｅ湪澶勭悊","staffId":168},{"questionId":198,"questionScheduleId":81,"createTime":"2018-03-16 13:50:20","content":"宸ョ▼甯�tuo宸茶В鍐虫闂","staffId":168}]
-             * createTime : 2018-03-16 13:45:13.0
+             * descriptionList : [{"questionId":170,"createTime":"2018-03-16 11:56:09","questionDescriptionId":26,"imageList":[{"createTime":"2018-03-16 11:56:12","imagePath":"questionDescription\\1521172572395.jpg","questionDescriptionImageId":22,"questionDescriptionId":26}],"staffId":168,"content":"牌子未挂，有可能会出重大问题"}]
+             * description : [电房]
+             * faultHarm : 设备标志缺失，严重存在人员误操作，误伤害风险
+             * patrolRecordId : 750
+             * isTransfomer : true
+             * title : 变压器室或箱体未挂“#x变压器”字样的标示牌。
+             * equipmentId : 140
+             * equipmentType : 5
+             * questionIndex : Q5000750
+             * patrolItemId : 26
+             * scheduleList : [{"questionId":170,"questionScheduleId":34,"createTime":"2018-03-16 11:53:57","content":"宸ョ▼甯�tuo姝ｅ湪澶勭悊","staffId":168},{"questionId":170,"questionScheduleId":45,"createTime":"2018-03-16 11:56:30","content":"正在处理中","staffId":168},{"questionId":170,"questionScheduleId":46,"createTime":"2018-03-16 11:57:57","content":"宸ョ▼甯�tuo宸茶В鍐虫闂","staffId":168}]
+             * createTime : 2018-03-16 11:54:00.0
              * valueType : 0
-             * faultType : 3
-             * equipmentName : 附属环境
+             * faultType : 2
+             * equipmentName : 电房
              * hasquestion : true
-             * adviceList : []
+             * adviceList : [{"mbStaff":{"profilePhoto":"\\photo\\头像1.jpg","staffNo":"000","loginPwd":"$shiro1$SHA-256$500000$e3Pw3VvYELfLCge5No91JA==$chpacZcYFz1kvPkImRrUvNE5jbrSl1DCOmNpXzk7PDk=","createTime":"2018-03-14 18:52:06","staffTel":"13701125155","staffName":"fdsv4","staffId":168,"email":"3425324743@qq.com","status":0},"questionId":170,"createTime":"2018-03-16 11:56:51","questionAdviceId":15,"staffId":168,"content":"及时更替"}]
+             * dealDesc : 补充完善
              * status : 1
              */
 
@@ -99,7 +108,9 @@ public class Opsbean implements Serializable{
             private int patrolType;
             private MaintUserBean maintUser;
             private String description;
+            private String faultHarm;
             private int patrolRecordId;
+            private boolean isTransfomer;
             private String title;
             private int equipmentId;
             private int equipmentType;
@@ -110,10 +121,11 @@ public class Opsbean implements Serializable{
             private int faultType;
             private String equipmentName;
             private boolean hasquestion;
+            private String dealDesc;
             private int status;
-            private List<?> descriptionList;
+            private List<DescriptionListBean> descriptionList;
             private List<ScheduleListBean> scheduleList;
-            private List<?> adviceList;
+            private List<AdviceListBean> adviceList;
 
             public int getPatrolItemTypeId() {
                 return patrolItemTypeId;
@@ -155,12 +167,28 @@ public class Opsbean implements Serializable{
                 this.description = description;
             }
 
+            public String getFaultHarm() {
+                return faultHarm;
+            }
+
+            public void setFaultHarm(String faultHarm) {
+                this.faultHarm = faultHarm;
+            }
+
             public int getPatrolRecordId() {
                 return patrolRecordId;
             }
 
             public void setPatrolRecordId(int patrolRecordId) {
                 this.patrolRecordId = patrolRecordId;
+            }
+
+            public boolean isIsTransfomer() {
+                return isTransfomer;
+            }
+
+            public void setIsTransfomer(boolean isTransfomer) {
+                this.isTransfomer = isTransfomer;
             }
 
             public String getTitle() {
@@ -243,6 +271,14 @@ public class Opsbean implements Serializable{
                 this.hasquestion = hasquestion;
             }
 
+            public String getDealDesc() {
+                return dealDesc;
+            }
+
+            public void setDealDesc(String dealDesc) {
+                this.dealDesc = dealDesc;
+            }
+
             public int getStatus() {
                 return status;
             }
@@ -251,11 +287,11 @@ public class Opsbean implements Serializable{
                 this.status = status;
             }
 
-            public List<?> getDescriptionList() {
+            public List<DescriptionListBean> getDescriptionList() {
                 return descriptionList;
             }
 
-            public void setDescriptionList(List<?> descriptionList) {
+            public void setDescriptionList(List<DescriptionListBean> descriptionList) {
                 this.descriptionList = descriptionList;
             }
 
@@ -267,11 +303,11 @@ public class Opsbean implements Serializable{
                 this.scheduleList = scheduleList;
             }
 
-            public List<?> getAdviceList() {
+            public List<AdviceListBean> getAdviceList() {
                 return adviceList;
             }
 
-            public void setAdviceList(List<?> adviceList) {
+            public void setAdviceList(List<AdviceListBean> adviceList) {
                 this.adviceList = adviceList;
             }
 
@@ -371,11 +407,131 @@ public class Opsbean implements Serializable{
                 }
             }
 
+            public static class DescriptionListBean {
+                /**
+                 * questionId : 170
+                 * createTime : 2018-03-16 11:56:09
+                 * questionDescriptionId : 26
+                 * imageList : [{"createTime":"2018-03-16 11:56:12","imagePath":"questionDescription\\1521172572395.jpg","questionDescriptionImageId":22,"questionDescriptionId":26}]
+                 * staffId : 168
+                 * content : 牌子未挂，有可能会出重大问题
+                 */
+
+                private int questionId;
+                private String createTime;
+                private int questionDescriptionId;
+                private int staffId;
+                private String content;
+                private List<ImageListBean> imageList;
+                private List<ImageItem> imageBeanList;
+                public int getQuestionId() {
+                    return questionId;
+                }
+
+                public void setQuestionId(int questionId) {
+                    this.questionId = questionId;
+                }
+
+                public String getCreateTime() {
+                    return createTime;
+                }
+
+                public void setCreateTime(String createTime) {
+                    this.createTime = createTime;
+                }
+
+                public int getQuestionDescriptionId() {
+                    return questionDescriptionId;
+                }
+
+                public void setQuestionDescriptionId(int questionDescriptionId) {
+                    this.questionDescriptionId = questionDescriptionId;
+                }
+
+                public int getStaffId() {
+                    return staffId;
+                }
+
+                public void setStaffId(int staffId) {
+                    this.staffId = staffId;
+                }
+
+                public String getContent() {
+                    return content;
+                }
+
+                public void setContent(String content) {
+                    this.content = content;
+                }
+
+                public List<ImageItem> getImageList() {
+                    if (imageBeanList == null && imageList != null) {
+                        this.imageBeanList = new ArrayList<>();
+                        for (ImageListBean result : imageList) {
+                            ImageItem imageItem = new ImageItem();
+                            imageItem.path = Constants.OpsBASE_RUL + result.getImagePath();
+                            this.imageBeanList.add(imageItem);
+                        }
+                    }
+                    return imageBeanList;
+                }
+
+                public void setImageList(List<ImageListBean> imageList) {
+                    this.imageList = imageList;
+                }
+
+                public static class ImageListBean {
+                    /**
+                     * createTime : 2018-03-16 11:56:12
+                     * imagePath : questionDescription\1521172572395.jpg
+                     * questionDescriptionImageId : 22
+                     * questionDescriptionId : 26
+                     */
+
+                    private String createTime;
+                    private String imagePath;
+                    private int questionDescriptionImageId;
+                    private int questionDescriptionId;
+
+                    public String getCreateTime() {
+                        return createTime;
+                    }
+
+                    public void setCreateTime(String createTime) {
+                        this.createTime = createTime;
+                    }
+
+                    public String getImagePath() {
+                        return imagePath;
+                    }
+
+                    public void setImagePath(String imagePath) {
+                        this.imagePath = imagePath;
+                    }
+
+                    public int getQuestionDescriptionImageId() {
+                        return questionDescriptionImageId;
+                    }
+
+                    public void setQuestionDescriptionImageId(int questionDescriptionImageId) {
+                        this.questionDescriptionImageId = questionDescriptionImageId;
+                    }
+
+                    public int getQuestionDescriptionId() {
+                        return questionDescriptionId;
+                    }
+
+                    public void setQuestionDescriptionId(int questionDescriptionId) {
+                        this.questionDescriptionId = questionDescriptionId;
+                    }
+                }
+            }
+
             public static class ScheduleListBean {
                 /**
-                 * questionId : 198
-                 * questionScheduleId : 68
-                 * createTime : 2018-03-16 13:45:15
+                 * questionId : 170
+                 * questionScheduleId : 34
+                 * createTime : 2018-03-16 11:53:57
                  * content : 宸ョ▼甯�tuo姝ｅ湪澶勭悊
                  * staffId : 168
                  */
@@ -424,6 +580,168 @@ public class Opsbean implements Serializable{
 
                 public void setStaffId(int staffId) {
                     this.staffId = staffId;
+                }
+            }
+
+            public static class AdviceListBean {
+                /**
+                 * mbStaff : {"profilePhoto":"\\photo\\头像1.jpg","staffNo":"000","loginPwd":"$shiro1$SHA-256$500000$e3Pw3VvYELfLCge5No91JA==$chpacZcYFz1kvPkImRrUvNE5jbrSl1DCOmNpXzk7PDk=","createTime":"2018-03-14 18:52:06","staffTel":"13701125155","staffName":"fdsv4","staffId":168,"email":"3425324743@qq.com","status":0}
+                 * questionId : 170
+                 * createTime : 2018-03-16 11:56:51
+                 * questionAdviceId : 15
+                 * staffId : 168
+                 * content : 及时更替
+                 */
+
+                private MbStaffBean mbStaff;
+                private int questionId;
+                private String createTime;
+                private int questionAdviceId;
+                private int staffId;
+                private String content;
+
+                public MbStaffBean getMbStaff() {
+                    return mbStaff;
+                }
+
+                public void setMbStaff(MbStaffBean mbStaff) {
+                    this.mbStaff = mbStaff;
+                }
+
+                public int getQuestionId() {
+                    return questionId;
+                }
+
+                public void setQuestionId(int questionId) {
+                    this.questionId = questionId;
+                }
+
+                public String getCreateTime() {
+                    return createTime;
+                }
+
+                public void setCreateTime(String createTime) {
+                    this.createTime = createTime;
+                }
+
+                public int getQuestionAdviceId() {
+                    return questionAdviceId;
+                }
+
+                public void setQuestionAdviceId(int questionAdviceId) {
+                    this.questionAdviceId = questionAdviceId;
+                }
+
+                public int getStaffId() {
+                    return staffId;
+                }
+
+                public void setStaffId(int staffId) {
+                    this.staffId = staffId;
+                }
+
+                public String getContent() {
+                    return content;
+                }
+
+                public void setContent(String content) {
+                    this.content = content;
+                }
+
+                public static class MbStaffBean {
+                    /**
+                     * profilePhoto : \photo\头像1.jpg
+                     * staffNo : 000
+                     * loginPwd : $shiro1$SHA-256$500000$e3Pw3VvYELfLCge5No91JA==$chpacZcYFz1kvPkImRrUvNE5jbrSl1DCOmNpXzk7PDk=
+                     * createTime : 2018-03-14 18:52:06
+                     * staffTel : 13701125155
+                     * staffName : fdsv4
+                     * staffId : 168
+                     * email : 3425324743@qq.com
+                     * status : 0
+                     */
+
+                    private String profilePhoto;
+                    private String staffNo;
+                    private String loginPwd;
+                    private String createTime;
+                    private String staffTel;
+                    private String staffName;
+                    private int staffId;
+                    private String email;
+                    private int status;
+
+                    public String getProfilePhoto() {
+                        return profilePhoto;
+                    }
+
+                    public void setProfilePhoto(String profilePhoto) {
+                        this.profilePhoto = profilePhoto;
+                    }
+
+                    public String getStaffNo() {
+                        return staffNo;
+                    }
+
+                    public void setStaffNo(String staffNo) {
+                        this.staffNo = staffNo;
+                    }
+
+                    public String getLoginPwd() {
+                        return loginPwd;
+                    }
+
+                    public void setLoginPwd(String loginPwd) {
+                        this.loginPwd = loginPwd;
+                    }
+
+                    public String getCreateTime() {
+                        return createTime;
+                    }
+
+                    public void setCreateTime(String createTime) {
+                        this.createTime = createTime;
+                    }
+
+                    public String getStaffTel() {
+                        return staffTel;
+                    }
+
+                    public void setStaffTel(String staffTel) {
+                        this.staffTel = staffTel;
+                    }
+
+                    public String getStaffName() {
+                        return staffName;
+                    }
+
+                    public void setStaffName(String staffName) {
+                        this.staffName = staffName;
+                    }
+
+                    public int getStaffId() {
+                        return staffId;
+                    }
+
+                    public void setStaffId(int staffId) {
+                        this.staffId = staffId;
+                    }
+
+                    public String getEmail() {
+                        return email;
+                    }
+
+                    public void setEmail(String email) {
+                        this.email = email;
+                    }
+
+                    public int getStatus() {
+                        return status;
+                    }
+
+                    public void setStatus(int status) {
+                        this.status = status;
+                    }
                 }
             }
         }

@@ -11,12 +11,17 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -30,6 +35,9 @@ import tties.cn.energy.model.result.Opsbean;
 import tties.cn.energy.presenter.QuestionsPresenter;
 import tties.cn.energy.utils.ToastUtil;
 import tties.cn.energy.view.adapter.MyQurestionTabAdapter;
+import tties.cn.energy.view.adapter.QuestionListAdapter;
+import tties.cn.energy.view.fragment.Questions_discussFragment;
+import tties.cn.energy.view.fragment.Questions_progressFragment;
 import tties.cn.energy.view.iview.IQuestionsView;
 
 /**
@@ -56,18 +64,28 @@ public class QuestionsActivity extends BaseActivity<QuestionsPresenter> implemen
     TextView quesIndex;
     @BindView(R.id.ques_rank)
     TextView quesRank;
-    @BindView(R.id.ques_title)
-    TextView quesTitle;
     @BindView(R.id.ques_createtime)
     TextView quesCreatetime;
     @BindView(R.id.ques_address)
     TextView quesAddress;
+    @BindView(R.id.list_question_list)
+    RecyclerView listQuestionList;
+    @BindView(R.id.ptrlayout_question)
+    FrameLayout ptrlayoutQuestion;
+    @BindView(R.id.data_time_tv)
+    TextView dataTimeTv;
+    @BindView(R.id.qu_bt_ll)
+    LinearLayout quBtLl;
     private String questionId;
     private static final String TAG = "QuestionsActivity";
     //打电话
     private String[] perms = {Manifest.permission.CALL_PHONE};
     private final int PERMS_REQUEST_CODE = 200;
     private String staffTel;
+    Opsbean.ResultBean.QuestionListBean listbean;
+    List<Fragment> listFragment;
+    private Questions_discussFragment discussFragment;
+    private Questions_progressFragment progressFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,11 +96,19 @@ public class QuestionsActivity extends BaseActivity<QuestionsPresenter> implemen
     }
 
     private void initView() {
+        listFragment=new ArrayList<>();
+        //问题讨论
+        discussFragment = new Questions_discussFragment();
+        //问题进度
+        progressFragment = new Questions_progressFragment();
         Intent intent = getIntent();
         questionId = intent.getStringExtra("questionId");
         Log.i(TAG, "initView: " + questionId);
-        mPresenter.getQuestionsTabData();
         mPresenter.getQuestion(questionId);
+//        if(listFragment.size()>0){
+
+//        }
+
         //联系人
         quLinkman.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,8 +143,8 @@ public class QuestionsActivity extends BaseActivity<QuestionsPresenter> implemen
 
 
     @Override
-    public void setTabData(String[] array, List<Fragment> list) {
-        MyQurestionTabAdapter adapter = new MyQurestionTabAdapter(getSupportFragmentManager(), array, list);
+    public void setTabData(String[] array) {
+        MyQurestionTabAdapter adapter = new MyQurestionTabAdapter(getSupportFragmentManager(), array, listFragment);
         quVp.setAdapter(adapter);
         quTab.setupWithViewPager(quVp);
         //设置可以滑动
@@ -128,10 +154,19 @@ public class QuestionsActivity extends BaseActivity<QuestionsPresenter> implemen
     @Override
     public void setQuestionData(Opsbean bean) {
         if (bean.getResult().getQuestionList().size() >= 0) {
+            listbean=bean.getResult().getQuestionList().get(0);
+            quesIndexTitle.setText(bean.getResult().getQuestionList().get(0).getEquipmentName());
             staffTel = bean.getResult().getQuestionList().get(0).getMaintUser().getStaffTel();
             quesIndex.setText(bean.getResult().getQuestionList().get(0).getQuestionIndex());
-            quesRank.setText(FaultType.getInfo(bean.getResult().getQuestionList().get(0).getPatrolType())+"");
-//            quesIndexTitle.setText(bean.getResult().getQuestionList().get(0).get);
+            quesCreatetime.setText(bean.getResult().getQuestionList().get(0).getCreateTime());
+            quesAddress.setText(bean.getResult().getQuestionList().get(0).getDescription());
+            quesRank.setText(FaultType.getInfo(bean.getResult().getQuestionList().get(0).getFaultType()) + "");
+            discussFragment.setDiscussData(bean.getResult().getQuestionList().get(0).getAdviceList());
+            progressFragment.setProgressData(bean.getResult().getQuestionList().get(0).getScheduleList());
+            listFragment.add(progressFragment);
+            listFragment.add(discussFragment);
+            mPresenter.getQuestionsTabData();
+            initRecycleView(listbean);
         } else {
             Log.i(TAG, "setQuestionData: " + "无数据");
         }
@@ -161,4 +196,11 @@ public class QuestionsActivity extends BaseActivity<QuestionsPresenter> implemen
             startActivity(intent);
         }
     }
+    public void initRecycleView(Opsbean.ResultBean.QuestionListBean listbean){
+        listQuestionList.setLayoutManager(new LinearLayoutManager(QuestionsActivity.this));
+        QuestionListAdapter adapter=new QuestionListAdapter(QuestionsActivity.this,listbean);
+        listQuestionList.setAdapter(adapter);
+    }
+
+
 }

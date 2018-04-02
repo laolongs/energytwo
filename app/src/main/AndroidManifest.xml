@@ -21,6 +21,8 @@
         <!-- 主界面 -->
         <activity
             android:name=".view.MainActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,71 +32,87 @@
         </activity>
         <!-- 欢迎页 -->
         <activity
+            android:screenOrientation="portrait"
             android:name=".view.activity.SplashActivity"
             android:theme="@style/AppTheme.NoActionBar" >
 
         </activity>
         <!-- 登录页 -->
         <activity
+            android:screenOrientation="portrait"
             android:name=".view.activity.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <!-- 运维 -->
         <activity
+            android:screenOrientation="portrait"
             android:name=".view.activity.OpsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <!-- 能效 -->
         <activity
+            android:screenOrientation="portrait"
             android:name=".view.activity.EnergyActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <!-- 电费数据 -->
         <activity
+            android:screenOrientation="portrait"
             android:name=".view.activity.DataActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <!-- 我的 -->
         <activity
+            android:screenOrientation="portrait"
             android:name=".view.activity.IdentityActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <!-- 修改 -->
         <activity
+            android:screenOrientation="portrait"
             android:name=".view.activity.UpdateActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <!-- 电量数据 -->
         <activity
+            android:screenOrientation="portrait"
             android:name=".view.activity.Data_ElectricActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <!-- 电流电压 -->
         <activity
+            android:screenOrientation="portrait"
             android:name=".view.activity.Data_CurrentActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <!-- 问题详情 -->
         <activity
+            android:screenOrientation="portrait"
             android:name=".view.activity.QuestionsActivity"
             android:theme="@style/AppTheme.NoActionBar" >
 
         </activity>
         <!-- 密码修改 -->
         <activity
+            android:screenOrientation="portrait"
             android:name=".view.activity.PasswordActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <!-- 关于我们 -->
         <activity
+            android:screenOrientation="portrait"
             android:name=".view.activity.AboutActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <!-- 意见反馈 -->
         <!-- 功率数据 -->
         <activity
+            android:screenOrientation="portrait"
             android:name=".view.activity.Data_RateActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <!-- 功率因素 -->
         <activity
+            android:screenOrientation="portrait"
             android:name=".view.activity.Data_FactorActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <!-- 电流不平衡 -->
         <activity
+            android:screenOrientation="portrait"
             android:name=".view.activity.Data_NoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <!-- 电压不平衡 -->
         <activity
+            android:screenOrientation="portrait"
             android:name=".view.activity.Data_PressActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <!-- 切换表号 -->
@@ -106,6 +124,7 @@
         <activity android:name=".view.activity.Energy_TransformerActivity" />
         <activity android:name=".view.activity.Energy_OpsActivity" />
         <activity android:name=".view.activity.Energy_EnergyActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" >
 
         </activity>

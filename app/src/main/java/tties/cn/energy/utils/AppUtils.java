@@ -5,6 +5,10 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 
 import tties.cn.energy.application.MyApplication;
 import tties.cn.energy.common.Constants;
@@ -26,17 +30,17 @@ public class AppUtils {
         Loginbean ret = ACache.getInstance().getAsObject(Constants.CACHE_USERINFO);
         return ret;
     }
+
     /**
      * 获取应用程序名称
      */
     public static String getAppName() {
         try {
-            Context context = MyApplication.getInstance();
-            PackageManager packageManager = context.getPackageManager();
+            PackageManager packageManager = MyApplication.getInstance().getPackageManager();
             PackageInfo packageInfo = packageManager.getPackageInfo(
-                    context.getPackageName(), 0);
+                    MyApplication.getInstance().getPackageName(), 0);
             int labelRes = packageInfo.applicationInfo.labelRes;
-            return context.getResources().getString(labelRes);
+            return MyApplication.getInstance().getResources().getString(labelRes);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
@@ -50,10 +54,10 @@ public class AppUtils {
      */
     public static int getVersionCode() {
         try {
-            Context context = MyApplication.getInstance();
-            PackageManager packageManager = context.getPackageManager();
+
+            PackageManager packageManager = MyApplication.getInstance().getPackageManager();
             PackageInfo packageInfo = packageManager.getPackageInfo(
-                    context.getPackageName(), 0);
+                    MyApplication.getInstance().getPackageName(), 0);
             return packageInfo.versionCode;
 
         } catch (PackageManager.NameNotFoundException e) {
@@ -64,10 +68,9 @@ public class AppUtils {
 
     public static String getVersionName() {
         try {
-            Context context = MyApplication.getInstance();
-            PackageManager packageManager = context.getPackageManager();
+            PackageManager packageManager = MyApplication.getInstance().getPackageManager();
             PackageInfo packageInfo = packageManager.getPackageInfo(
-                    context.getPackageName(), 0);
+                    MyApplication.getInstance().getPackageName(), 0);
             return packageInfo.versionName;
 
         } catch (PackageManager.NameNotFoundException e) {
@@ -86,14 +89,32 @@ public class AppUtils {
     }
 
     public static boolean isWifiConnected() {
-        Context context = MyApplication.getInstance();
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) MyApplication.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo wifiNetworkInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
         if (wifiNetworkInfo.isConnected()) {
             return true;
         }
-
         return false;
+    }
+
+    public static void setListViewHeight(ListView listView) {
+        setListViewHeight(listView, 0);
+    }
+
+    public static void setListViewHeight(ListView listView, int heightFix) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            return;
+        }
+        int totalHeight = 0;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            listItem.measure(0, 0);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1) + heightFix);
+        listView.setLayoutParams(params);
     }
 
 

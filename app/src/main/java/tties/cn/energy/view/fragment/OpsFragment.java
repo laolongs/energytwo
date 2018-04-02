@@ -26,6 +26,8 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import in.srain.cube.views.ptr.PtrDefaultHandler2;
 import in.srain.cube.views.ptr.PtrFrameLayout;
+import in.srain.cube.views.ptr.PtrHandler;
+import in.srain.cube.views.ptr.PtrHandler2;
 import tties.cn.energy.R;
 import tties.cn.energy.base.BaseFragment;
 import tties.cn.energy.common.Constants;
@@ -93,6 +95,8 @@ public class OpsFragment extends BaseFragment<OpsPresenter> implements IOpsView 
     }
 
     private void initView() {
+        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
+        opsRcyRight.setLayoutManager(manager);
         list=new ArrayList<>();
         mPresenter.setPageNum(pagenum);
         mPresenter.setPatrolType(0);
@@ -155,26 +159,47 @@ public class OpsFragment extends BaseFragment<OpsPresenter> implements IOpsView 
     private void initRefresh() {
         //上拉加载 下拉刷新
         PtrClassicFoot foot = new PtrClassicFoot(getActivity());
-        PtrClassicHeader header = new PtrClassicHeader(getActivity());
-        opsRefreshLayout.setHeaderView(header);
+//        PtrClassicHeader header = new PtrClassicHeader(getActivity());
+//        opsRefreshLayout.setHeaderView(header);
         opsRefreshLayout.setFooterView(foot);
-        opsRefreshLayout.addPtrUIHandler(header);
+//        opsRefreshLayout.addPtrUIHandler(header);
         opsRefreshLayout.addPtrUIHandler(foot);
         opsToolbarImg.setImageResource(R.mipmap.ic_login_logo);
-        opsRefreshLayout.setPtrHandler(new PtrDefaultHandler2() {
+//        opsRefreshLayout.setPtrHandler(new PtrDefaultHandler2() {
+//            @Override
+//            public void onLoadMoreBegin(PtrFrameLayout frame) {
+//                pagenum++;
+//                mPresenter.setPageNum(pagenum);
+//                mPresenter.getOpsRightData();
+//                adapter.notifyDataSetChanged();
+//                opsRefreshLayout.refreshComplete();
+//            }
+//
+//            @Override
+//            public void onRefreshBegin(PtrFrameLayout frame) {
+////                Log.i("-----------", "onLoadMoreBegin: "+"111111");
+//                opsRefreshLayout.refreshComplete();
+//            }
+//        });
+        opsRefreshLayout.setPtrHandler(new PtrHandler2() {
+            @Override
+            public boolean checkCanDoLoadMore(PtrFrameLayout frame, View content, View footer) {
+                return false;
+            }
+
             @Override
             public void onLoadMoreBegin(PtrFrameLayout frame) {
-                pagenum++;
-                mPresenter.setPageNum(pagenum);
-                mPresenter.getOpsRightData();
-                adapter.notifyDataSetChanged();
-                opsRefreshLayout.refreshComplete();
+
+            }
+
+            @Override
+            public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
+                return false;
             }
 
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
-//                Log.i("-----------", "onLoadMoreBegin: "+"111111");
-                opsRefreshLayout.refreshComplete();
+
             }
         });
     }
@@ -193,10 +218,9 @@ public class OpsFragment extends BaseFragment<OpsPresenter> implements IOpsView 
 
     @Override
     public void setOpsRightData(Opsbean opsbean) {
+//        list=opsbean.getResult().getQuestionList();
         if(opsbean.getResult().getQuestionList().size()>0){
             View view=View.inflate(getActivity(),R.layout.activity_ops_item_right_no,null);
-            LinearLayoutManager manager = new LinearLayoutManager(getActivity());
-            opsRcyRight.setLayoutManager(manager);
             if(flag){
                 list.addAll(opsbean.getResult().getQuestionList());
             }else{

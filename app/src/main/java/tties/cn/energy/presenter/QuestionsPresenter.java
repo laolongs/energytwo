@@ -36,8 +36,8 @@ public class QuestionsPresenter extends BasePresenter<IQuestionsView> {
     public void getQuestionsTabData(){
         model.getQuestaionsTab(new QuestionsModel.CallBack() {
             @Override
-            public void getTabArray(String[] array, List<Fragment> list) {
-                view.setTabData(array,list);
+            public void getTabArray(String[] array) {
+                view.setTabData(array);
             }
         });
     }
