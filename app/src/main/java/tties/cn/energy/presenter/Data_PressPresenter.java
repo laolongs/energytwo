@@ -53,7 +53,10 @@ public class Data_PressPresenter extends BasePresenter<IData_PressView>  {
         map.put("password","AEC60231D83FE6CF81444BC536596887");
         map.put("objId","1486536481282");
         map.put("baseDate","2017-02");
+        //类型
         map.put("dataType",dataType);
+        //日期
+        map.put("dateType",3);
         model.getData_PressData().getData_Press(map).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Data_Pressbean>() {
@@ -64,12 +67,17 @@ public class Data_PressPresenter extends BasePresenter<IData_PressView>  {
 
                     @Override
                     public void onNext(Data_Pressbean value) {
-                        view.setData_PressData(value);
+                        if(value!=null){
+                            view.setData_PressData(value);
+                        }else{
+                            Log.i(TAG, "onError: "+"数据有误");
+                        }
+
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Log.i(TAG, "onError: "+e.getMessage());
                     }
 
                     @Override
@@ -78,36 +86,6 @@ public class Data_PressPresenter extends BasePresenter<IData_PressView>  {
                     }
                 });
     }
-    public void getAllElectricityData() {
-        Map<String,Object> map=new HashMap<>();
-        map.put("userName","南洋印染");
-        map.put("password","96E79218965EB72C92A549DD5A330112");
-        map.put("objId","1486535776800");
-        map.put("objType",1);
-        model.getAllElectricitySendData().getAllElectricity(map)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io()).subscribe(new Observer<AllElectricitybean>() {
-            @Override
-            public void onSubscribe(Disposable d) {
 
-            }
-
-            @Override
-            public void onNext(AllElectricitybean value) {
-                Log.i(TAG, "onNext: "+value.getMeterList().size());
-                view.setAllElectricitySend(value);
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                Log.i(TAG, "onError: "+e.getMessage());
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        });
-    }
 
 }

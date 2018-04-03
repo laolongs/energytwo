@@ -53,7 +53,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainVi
 
     private void initView() {
         mainRg.check(R.id.main_bt1);
-        getSupportFragmentManager().beginTransaction().replace(R.id.main_fl,new OpsFragment()).addToBackStack(null).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_fl,new OpsFragment()).commit();
         mainRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {

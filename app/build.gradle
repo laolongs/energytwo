@@ -50,6 +50,7 @@ dependencies {
 //    implementation project(':library:magicindicator')
     //图表
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
+//    compile 'com.github.PhilJay:MPAndroidChart:v2.2.4'
     //时间
     compile 'com.jzxiang.pickerview:TimePickerDialog:1.0.1'
     //json

@@ -9,8 +9,10 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 import tties.cn.energy.model.result.AllElectricitybean;
+import tties.cn.energy.model.result.Data_Electricbean;
 import tties.cn.energy.model.result.Data_Nobean;
 import tties.cn.energy.model.result.Data_Pressbean;
+import tties.cn.energy.model.result.Discussbean;
 import tties.cn.energy.model.result.Loginbean;
 import tties.cn.energy.model.result.OpsLoginbean;
 import tties.cn.energy.model.result.Opsbean;
@@ -31,6 +33,14 @@ public interface Api {
     @POST("queryQuertionForEnergy.do")
     @FormUrlEncoded
     Observable<Opsbean> getOps(@FieldMap Map<String,Object> map);
+    //回复问题
+    @POST("AddAdvice.do")
+    @FormUrlEncoded
+    Observable<Discussbean> getdiscuss(@FieldMap Map<String,Object> map);
+    //电费数据
+    @POST("queryUnbalance.htm")
+    @FormUrlEncoded
+    Observable<Data_Electricbean> getData_Electric(@FieldMap Map<String,Object> map);
     //电压不平衡
     @POST("queryUnbalance.htm")
     @FormUrlEncoded

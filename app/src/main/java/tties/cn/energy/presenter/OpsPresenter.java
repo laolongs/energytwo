@@ -54,7 +54,7 @@ public class OpsPresenter extends BasePresenter<IOpsView> {
         HashMap<String,Object> map=new HashMap<>();
 //        map.put("compamyId",bean.getResult().getEnergyLedgerList().get(0).getCompanyId());
 //        map.put("staffId",bean.getResult().getMaintUser().getStaffId());
-        map.put("companyId",54);
+        map.put("companyId",23);
         map.put("patrolType",getPatrolType());
         map.put("pagesize",10);
         map.put("pagenum",getPageNum());

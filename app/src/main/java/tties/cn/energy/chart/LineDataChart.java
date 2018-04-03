@@ -83,6 +83,7 @@ public class LineDataChart extends  LineChart {
 
     public LineDataSet setDataSet(ArrayList<Entry> values, String label) {
         LineDataSet set = new LineDataSet(values, label);
+        //设置线条的颜色
         set.setColor(Color.TRANSPARENT);
         set.setCircleColor(Color.TRANSPARENT);
         set.setLineWidth(0f);//设置线宽
@@ -92,8 +93,10 @@ public class LineDataChart extends  LineChart {
         set.setHighlightEnabled(true);//是否禁用点击高亮线
         set.setHighLightColor(Color.RED);//设置点击交点后显示交高亮线的颜色
         set.setValueTextSize(0f);//设置显示值的文字大小
-        set.setDrawFilled(true);//设置禁用范围背景填充
-        set.setDrawCircles(false);
+        set.setDrawFilled(true);//设置禁用范围背景填充 设置包括的范围区域填充颜色
+        //设置线条为圆滑
+//        set.setDrawCubic(true);  //设置曲线为圆滑的线
+        set.setDrawCircles(true);  //设置有圆点
         set.setFillColor(ContextCompat.getColor(MyApplication.getInstance(), R.color.chart_line_draw));
 
         setList.add(set);

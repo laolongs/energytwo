@@ -16,9 +16,5 @@ public class Data_PressModel implements IData_PressModel {
         return RetrofitApi.getServer();
     }
 
-    @Override
-    public Api getAllElectricitySendData() {
-        return RetrofitApiPub.getServer();
-    }
 
 }

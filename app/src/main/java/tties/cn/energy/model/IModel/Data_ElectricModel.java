@@ -2,19 +2,16 @@ package tties.cn.energy.model.IModel;
 
 import tties.cn.energy.api.Api;
 import tties.cn.energy.api.RetrofitApi;
-import tties.cn.energy.api.RetrofitApiPub;
 
 /**
- * Created by li on 2018/3/27
+ * Created by li on 2018/4/3
  * description：
  * author：guojlli
  */
 
-public class Data_NoModel implements IData_NoModel {
+public class Data_ElectricModel implements IData_ElectricModel {
     @Override
-    public Api getData_NoData() {
+    public Api getData_ElectricData() {
         return RetrofitApi.getServer();
     }
-
-
 }

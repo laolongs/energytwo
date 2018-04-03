@@ -45,7 +45,7 @@ public class IdentityFragmentPresenter extends BasePresenter<IIdentityFragmentVi
                             Log.i(TAG, "onNext: "+value.getResult().getMaintUser().getStaffName());
                             view.getOpsLoginData(value);
                         }else{
-                            Log.i(TAG, "getOpsLoginData: "+"请求失败");
+                            Log.i(TAG, "getOpsLoginData: "+"数据有误");
                         }
 
                     }

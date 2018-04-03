@@ -13,31 +13,23 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import in.srain.cube.views.ptr.PtrDefaultHandler2;
 import in.srain.cube.views.ptr.PtrFrameLayout;
-import in.srain.cube.views.ptr.PtrHandler;
-import in.srain.cube.views.ptr.PtrHandler2;
 import tties.cn.energy.R;
 import tties.cn.energy.base.BaseFragment;
-import tties.cn.energy.common.Constants;
-import tties.cn.energy.model.result.OpsLoginbean;
 import tties.cn.energy.model.result.Opsbean;
 import tties.cn.energy.presenter.OpsPresenter;
-import tties.cn.energy.utils.ACache;
 import tties.cn.energy.utils.PtrClassicFoot;
 import tties.cn.energy.utils.PtrClassicHeader;
-import tties.cn.energy.utils.ToastUtil;
 import tties.cn.energy.view.activity.QuestionsActivity;
 import tties.cn.energy.view.adapter.MyOpsrightAdapter;
 import tties.cn.energy.view.iview.IOpsView;
@@ -79,76 +71,67 @@ public class OpsFragment extends BaseFragment<OpsPresenter> implements IOpsView 
     @BindView(R.id.ops_refreshLayout)
     PtrFrameLayout opsRefreshLayout;
     List<Opsbean.ResultBean.QuestionListBean> list;
-    int pagenum=1;
+    List<String> listview;
+    Opsbean opsbean;
+    int pagenum = 1;
+    @BindView(R.id.ops_right_RL)
+    RelativeLayout opsRightRL;
     private MyOpsrightAdapter adapter;
     boolean flag;
     private static final String TAG = "OpsFragment";
+    private TextView tv;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View inflate = inflater.inflate(R.layout.fragment_ops, null);
         unbinder = ButterKnife.bind(this, inflate);
+        tv = new TextView(getActivity());
         initView();
         initRefresh();
         return inflate;
     }
 
     private void initView() {
+        adapter = new MyOpsrightAdapter(getActivity());
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         opsRcyRight.setLayoutManager(manager);
-        list=new ArrayList<>();
-        mPresenter.setPageNum(pagenum);
-        mPresenter.setPatrolType(0);
-        mPresenter.getOpsRightData();
+        list = new ArrayList<>();
+        setClickButton(0);
+//        mPresenter.setPageNum(pagenum);
+//        mPresenter.setPatrolType(0);
+//        mPresenter.getOpsRightData();
         opsRcyLeftRg.check(R.id.ops_rcy_left_bt1);
         opsRcyLeftRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                switch (i){
+                switch (i) {
                     //里头patrolType对应左边竖列
 //                  0  全部 1, 柜子 2 变压器 4 绝缘 5 房间  6 附属环境
                     //全部
                     case R.id.ops_rcy_left_bt1:
-                        adapter.notifyDataSetChanged();
-                        mPresenter.setPageNum(pagenum);
-                        mPresenter.setPatrolType(0);
-                        mPresenter.getOpsRightData();
+                        setClickButton(0);
                         break;
-                        //房间
+                    //房间
                     case R.id.ops_rcy_left_bt2:
-                        adapter.notifyDataSetChanged();
-                        mPresenter.setPageNum(pagenum);
-                        mPresenter.setPatrolType(5);
-                        mPresenter.getOpsRightData();
+                        setClickButton(5);
                         break;
-                        //柜子
+                    //柜子
                     case R.id.ops_rcy_left_bt3:
-                        adapter.notifyDataSetChanged();
-                        mPresenter.setPageNum(pagenum);
-                        mPresenter.setPatrolType(1);
-                        mPresenter.getOpsRightData();
+                        setClickButton(1);
                         break;
-                        //变压器
+                    //变压器
                     case R.id.ops_rcy_left_bt4:
-                        adapter.notifyDataSetChanged();
-                        mPresenter.setPageNum(pagenum);
-                        mPresenter.setPatrolType(2);
-                        mPresenter.getOpsRightData();
+                        setClickButton(2);
                         break;
-                        //绝缘器
+                    //绝缘器
                     case R.id.ops_rcy_left_bt5:
-                        adapter.notifyDataSetChanged();
-                        mPresenter.setPageNum(pagenum);
-                        mPresenter.setPatrolType(4);
-                        mPresenter.getOpsRightData();
+                        setClickButton(4);
                         break;
-                        //环境
+                    //环境
                     case R.id.ops_rcy_left_bt6:
-                        adapter.notifyDataSetChanged();
-                        mPresenter.setPageNum(pagenum);
-                        mPresenter.setPatrolType(6);
-                        mPresenter.getOpsRightData();
+                        setClickButton(6);
                         break;
 
                 }
@@ -159,49 +142,31 @@ public class OpsFragment extends BaseFragment<OpsPresenter> implements IOpsView 
     private void initRefresh() {
         //上拉加载 下拉刷新
         PtrClassicFoot foot = new PtrClassicFoot(getActivity());
-//        PtrClassicHeader header = new PtrClassicHeader(getActivity());
-//        opsRefreshLayout.setHeaderView(header);
+        PtrClassicHeader header = new PtrClassicHeader(getActivity());
+        opsRefreshLayout.setHeaderView(header);
         opsRefreshLayout.setFooterView(foot);
-//        opsRefreshLayout.addPtrUIHandler(header);
+        opsRefreshLayout.addPtrUIHandler(header);
         opsRefreshLayout.addPtrUIHandler(foot);
         opsToolbarImg.setImageResource(R.mipmap.ic_login_logo);
-//        opsRefreshLayout.setPtrHandler(new PtrDefaultHandler2() {
-//            @Override
-//            public void onLoadMoreBegin(PtrFrameLayout frame) {
-//                pagenum++;
-//                mPresenter.setPageNum(pagenum);
-//                mPresenter.getOpsRightData();
-//                adapter.notifyDataSetChanged();
-//                opsRefreshLayout.refreshComplete();
-//            }
-//
-//            @Override
-//            public void onRefreshBegin(PtrFrameLayout frame) {
-////                Log.i("-----------", "onLoadMoreBegin: "+"111111");
-//                opsRefreshLayout.refreshComplete();
-//            }
-//        });
-        opsRefreshLayout.setPtrHandler(new PtrHandler2() {
-            @Override
-            public boolean checkCanDoLoadMore(PtrFrameLayout frame, View content, View footer) {
-                return false;
-            }
-
+        opsRefreshLayout.setPtrHandler(new PtrDefaultHandler2() {
             @Override
             public void onLoadMoreBegin(PtrFrameLayout frame) {
-
-            }
-
-            @Override
-            public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-                return false;
+                flag = true;
+                pagenum++;
+                mPresenter.setPageNum(pagenum);
+                mPresenter.getOpsRightData();
+                adapter.notifyDataSetChanged();
+                opsRefreshLayout.refreshComplete();
+                Log.i("-----------", "onLoadMoreBegin: " + "111111");
             }
 
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
-
+//                Log.i("-----------", "onLoadMoreBegin: "+"111111");
+                opsRefreshLayout.refreshComplete();
             }
         });
+//
     }
 
     @Override
@@ -218,30 +183,49 @@ public class OpsFragment extends BaseFragment<OpsPresenter> implements IOpsView 
 
     @Override
     public void setOpsRightData(Opsbean opsbean) {
-//        list=opsbean.getResult().getQuestionList();
-        if(opsbean.getResult().getQuestionList().size()>0){
-            View view=View.inflate(getActivity(),R.layout.activity_ops_item_right_no,null);
-            if(flag){
-                list.addAll(opsbean.getResult().getQuestionList());
-            }else{
-                list=opsbean.getResult().getQuestionList();
+        Log.i(TAG, "setOpsRightData: " + opsbean);
+//        this.opsbean=opsbean;
+        Log.i(TAG, "setOpsRightData    : " + this.opsbean);
+        if (opsbean.getResult().getQuestionList().size() > 0) {
+//            opsRefreshLayout.setVisibility(View.VISIBLE);
+//            opsRightRL.setVisibility(View.GONE);
+            int count=opsbean.getResult().getQuestionList().size();
+//            if(count)
+            if (flag) {
+//                list=opsbean.getResult().getQuestionList();
+                list.addAll(list);
+            } else {
+                list = opsbean.getResult().getQuestionList();
             }
-            adapter = new MyOpsrightAdapter(list);
             adapter.setOpsbean(opsbean);
-            adapter.setHeadView(view);
-            opsRcyRight.setAdapter(adapter);
+            adapter.setApapterData(list);
+            adapter.notifyDataSetChanged();
             opsNumber.setText(opsbean.getResult().getCount() + "");
+            opsRcyRight.setAdapter(adapter);
             adapter.setonClickListener(new MyOpsrightAdapter.onClickListener() {
                 @Override
                 public void onClickItemListener(int postion) {
                     Intent intent = new Intent(getActivity(), QuestionsActivity.class);
-                    intent.putExtra("questionId",list.get(postion).getQuestionId()+"");
+                    intent.putExtra("questionId", list.get(postion).getQuestionId() + "");
                     startActivity(intent);
                 }
             });
+        } else {
+//            opsRightRL.setVisibility(View.VISIBLE);
+//            opsRefreshLayout.setVisibility(View.GONE);
+            Log.i(TAG, "setOpsRightData: " + "当前bean里无数据");
         }
 
     }
 
+    public void setClickButton(int patrolType) {
+//        adapter.setHeadView(tv);
+        list.clear();
+        opsNumber.setText("0");
+        mPresenter.setPageNum(pagenum);
+        mPresenter.setPatrolType(patrolType);
+        mPresenter.getOpsRightData();
+        adapter.notifyDataSetChanged();
+    }
 
 }

@@ -10,5 +10,4 @@ import tties.cn.energy.api.Api;
 
 public interface IData_PressModel {
     public Api getData_PressData();
-    public Api getAllElectricitySendData();
 }

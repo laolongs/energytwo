@@ -150,7 +150,18 @@
                 android:layout_height="match_parent"
                 android:background="@color/border"
                />
-
+                <RelativeLayout
+                    android:id="@+id/ops_right_RL"
+                    android:visibility="gone"
+                    android:layout_width="@dimen/x102"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4">
+                    <TextView
+                        android:layout_centerInParent="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="当前无信息"/>
+                </RelativeLayout>
                 <in.srain.cube.views.ptr.PtrFrameLayout
                     android:layout_width="@dimen/x102"
                     android:layout_height="match_parent"

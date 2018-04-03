@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import java.util.List;
 
 import tties.cn.energy.base.BaseView;
+import tties.cn.energy.model.result.Discussbean;
 import tties.cn.energy.model.result.Opsbean;
 
 /**
@@ -18,5 +19,5 @@ import tties.cn.energy.model.result.Opsbean;
 public interface IQuestionsView extends BaseView {
     public void setTabData(String[] array);
     public void setQuestionData(Opsbean bean);
-//    public void setQuestionDiscussData();
+    public void setQuestionDiscussData(Discussbean discussbean);
 }

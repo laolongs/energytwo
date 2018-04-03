@@ -24,6 +24,7 @@ import butterknife.ButterKnife;
 import tties.cn.energy.R;
 import tties.cn.energy.base.BaseActivity;
 import tties.cn.energy.chart.LineDataChart;
+import tties.cn.energy.model.httputils.send.AllElectricitySend;
 import tties.cn.energy.model.result.AllElectricitybean;
 import tties.cn.energy.model.result.Data_Nobean;
 import tties.cn.energy.presenter.Data_NoPresenter;
@@ -61,8 +62,16 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
         mPresenter.getData_NoData(0);
-        mPresenter.getAllElectricityData();
+        initAllElectric();
         initView();
+    }
+
+    private void initAllElectric() {
+        AllElectricitySend send=new AllElectricitySend();
+        AllElectricitybean allElectricityData = send.getAllElectricityData();
+        if(allElectricityData!=null){
+            dialog=new BottomStyleDialog(Data_NoActivity.this,allElectricityData);
+        }
     }
 
     private void initView() {
@@ -179,8 +188,4 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
         }
     }
 
-    @Override
-    public void setAllElectricitySend(AllElectricitybean allElectricitySend) {
-        dialog=new BottomStyleDialog(Data_NoActivity.this,allElectricitySend);
-    }
 }

@@ -13,6 +13,5 @@ import tties.cn.energy.model.result.Data_Pressbean;
 
 public interface IData_NoView extends BaseView {
     public void setData_NoData(Data_Nobean bean);
-    public void setAllElectricitySend(AllElectricitybean allElectricitySend);
 
 }

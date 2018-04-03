@@ -26,6 +26,7 @@ import butterknife.ButterKnife;
 import tties.cn.energy.R;
 import tties.cn.energy.base.BaseActivity;
 import tties.cn.energy.chart.LineDataChart;
+import tties.cn.energy.model.httputils.send.AllElectricitySend;
 import tties.cn.energy.model.result.AllElectricitybean;
 import tties.cn.energy.model.result.Data_Pressbean;
 import tties.cn.energy.presenter.Data_PressPresenter;
@@ -66,8 +67,16 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
 //        YAxis axisLeft = dataPressChart2.getAxisLeft();
 //        axisLeft.setLabelCount(6);
         mPresenter.getData_PressData(1);
-        mPresenter.getAllElectricityData();
+        initAllElectric();
         initView();
+    }
+
+    private void initAllElectric() {
+        AllElectricitySend send=new AllElectricitySend();
+        AllElectricitybean allElectricityData = send.getAllElectricityData();
+        if(allElectricityData!=null){
+            dialog=new BottomStyleDialog(Data_PressActivity.this,allElectricityData);
+        }
     }
 
     private void initView() {
@@ -93,9 +102,13 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
                             @Override
                             public void onDateSet(TimePickerDialog timePickerView, long millseconds) {
                                 Date date = new Date(millseconds);
-                                SimpleDateFormat format = new SimpleDateFormat("yyyy年MM日");
+                                SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月");
+                                SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
                                 String time = format.format(date);
+                                //时间参数值
+                                String time2 = format2.format(date);
                                 dataTimeTv.setText(time);
+
                             }
                         })
                         .build();
@@ -109,7 +122,6 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
                 if(dialog!=null){
                     dialog.show();
                 }
-
 //                ToastUtil.showShort(Data_PressActivity.this,""+dialog.getOnclickItem());
             }
         });
@@ -191,10 +203,10 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
 
     }
 
-    @Override
-    public void setAllElectricitySend(AllElectricitybean allElectricitySend) {
-        dialog=new BottomStyleDialog(Data_PressActivity.this,allElectricitySend);
-    }
+//    @Override
+//    public void setAllElectricitySend(AllElectricitybean allElectricitySend) {
+//        dialog=new BottomStyleDialog(Data_PressActivity.this,allElectricitySend);
+//    }
     public static float minuteParse(String duration) {
         float allnumber = Float.parseFloat(duration);//1640
         float minute = allnumber * 60 ;

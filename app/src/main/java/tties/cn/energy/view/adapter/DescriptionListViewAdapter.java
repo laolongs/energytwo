@@ -152,6 +152,7 @@ public class DescriptionListViewAdapter extends BaseAdapter {
                 itemView.setOnClickListener(this);
                 //根据条目位置设置图片
                 ImageItem item = mData.get(position);
+//                ImagePicker.getInstance().getImageLoader().displayImage((QuestionsActivity) context, item.path, iv_img, 0, 0);
                 ImagePicker.getInstance().getImageLoader().displayImage((QuestionsActivity) context, "http://192.168.2.127:8080/photo/%E5%A4%B4%E5%83%8F1.jpg", iv_img, 0, 0);
 //                Glide.with(context).load(item.path).into(iv_img);
 //
