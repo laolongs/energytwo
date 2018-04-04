@@ -15,4 +15,5 @@ import tties.cn.energy.model.result.Opsbean;
 
 public interface IData_PressView extends BaseView {
     public void setData_PressData(Data_Pressbean bean);
+    public void setAllElectricity(AllElectricitybean allElectricitybean);
 }

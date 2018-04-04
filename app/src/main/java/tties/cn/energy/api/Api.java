@@ -9,7 +9,12 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 import tties.cn.energy.model.result.AllElectricitybean;
+import tties.cn.energy.model.result.Data_CurrentPressbean;
+import tties.cn.energy.model.result.Data_Currentbean;
 import tties.cn.energy.model.result.Data_Electricbean;
+import tties.cn.energy.model.result.Data_Factorbean;
+import tties.cn.energy.model.result.Data_HaveKwbean;
+import tties.cn.energy.model.result.Data_NoKvarbean;
 import tties.cn.energy.model.result.Data_Nobean;
 import tties.cn.energy.model.result.Data_Pressbean;
 import tties.cn.energy.model.result.Discussbean;
@@ -37,10 +42,30 @@ public interface Api {
     @POST("AddAdvice.do")
     @FormUrlEncoded
     Observable<Discussbean> getdiscuss(@FieldMap Map<String,Object> map);
-    //电费数据
-    @POST("queryUnbalance.htm")
+    //电量数据
+    @POST("queryMonthData.htm")
     @FormUrlEncoded
     Observable<Data_Electricbean> getData_Electric(@FieldMap Map<String,Object> map);
+    //有功功率
+    @POST("queryMonthData.htm")
+    @FormUrlEncoded
+    Observable<Data_HaveKwbean> getData_HaveKw(@FieldMap Map<String,Object> map);
+    //无功功率
+    @POST("queryMonthData.htm")
+    @FormUrlEncoded
+    Observable<Data_NoKvarbean> getData_NoKvar(@FieldMap Map<String,Object> map);
+    //功率因数
+    @POST("queryMonthData.htm")
+    @FormUrlEncoded
+    Observable<Data_Factorbean> getData_Factor(@FieldMap Map<String,Object> map);
+    //电流
+    @POST("queryMonthData.htm")
+    @FormUrlEncoded
+    Observable<Data_Currentbean> getData_Current(@FieldMap Map<String,Object> map);
+    //电压
+    @POST("queryMonthData.htm")
+    @FormUrlEncoded
+    Observable<Data_CurrentPressbean> getData_CurrentPress(@FieldMap Map<String,Object> map);
     //电压不平衡
     @POST("queryUnbalance.htm")
     @FormUrlEncoded

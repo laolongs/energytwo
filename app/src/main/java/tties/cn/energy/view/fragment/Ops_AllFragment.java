@@ -5,17 +5,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,41 +29,17 @@ import tties.cn.energy.view.adapter.MyOpsrightAdapter;
 import tties.cn.energy.view.iview.IOpsView;
 
 /**
- * Created by li on 2018/3/21
- * description：
+ * Created by li on 2018/4/4
+ * description：全部
  * author：guojlli
  */
 
-public class OpsFragment extends BaseFragment<OpsPresenter> implements IOpsView {
-    @BindView(R.id.ops_toolbar_img)
-    ImageView opsToolbarImg;
-    @BindView(R.id.ops_toolbar_text)
-    TextView opsToolbarText;
-    @BindView(R.id.data_toolbar)
-    Toolbar dataToolbar;
+public class Ops_AllFragment extends BaseFragment<OpsPresenter> implements IOpsView {
     Unbinder unbinder;
-    @BindView(R.id.ops_rcy_left_bt1)
-    RadioButton opsRcyLeftBt1;
-    @BindView(R.id.ops_rcy_left_bt2)
-    RadioButton opsRcyLeftBt2;
-    @BindView(R.id.ops_rcy_left_bt3)
-    RadioButton opsRcyLeftBt3;
-    @BindView(R.id.ops_rcy_left_bt4)
-    RadioButton opsRcyLeftBt4;
-    @BindView(R.id.ops_rcy_left_bt5)
-    RadioButton opsRcyLeftBt5;
-    @BindView(R.id.ops_rcy_left_bt6)
-    RadioButton opsRcyLeftBt6;
-    @BindView(R.id.ops_rcy_left_rg)
-    RadioGroup opsRcyLeftRg;
-    @BindView(R.id.ops_number)
-    TextView opsNumber;
     List<Opsbean.ResultBean.QuestionListBean> list;
     List<String> listview;
     Opsbean opsbean;
     int pagenum = 1;
-    @BindView(R.id.ops_right_RL)
-    RelativeLayout opsRightRL;
     @BindView(R.id.ops_rcy_right)
     RecyclerView opsRcyRight;
     @BindView(R.id.ops_refreshLayout)
@@ -78,63 +47,17 @@ public class OpsFragment extends BaseFragment<OpsPresenter> implements IOpsView 
     private MyOpsrightAdapter adapter;
     boolean flag;
     private static final String TAG = "OpsFragment";
-    private int count;
+    int patrolType;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View inflate = inflater.inflate(R.layout.fragment_ops, null);
+        View inflate = inflater.inflate(R.layout.fragment_ops_right, null);
         unbinder = ButterKnife.bind(this, inflate);
         initView();
         initRefresh();
         return inflate;
-    }
-
-    private void initView() {
-        opsToolbarImg.setImageResource(R.mipmap.ic_login_logo);
-        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
-        opsRcyRight.setLayoutManager(manager);
-        list = new ArrayList<>();
-        setClickButton(0);
-//        mPresenter.setPageNum(pagenum);
-//        mPresenter.setPatrolType(0);
-//        mPresenter.getOpsRightData();
-        opsRcyLeftRg.check(R.id.ops_rcy_left_bt1);
-        opsRcyLeftRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                switch (i) {
-                    //里头patrolType对应左边竖列
-//                  0  全部 1, 柜子 2 变压器 4 绝缘 5 房间  6 附属环境
-                    //全部
-                    case R.id.ops_rcy_left_bt1:
-                        setClickButton(0);
-                        break;
-                    //房间
-                    case R.id.ops_rcy_left_bt2:
-                        setClickButton(5);
-                        break;
-                    //柜子
-                    case R.id.ops_rcy_left_bt3:
-                        setClickButton(1);
-                        break;
-                    //变压器
-                    case R.id.ops_rcy_left_bt4:
-                        setClickButton(2);
-                        break;
-                    //绝缘器
-                    case R.id.ops_rcy_left_bt5:
-                        setClickButton(4);
-                        break;
-                    //环境
-                    case R.id.ops_rcy_left_bt6:
-                        setClickButton(6);
-                        break;
-
-                }
-            }
-        });
     }
 
     private void initRefresh() {
@@ -163,7 +86,18 @@ public class OpsFragment extends BaseFragment<OpsPresenter> implements IOpsView 
                 opsRefreshLayout.refreshComplete();
             }
         });
-//
+    }
+
+    //
+    private void initView() {
+        mPresenter.setPageNum(pagenum);
+        mPresenter.setPatrolType(getPatrolType());
+        mPresenter.getOpsRightData();
+        list = new ArrayList<>();
+        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
+        opsRcyRight.setLayoutManager(manager);
+        adapter = new MyOpsrightAdapter(getActivity());
+        opsRcyRight.setAdapter(adapter);
     }
 
     @Override
@@ -171,33 +105,23 @@ public class OpsFragment extends BaseFragment<OpsPresenter> implements IOpsView 
         mPresenter = new OpsPresenter(this);
     }
 
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
-
     @Override
     public void setOpsRightData(Opsbean opsbean) {
-        Log.i(TAG, "setOpsRightData: " + opsbean);
-        Log.i(TAG, "setOpsRightData    : " + this.opsbean);
         if (opsbean.getResult().getQuestionList().size() > 0) {
 //            opsRefreshLayout.setVisibility(View.VISIBLE);
 //            opsRightRL.setVisibility(View.GONE);
-            count = opsbean.getResult().getQuestionList().size();
-            Log.i(TAG, "setOpsRightData:countcountcount "+count);
+            int count = opsbean.getResult().getQuestionList().size();
+//            if(count)
             if (flag) {
-//                list = opsbean.getResult().getQuestionList();
+                Log.i(TAG, "setOpsRightData: "+"-------------");
+//                list=opsbean.getResult().getQuestionList();
                 list.addAll(list);
             } else {
                 list = opsbean.getResult().getQuestionList();
             }
-            adapter.setOpsbean(opsbean.getResult());
+//            adapter.setOpsbean(opsbean);
             adapter.setApapterData(list);
             adapter.notifyDataSetChanged();
-            opsNumber.setText(opsbean.getResult().getCount() + "");
-//            opsRcyRight.setAdapter(adapter);
             adapter.setonClickListener(new MyOpsrightAdapter.onClickListener() {
                 @Override
                 public void onClickItemListener(int postion) {
@@ -211,19 +135,19 @@ public class OpsFragment extends BaseFragment<OpsPresenter> implements IOpsView 
 //            opsRefreshLayout.setVisibility(View.GONE);
             Log.i(TAG, "setOpsRightData: " + "当前bean里无数据");
         }
-
     }
 
-    public void setClickButton(int patrolType) {
-        flag=false;
-        adapter = new MyOpsrightAdapter(getActivity());
-        list.clear();
-        opsNumber.setText("0");
-        pagenum=1;
-        mPresenter.setPageNum(pagenum);
-        mPresenter.setPatrolType(patrolType);
-        mPresenter.getOpsRightData();
-        opsRcyRight.setAdapter(adapter);
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 
+    public void setPatrolType(int patrolType) {
+        this.patrolType = patrolType;
+    }
+
+    public int getPatrolType() {
+        return patrolType;
+    }
 }

@@ -32,7 +32,7 @@ public class MyOpsrightAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     List<Opsbean.ResultBean.QuestionListBean> listbean;
     List<String> listhead = new ArrayList<>();
     onClickListener listener;
-    Opsbean opsbean;
+    Opsbean.ResultBean opsbean;
 
 
     public void setonClickListener(onClickListener listener) {
@@ -43,14 +43,10 @@ public class MyOpsrightAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         this.listbean = listbean;
     }
 
-    public void setOpsbean(Opsbean opsbean) {
+    public void setOpsbean(Opsbean.ResultBean opsbean) {
         this.opsbean = opsbean;
     }
 
-    //    public void setHeadView(View view) {
-//        listhead.add(view);
-//        Log.i("------------", "setHeadView: "+listhead.size());
-//    }
     public MyOpsrightAdapter(Context context) {
         listhead.add("1");
         inflater = LayoutInflater.from(context);
@@ -149,7 +145,7 @@ public class MyOpsrightAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public int getItemViewType(int position) {
 
-        if (opsbean.getResult().getCount() == 0 && position < listhead.size()) {
+        if (opsbean.getCount() == 0) {
             Log.i("----0000--------", "setHeadView: " + "0000");
             return TYPE_ONE;
         } else {
@@ -158,19 +154,16 @@ public class MyOpsrightAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     }
 
+
     @Override
     public int getItemCount() {
-//        if(opsbean.getResult().getCount()==0){
-//            Log.i("------", "getItemCount: "+"00000");
-//            return listhead.size();
-//        }
-//        if(listbean==null){
-//            return 0;
-//        }else{
-//            return listbean.size();
-//        }
+        if(opsbean!=null){
+            Log.i("------", "getItemCount: "+"00000");
+            return listbean.size();
+        }
         return listbean != null ? listbean.size() : 0;
     }
+
 
     public class MyViewHoder extends RecyclerView.ViewHolder {
         @BindView(R.id.ops_item_title)

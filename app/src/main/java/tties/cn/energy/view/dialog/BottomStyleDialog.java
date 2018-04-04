@@ -3,6 +3,7 @@ package tties.cn.energy.view.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -21,13 +22,16 @@ import tties.cn.energy.view.adapter.StyleAdapter;
  */
 
 public class BottomStyleDialog extends Dialog implements AdapterView.OnItemClickListener {
+    OnCliekAllElectricity listener;
     int postion=0;
     AllElectricitybean allElectricitybean;
     private ListView mLv;
 
 
     private StyleAdapter mAdapter;
-
+    public void setCliekAllElectricity(OnCliekAllElectricity listener){
+        this.listener=listener;
+    }
     public BottomStyleDialog(Context context, AllElectricitybean allElectricitybean) {
         // 在构造方法里, 传入主题
         super(context, R.style.BottomDialogStyle);
@@ -63,7 +67,7 @@ public class BottomStyleDialog extends Dialog implements AdapterView.OnItemClick
         mLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                setOnclickItem(i);
+                listener.OnCliekAllElectricityListener(i);
                 dismiss();
             }
         });
@@ -73,10 +77,7 @@ public class BottomStyleDialog extends Dialog implements AdapterView.OnItemClick
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         mAdapter.notifyDataSetChanged();
     }
-    public void setOnclickItem(int postion){
-        this.postion=postion;
-    }
-    public int getOnclickItem(){
-        return postion;
+    public interface OnCliekAllElectricity{
+        void OnCliekAllElectricityListener(int poaiton);
     }
 }

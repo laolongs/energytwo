@@ -10,4 +10,5 @@ import tties.cn.energy.api.Api;
 
 public interface IData_ElectricModel  {
     public Api getData_ElectricData();
+    public Api getAllElectricity();
 }

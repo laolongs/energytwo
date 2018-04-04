@@ -1,5 +1,6 @@
 package tties.cn.energy.model.httputils.send;
 
+import android.content.Context;
 import android.util.Log;
 
 import java.util.HashMap;
@@ -11,6 +12,8 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import tties.cn.energy.api.RetrofitApi;
 import tties.cn.energy.model.result.AllElectricitybean;
+import tties.cn.energy.view.activity.Data_NoActivity;
+import tties.cn.energy.view.dialog.BottomStyleDialog;
 
 /**
  * Created by li on 2018/4/3
@@ -19,13 +22,17 @@ import tties.cn.energy.model.result.AllElectricitybean;
  */
 
 public class AllElectricitySend {
+    Context context;
+    public AllElectricitySend(Context context){
+        this.context=context;
+    }
     AllElectricitybean allElectricitybean;
     private static final String TAG = "AllElectricitySend";
-    public AllElectricitybean getAllElectricityData() {
+    public void getAllElectricityData() {
 
         Map<String,Object> map=new HashMap<>();
-        map.put("userName","南洋印染");
-        map.put("password","96E79218965EB72C92A549DD5A330112");
+        map.put("userName","test");
+        map.put("password","E10ADC3949BA59ABBE56E057F20F883E");
         map.put("objId","1486535776800");
         map.put("objType",1);
         RetrofitApi.getServer().getAllElectricity(map)
@@ -38,9 +45,10 @@ public class AllElectricitySend {
 
             @Override
             public void onNext(AllElectricitybean value) {
-                Log.i(TAG, "onNext: "+value.getMeterList().size());
+
                 if(value!=null){
-                    allElectricitybean =value;
+                    Log.i(TAG, "onNext: "+value.getMeterList().size());
+//                    allElectricitybean =value;
                 }else{
                     Log.i(TAG, "onError: "+"数据有误");
                 }
@@ -57,6 +65,5 @@ public class AllElectricitySend {
 
             }
         });
-        return allElectricitybean;
     }
 }

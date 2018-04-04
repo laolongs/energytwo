@@ -3,13 +3,12 @@ package tties.cn.energy.model.result;
 import java.util.List;
 
 /**
- * Created by li on 2018/3/30
- * description：电量数据
+ * Created by li on 2018/4/4
+ * description：电流
  * author：guojlli
  */
 
-public class Data_Electricbean {
-
+public class Data_Currentbean {
     private List<DataListBean> dataList;
 
     public List<DataListBean> getDataList() {
@@ -24,11 +23,11 @@ public class Data_Electricbean {
         /**
          * meterId : 1486536312217
          * freezeTime : 2017-02-20 00:00:00
-         * a : 11884
-         * b : 92
-         * c : 0
-         * d : 0
-         * dm : 0
+         * a : 923.867
+         * b : 936.059
+         * c : 593.493
+         * d : null
+         * dm : 784
          * max : 0
          * maxTime : null
          * min : 0
@@ -44,10 +43,10 @@ public class Data_Electricbean {
 
         private long meterId;
         private String freezeTime;
-        private int a;
-        private int b;
-        private int c;
-        private int d;
+        private double a;
+        private double b;
+        private double c;
+        private Object d;
         private int dm;
         private int max;
         private Object maxTime;
@@ -77,35 +76,35 @@ public class Data_Electricbean {
             this.freezeTime = freezeTime;
         }
 
-        public int getA() {
+        public double getA() {
             return a;
         }
 
-        public void setA(int a) {
+        public void setA(double a) {
             this.a = a;
         }
 
-        public int getB() {
+        public double getB() {
             return b;
         }
 
-        public void setB(int b) {
+        public void setB(double b) {
             this.b = b;
         }
 
-        public int getC() {
+        public double getC() {
             return c;
         }
 
-        public void setC(int c) {
+        public void setC(double c) {
             this.c = c;
         }
 
-        public int getD() {
+        public Object getD() {
             return d;
         }
 
-        public void setD(int d) {
+        public void setD(Object d) {
             this.d = d;
         }
 

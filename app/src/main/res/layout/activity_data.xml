@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,12 +7,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="tties.cn.energy.view.activity.DataActivity">
-     <include
-         layout="@layout/toobar"/>
      <LinearLayout
          android:layout_width="match_parent"
-         android:orientation="vertical"
-         android:layout_height="wrap_content">
+         android:layout_height="match_parent"
+         android:orientation="vertical">
+          <include
+              layout="@layout/toobar"/>
           <LinearLayout
               android:layout_width="match_parent"
               android:orientation="horizontal"
@@ -52,47 +52,39 @@
                    android:orientation="vertical"
                    android:layout_height="match_parent"
                    android:layout_weight="3">
+                    <!--<TextView-->
+                    <!--android:id="@+id/tv2"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:textColor="@color/orangered"-->
+                    <!--android:paddingTop="5dp"-->
+                    <!--android:text="校验后"/>-->
                     <TextView
-                        android:id="@+id/tv2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:textColor="@color/statment_layout_title_h_line"
-                        android:paddingTop="5dp"
-                        android:text="校验后"/>
-                    <TextView
-                        android:layout_below="@+id/tv2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
+                        android:layout_centerInParent="true"
                         android:paddingTop="5dp"
                         android:textSize="20sp"
-                        android:textColor="@color/statment_layout_title_h_line"
-                        android:text="￥768678.03"/>
+                        android:textColor="@color/orangered"
+                        android:text="正在校验"/>
                </RelativeLayout>
                <LinearLayout
                    android:layout_width="0dp"
                    android:layout_height="match_parent"
                    android:layout_weight="1">
                     <ImageView
-                        android:id="@+id/data_charge_img1"
-                        android:src="@mipmap/data_checking"
+                        android:src="@mipmap/data_checkout"
                         android:layout_marginLeft="5dp"
                         android:layout_gravity="center"
                         android:layout_width="15dp"
                         android:layout_height="15dp" />
                </LinearLayout>
-
           </LinearLayout>
-     </LinearLayout>
-     <View
-        style="@style/cut_off_line_1dp"
-         android:layout_marginLeft="24dp"
-         android:layout_marginRight="24dp"/>
-     <LinearLayout
-         android:layout_width="match_parent"
-         android:orientation="vertical"
-         android:layout_height="wrap_content">
+          <View
+              style="@style/cut_off_line_1dp"
+              android:layout_marginLeft="24dp"
+              android:layout_marginRight="24dp"/>
           <LinearLayout
               android:layout_width="match_parent"
               android:orientation="horizontal"
@@ -104,6 +96,79 @@
                    android:paddingLeft="24dp"
                    android:gravity="center_vertical"
                    android:text="基本电费"
+                   android:textSize="20sp"
+                   android:textColor="@color/black"/>
+
+               <RelativeLayout
+                   android:layout_width="0dp"
+                   android:layout_height="match_parent"
+                   android:layout_weight="3">
+                    <TextView
+                        android:id="@+id/tv2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:paddingTop="5dp"
+                        android:text="原始"/>
+                    <TextView
+
+                        android:layout_below="@+id/tv2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:paddingTop="5dp"
+                        android:textSize="20sp"
+                        android:text="￥768678.03"/>
+               </RelativeLayout>
+               <RelativeLayout
+                   android:layout_width="0dp"
+                   android:orientation="vertical"
+                   android:layout_height="match_parent"
+                   android:layout_weight="3">
+                    <!--<TextView-->
+                    <!--android:id="@+id/tv2"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:textColor="@color/orangered"-->
+                    <!--android:paddingTop="5dp"-->
+                    <!--android:text="校验后"/>-->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:paddingTop="5dp"
+                        android:textSize="20sp"
+                        android:textColor="@color/orangered"
+                        android:text="正在校验"/>
+               </RelativeLayout>
+               <LinearLayout
+                   android:layout_width="0dp"
+                   android:layout_height="match_parent"
+                   android:layout_weight="1">
+                    <ImageView
+                        android:src="@mipmap/data_checkout"
+                        android:layout_marginLeft="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp" />
+               </LinearLayout>
+          </LinearLayout>
+          <View
+              style="@style/cut_off_line_1dp"
+              android:layout_marginLeft="24dp"
+              android:layout_marginRight="24dp"/>
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:orientation="horizontal"
+              android:layout_height="60dp">
+               <TextView
+                   android:layout_width="0dp"
+                   android:layout_height="match_parent"
+                   android:layout_weight="3"
+                   android:paddingLeft="24dp"
+                   android:gravity="center_vertical"
+                   android:text="年度电费"
                    android:textSize="20sp"
                    android:textColor="@color/black"/>
 
@@ -132,125 +197,39 @@
                    android:orientation="vertical"
                    android:layout_height="match_parent"
                    android:layout_weight="3">
+                    <!--<TextView-->
+                    <!--android:id="@+id/tv2"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:textColor="@color/orangered"-->
+                    <!--android:paddingTop="5dp"-->
+                    <!--android:text="校验后"/>-->
                     <TextView
-                        android:id="@+id/tv4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:textColor="@color/statment_layout_title_h_line"
-                        android:paddingTop="5dp"
-                        android:text="校验后"/>
-                    <TextView
-                        android:layout_below="@+id/tv4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
+                        android:layout_centerInParent="true"
                         android:paddingTop="5dp"
                         android:textSize="20sp"
-                        android:textColor="@color/statment_layout_title_h_line"
-                        android:text="￥768678.03"/>
+                        android:textColor="@color/orangered"
+                        android:text="正在校验"/>
                </RelativeLayout>
                <LinearLayout
                    android:layout_width="0dp"
                    android:layout_height="match_parent"
                    android:layout_weight="1">
                     <ImageView
-                        android:id="@+id/data_charge_img2"
-                        android:src="@mipmap/data_checking"
+                        android:src="@mipmap/data_checkout"
                         android:layout_marginLeft="5dp"
                         android:layout_gravity="center"
                         android:layout_width="15dp"
                         android:layout_height="15dp" />
                </LinearLayout>
           </LinearLayout>
-     </LinearLayout>
-     <View
-         style="@style/cut_off_line_1dp"
-         android:layout_marginLeft="24dp"
-         android:layout_marginRight="24dp"/>
-     <LinearLayout
-         android:layout_width="match_parent"
-         android:orientation="vertical"
-         android:layout_height="wrap_content">
-          <LinearLayout
-              android:layout_width="match_parent"
-              android:orientation="horizontal"
-              android:layout_height="60dp">
-               <TextView
-                   android:layout_width="0dp"
-                   android:layout_height="match_parent"
-                   android:layout_weight="3"
-                   android:paddingLeft="24dp"
-                   android:gravity="center_vertical"
-                   android:text="年度电费"
-                   android:textSize="20sp"
-                   android:textColor="@color/black"/>
-
-               <RelativeLayout
-                   android:layout_width="0dp"
-                   android:layout_height="match_parent"
-                   android:layout_weight="3">
-                    <TextView
-                        android:id="@+id/tv5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:paddingTop="5dp"
-                        android:text="原始"/>
-                    <TextView
-                        android:layout_below="@+id/tv5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:paddingTop="5dp"
-                        android:textSize="20sp"
-                        android:text="￥768678.03"/>
-               </RelativeLayout>
-               <RelativeLayout
-                   android:layout_width="0dp"
-                   android:orientation="vertical"
-                   android:layout_height="match_parent"
-                   android:layout_weight="3">
-                    <TextView
-                        android:id="@+id/tv6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:textColor="@color/statment_layout_title_h_line"
-                        android:paddingTop="5dp"
-                        android:text="校验后"/>
-                    <TextView
-                        android:layout_below="@+id/tv6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:paddingTop="5dp"
-                        android:textSize="20sp"
-                        android:textColor="@color/statment_layout_title_h_line"
-                        android:text="￥768678.03"/>
-               </RelativeLayout>
-               <LinearLayout
-                   android:layout_width="0dp"
-                   android:layout_height="match_parent"
-                   android:layout_weight="1">
-                    <ImageView
-                        android:id="@+id/data_charge_img3"
-                        android:src="@mipmap/data_checking"
-                        android:layout_marginLeft="5dp"
-                        android:layout_gravity="center"
-                        android:layout_width="15dp"
-                        android:layout_height="15dp" />
-               </LinearLayout>
-          </LinearLayout>
-     </LinearLayout>
-     <View
-         style="@style/cut_off_line_1dp"
-         android:layout_marginLeft="24dp"
-         android:layout_marginRight="24dp"/>
-     <LinearLayout
-         android:layout_width="match_parent"
-         android:orientation="vertical"
-         android:layout_height="wrap_content">
+          <View
+              style="@style/cut_off_line_1dp"
+              android:layout_marginLeft="24dp"
+              android:layout_marginRight="24dp"/>
           <LinearLayout
               android:layout_width="match_parent"
               android:orientation="horizontal"
@@ -277,6 +256,7 @@
                         android:paddingTop="5dp"
                         android:text="原始"/>
                     <TextView
+                        android:id="@+id/electrical_num"
                         android:layout_below="@+id/tv7"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -290,23 +270,23 @@
                    android:orientation="vertical"
                    android:layout_height="match_parent"
                    android:layout_weight="3">
+                    <!--<TextView-->
+                    <!--android:id="@+id/tv2"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:textColor="@color/orangered"-->
+                    <!--android:paddingTop="5dp"-->
+                    <!--android:text="校验后"/>-->
                     <TextView
-                        android:id="@+id/tv8"
+                        android:layout_below="@+id/tv2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:textColor="@color/orangered"
-                        android:paddingTop="5dp"
-                        android:text="校验中"/>
-                    <TextView
-                        android:layout_below="@+id/tv8"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
+                        android:layout_centerInParent="true"
                         android:paddingTop="5dp"
                         android:textSize="20sp"
                         android:textColor="@color/orangered"
-                        android:text="￥768678.03"/>
+                        android:text="正在校验"/>
                </RelativeLayout>
                <LinearLayout
                    android:layout_width="0dp"
@@ -321,84 +301,91 @@
                         android:layout_height="15dp" />
                </LinearLayout>
           </LinearLayout>
-     </LinearLayout>
-     <View
-         style="@style/cut_off_line_9dp"
-         />
-     <RelativeLayout
-         android:layout_width="match_parent"
-         android:layout_height="match_parent">
+              <View style="@style/cut_off_line_9dp"
+              />
+          <RelativeLayout
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
                <LinearLayout
+                   android:id="@+id/data_ll"
                    android:layout_width="match_parent"
                    android:layout_height="match_parent"
                    android:orientation="vertical">
-               <LinearLayout
-                   android:layout_width="match_parent"
-                   android:layout_height="60dp"
-                   android:orientation="vertical">
-                    <TextView
-                        android:layout_height="match_parent"
-                        android:layout_width="wrap_content"
-                        android:paddingLeft="24dp"
-                        android:gravity="center_vertical"
-                        android:text="电费详情"
-                        android:textSize="20sp"
-                        android:textColor="@color/black"/>
-               </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:orientation="vertical">
+                         <TextView
+                             android:layout_height="match_parent"
+                             android:layout_width="wrap_content"
+                             android:paddingLeft="24dp"
+                             android:gravity="center_vertical"
+                             android:text="电费详情"
+                             android:textSize="20sp"
+                             android:textColor="@color/black"/>
+                    </LinearLayout>
                     <tties.cn.energy.chart.LineDataChart
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="200dp">
                     </tties.cn.energy.chart.LineDataChart>
                </LinearLayout>
-          <LinearLayout
-              android:layout_width="match_parent"
-              android:layout_height="49dp"
-              android:layout_alignParentBottom="true"
-              android:orientation="horizontal"
-              android:background="@color/slategrey"
-              >
+               <View
+                   android:id="@+id/data_vv"
+                   android:layout_below="@+id/data_ll"
+                   android:layout_width="match_parent"
+                   android:layout_height="20dp"></View>
                <LinearLayout
-                   android:id="@+id/data_time"
-                   android:layout_width="0dp"
-                   android:layout_height="match_parent"
+                   android:layout_below="@+id/data_vv"
+                   android:layout_width="match_parent"
+                   android:layout_height="49dp"
+                   android:layout_alignParentBottom="true"
                    android:orientation="horizontal"
-                   android:gravity="center"
-                   android:layout_weight="1">
-                    <TextView
-                        android:id="@+id/data_time_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:text="2018年2月"/>
-                    <ImageView
-                        android:src="@mipmap/arrows"
-                        android:layout_marginLeft="5dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                      />
+                   android:background="@color/slategrey"
+                   >
+                    <LinearLayout
+                        android:id="@+id/data_time"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:layout_weight="1">
+                         <TextView
+                             android:id="@+id/data_time_tv"
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:textColor="@color/white"
+                             android:text="2018年2月"/>
+                         <ImageView
+                             android:src="@mipmap/arrows"
+                             android:layout_marginLeft="5dp"
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/data_allelectric"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:layout_weight="1">
+                         <TextView
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:layout_gravity="center_vertical"
+                             android:textColor="@color/white"
+                             android:text="总电量"/>
+                         <ImageView
+                             android:src="@mipmap/arrows"
+                             android:layout_marginLeft="5dp"
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:layout_gravity="center_vertical"/>
+                    </LinearLayout>
                </LinearLayout>
-               <LinearLayout
-                   android:id="@+id/data_allelectric"
-                   android:layout_width="0dp"
-                   android:layout_height="match_parent"
-                   android:gravity="center"
-                   android:layout_weight="1">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:textColor="@color/white"
-                        android:text="总电量"/>
-                    <ImageView
-                        android:src="@mipmap/arrows"
-                        android:layout_marginLeft="5dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"/>
-               </LinearLayout>
-          </LinearLayout>
-     </RelativeLayout>
+          </RelativeLayout>
+     </LinearLayout>
 
 
 
-</LinearLayout>
+
+</ScrollView>

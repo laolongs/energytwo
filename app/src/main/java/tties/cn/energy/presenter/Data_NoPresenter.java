@@ -9,6 +9,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import tties.cn.energy.api.RetrofitApi;
 import tties.cn.energy.api.RetrofitApiPub;
 import tties.cn.energy.base.BasePresenter;
 import tties.cn.energy.model.IModel.Data_NoModel;
@@ -70,6 +71,43 @@ public class Data_NoPresenter extends BasePresenter<IData_NoView>  {
                     }
                 });
 
+    }
+    public void getAllElectricityData() {
+
+        Map<String,Object> map=new HashMap<>();
+        map.put("userName","test");
+        map.put("password","E10ADC3949BA59ABBE56E057F20F883E");
+        map.put("objId","1486535776800");
+        map.put("objType",1);
+        RetrofitApi.getServer().getAllElectricity(map)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io()).subscribe(new Observer<AllElectricitybean>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(AllElectricitybean value) {
+                if(value!=null){
+                    Log.i(TAG, "onNext: "+value.getMeterList().size());
+                    view.setAllElectricity(value);
+                }else{
+                    Log.i(TAG, "onError: "+"数据有误");
+                }
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.i(TAG, "onError: "+e.getMessage());
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
     }
 
 

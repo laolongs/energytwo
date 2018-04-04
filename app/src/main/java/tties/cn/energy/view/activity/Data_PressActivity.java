@@ -31,6 +31,7 @@ import tties.cn.energy.model.result.AllElectricitybean;
 import tties.cn.energy.model.result.Data_Pressbean;
 import tties.cn.energy.presenter.Data_PressPresenter;
 import tties.cn.energy.utils.StringUtil;
+import tties.cn.energy.utils.ToastUtil;
 import tties.cn.energy.view.dialog.BottomStyleDialog;
 import tties.cn.energy.view.iview.IData_PressView;
 
@@ -67,16 +68,8 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
 //        YAxis axisLeft = dataPressChart2.getAxisLeft();
 //        axisLeft.setLabelCount(6);
         mPresenter.getData_PressData(1);
-        initAllElectric();
+        mPresenter.getAllElectricityData();
         initView();
-    }
-
-    private void initAllElectric() {
-        AllElectricitySend send=new AllElectricitySend();
-        AllElectricitybean allElectricityData = send.getAllElectricityData();
-        if(allElectricityData!=null){
-            dialog=new BottomStyleDialog(Data_PressActivity.this,allElectricityData);
-        }
     }
 
     private void initView() {
@@ -203,10 +196,19 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
 
     }
 
-//    @Override
-//    public void setAllElectricitySend(AllElectricitybean allElectricitySend) {
-//        dialog=new BottomStyleDialog(Data_PressActivity.this,allElectricitySend);
-//    }
+    @Override
+    public void setAllElectricity(final AllElectricitybean allElectricitybean) {
+        dialog=new BottomStyleDialog(Data_PressActivity.this,allElectricitybean);
+        dialog.setCliekAllElectricity(new BottomStyleDialog.OnCliekAllElectricity() {
+            @Override
+            public void OnCliekAllElectricityListener(int poaiton) {
+                long meterId = allElectricitybean.getMeterList().get(poaiton).getMeterId();
+                ToastUtil.showShort(Data_PressActivity.this,""+meterId);
+            }
+        });
+    }
+
+
     public static float minuteParse(String duration) {
         float allnumber = Float.parseFloat(duration);//1640
         float minute = allnumber * 60 ;

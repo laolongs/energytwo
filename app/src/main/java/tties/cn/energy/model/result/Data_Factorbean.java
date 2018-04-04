@@ -3,13 +3,12 @@ package tties.cn.energy.model.result;
 import java.util.List;
 
 /**
- * Created by li on 2018/3/30
- * description：电量数据
+ * Created by li on 2018/4/4
+ * description：
  * author：guojlli
  */
 
-public class Data_Electricbean {
-
+public class Data_Factorbean {
     private List<DataListBean> dataList;
 
     public List<DataListBean> getDataList() {
@@ -24,10 +23,10 @@ public class Data_Electricbean {
         /**
          * meterId : 1486536312217
          * freezeTime : 2017-02-20 00:00:00
-         * a : 11884
-         * b : 92
-         * c : 0
-         * d : 0
+         * a : null
+         * b : null
+         * c : null
+         * d : 0.988
          * dm : 0
          * max : 0
          * maxTime : null
@@ -44,10 +43,10 @@ public class Data_Electricbean {
 
         private long meterId;
         private String freezeTime;
-        private int a;
-        private int b;
-        private int c;
-        private int d;
+        private Object a;
+        private Object b;
+        private Object c;
+        private double d;
         private int dm;
         private int max;
         private Object maxTime;
@@ -77,35 +76,35 @@ public class Data_Electricbean {
             this.freezeTime = freezeTime;
         }
 
-        public int getA() {
+        public Object getA() {
             return a;
         }
 
-        public void setA(int a) {
+        public void setA(Object a) {
             this.a = a;
         }
 
-        public int getB() {
+        public Object getB() {
             return b;
         }
 
-        public void setB(int b) {
+        public void setB(Object b) {
             this.b = b;
         }
 
-        public int getC() {
+        public Object getC() {
             return c;
         }
 
-        public void setC(int c) {
+        public void setC(Object c) {
             this.c = c;
         }
 
-        public int getD() {
+        public double getD() {
             return d;
         }
 
-        public void setD(int d) {
+        public void setD(double d) {
             this.d = d;
         }
 

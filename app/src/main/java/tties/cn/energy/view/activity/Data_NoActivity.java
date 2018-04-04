@@ -2,6 +2,7 @@ package tties.cn.energy.view.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -29,6 +30,8 @@ import tties.cn.energy.model.result.AllElectricitybean;
 import tties.cn.energy.model.result.Data_Nobean;
 import tties.cn.energy.presenter.Data_NoPresenter;
 import tties.cn.energy.utils.StringUtil;
+import tties.cn.energy.utils.ToastUtil;
+import tties.cn.energy.view.adapter.StyleAdapter;
 import tties.cn.energy.view.dialog.BottomStyleDialog;
 import tties.cn.energy.view.iview.IData_NoView;
 
@@ -57,22 +60,16 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
     @BindView(R.id.data_no_allelectric)
     LinearLayout dataNoAllelectric;
     private BottomStyleDialog dialog;
+    AllElectricitybean allElectricitybean;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
         mPresenter.getData_NoData(0);
-        initAllElectric();
+        mPresenter.getAllElectricityData();
         initView();
     }
 
-    private void initAllElectric() {
-        AllElectricitySend send=new AllElectricitySend();
-        AllElectricitybean allElectricityData = send.getAllElectricityData();
-        if(allElectricityData!=null){
-            dialog=new BottomStyleDialog(Data_NoActivity.this,allElectricityData);
-        }
-    }
 
     private void initView() {
         toolbarText.setText("电流不平衡");
@@ -105,14 +102,15 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
 
             @Override
             public void onClick(View view) {
-
                 if(dialog!=null){
                     dialog.show();
                 }
 
-//                ToastUtil.showShort(Data_PressActivity.this,""+dialog.getOnclickItem());
+//                ToastUtil.showShort(Data_NoActivity.this,"");
             }
         });
+
+
     }
 
     @Override
@@ -188,4 +186,16 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
         }
     }
 
+    @Override
+    public void setAllElectricity(final AllElectricitybean allElectricitybean) {
+//        this.allElectricitybean=allElectricitybean;
+        dialog=new BottomStyleDialog(Data_NoActivity.this,allElectricitybean);
+        dialog.setCliekAllElectricity(new BottomStyleDialog.OnCliekAllElectricity() {
+            @Override
+            public void OnCliekAllElectricityListener(int poaiton) {
+                long meterId = allElectricitybean.getMeterList().get(poaiton).getMeterId();
+                ToastUtil.showShort(Data_NoActivity.this,""+meterId);
+            }
+        });
+    }
 }

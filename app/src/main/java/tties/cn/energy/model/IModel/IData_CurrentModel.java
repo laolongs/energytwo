@@ -3,12 +3,13 @@ package tties.cn.energy.model.IModel;
 import tties.cn.energy.api.Api;
 
 /**
- * Created by li on 2018/3/27
+ * Created by li on 2018/4/4
  * description：
  * author：guojlli
  */
 
-public interface IData_PressModel {
-    public Api getData_PressData();
+public interface IData_CurrentModel {
+    public Api getData_CurrentData();
+    public Api getData_CurrentPressData();
     public Api getAllElectricity();
 }

@@ -1,6 +1,5 @@
 package tties.cn.energy.model.result;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,15 +9,17 @@ import java.util.List;
  */
 
 public class AllElectricitybean {
+
+
     /**
      * ledgerId : 1486535776800
      * ledgerName : 南洋印染
-     * meterList : [{"meterId":1486536454743,"meterName":"南洋1#主变室"},{"meterId":1486536481282,"meterName":"南洋2#主变室"},{"meterId":1486536421895,"meterName":"南洋3#主变室"},{"meterId":1486536395204,"meterName":"南洋4#主变室"},{"meterId":1486536312217,"meterName":"南洋5#主变室"},{"meterId":1486536361594,"meterName":"南洋6#主变室"}]
+     * meterList : [{"meterName":"南洋1车间","meterId":1486536312217},{"meterName":"南洋2车间","meterId":1486536454743},{"meterName":"南洋3车间","meterId":1486536361594},{"meterName":"南洋4车间","meterId":1486536481282},{"meterName":"南洋5车间","meterId":1486536395204},{"meterName":"南洋6车间","meterId":1486536421895}]
      */
 
     private long ledgerId;
     private String ledgerName;
-    private List<MeterListBean> meterList=new ArrayList<>();
+    private List<MeterListBean> meterList;
 
     public long getLedgerId() {
         return ledgerId;
@@ -46,20 +47,12 @@ public class AllElectricitybean {
 
     public static class MeterListBean {
         /**
-         * meterId : 1486536454743
-         * meterName : 南洋1#主变室
+         * meterName : 南洋1车间
+         * meterId : 1486536312217
          */
 
-        private long meterId;
         private String meterName;
-
-        public long getMeterId() {
-            return meterId;
-        }
-
-        public void setMeterId(long meterId) {
-            this.meterId = meterId;
-        }
+        private long meterId;
 
         public String getMeterName() {
             return meterName;
@@ -67,6 +60,14 @@ public class AllElectricitybean {
 
         public void setMeterName(String meterName) {
             this.meterName = meterName;
+        }
+
+        public long getMeterId() {
+            return meterId;
+        }
+
+        public void setMeterId(long meterId) {
+            this.meterId = meterId;
         }
     }
 }

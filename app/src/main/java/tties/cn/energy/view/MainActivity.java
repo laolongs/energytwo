@@ -48,7 +48,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainVi
         super.onCreate(savedInstanceState);
         bind = ButterKnife.bind(this);
         initView();
-//        checkVersion();
+        checkVersion();
     }
 
     private void initView() {
