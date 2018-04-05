@@ -9,6 +9,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 import tties.cn.energy.model.result.AllElectricitybean;
+import tties.cn.energy.model.result.DataFragmentbean;
 import tties.cn.energy.model.result.Data_CurrentPressbean;
 import tties.cn.energy.model.result.Data_Currentbean;
 import tties.cn.energy.model.result.Data_Electricbean;
@@ -17,7 +18,12 @@ import tties.cn.energy.model.result.Data_HaveKwbean;
 import tties.cn.energy.model.result.Data_NoKvarbean;
 import tties.cn.energy.model.result.Data_Nobean;
 import tties.cn.energy.model.result.Data_Pressbean;
+import tties.cn.energy.model.result.Databean;
 import tties.cn.energy.model.result.Discussbean;
+import tties.cn.energy.model.result.EnergyFragmentbean;
+import tties.cn.energy.model.result.Energy_BaseEnergybean;
+import tties.cn.energy.model.result.Energy_BasePlanbean;
+import tties.cn.energy.model.result.Energy_TransformerListbean;
 import tties.cn.energy.model.result.Loginbean;
 import tties.cn.energy.model.result.OpsLoginbean;
 import tties.cn.energy.model.result.Opsbean;
@@ -42,6 +48,26 @@ public interface Api {
     @POST("AddAdvice.do")
     @FormUrlEncoded
     Observable<Discussbean> getdiscuss(@FieldMap Map<String,Object> map);
+    //能效
+    @POST("getScoreRank.htm")
+    @FormUrlEncoded
+    Observable<EnergyFragmentbean> getEnergyFragment(@FieldMap Map<String,Object> map);
+    //报装方案
+    @POST("queryDeclareScheme.htm")
+    @FormUrlEncoded
+    Observable<Energy_BasePlanbean> getEnergy_BasePlan(@FieldMap Map<String,Object> map);
+    //变压器列表  运维
+    @POST("getBindTransformer.do")
+    @FormUrlEncoded
+    Observable<Energy_TransformerListbean> getEnergy_TransformerList(@FieldMap Map<String,Object> map);
+    //电力数据
+    @POST("queryMonthCostData.htm")
+    @FormUrlEncoded
+    Observable<DataFragmentbean> getDataFragemet(@FieldMap Map<String,Object> map);
+    //电费数据  //基本电费优化
+    @POST("queryMonthElectricity.htm")
+    @FormUrlEncoded
+    Observable<Databean> getData(@FieldMap Map<String,Object> map);
     //电量数据
     @POST("queryMonthData.htm")
     @FormUrlEncoded

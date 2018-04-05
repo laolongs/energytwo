@@ -3,6 +3,7 @@ package tties.cn.energy.view.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.AppCompatRatingBar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,8 @@ import butterknife.Unbinder;
 import tties.cn.energy.R;
 import tties.cn.energy.base.BaseFragment;
 import tties.cn.energy.common.CircleProgressBar;
-import tties.cn.energy.presenter.MainPresenter;
+import tties.cn.energy.model.result.EnergyFragmentbean;
+import tties.cn.energy.presenter.EnergyFragmentPresenter;
 import tties.cn.energy.utils.ToastUtil;
 import tties.cn.energy.view.activity.Energy_BaseenergyActivity;
 import tties.cn.energy.view.activity.Energy_ElectricalActivity;
@@ -25,6 +27,7 @@ import tties.cn.energy.view.activity.Energy_EnergyActivity;
 import tties.cn.energy.view.activity.Energy_ForceActivity;
 import tties.cn.energy.view.activity.Energy_OpsActivity;
 import tties.cn.energy.view.activity.Energy_TransformerActivity;
+import tties.cn.energy.view.iview.IEnergyFragmentView;
 
 /**
  * Created by li on 2018/3/21
@@ -32,7 +35,7 @@ import tties.cn.energy.view.activity.Energy_TransformerActivity;
  * author：guojlli
  */
 
-public class EnergyFragment extends BaseFragment<MainPresenter> implements View.OnClickListener {
+public class EnergyFragment extends BaseFragment<EnergyFragmentPresenter> implements View.OnClickListener, IEnergyFragmentView {
     @BindView(R.id.tasks_view)
     CircleProgressBar tasksView;
     Unbinder unbinder;
@@ -42,8 +45,6 @@ public class EnergyFragment extends BaseFragment<MainPresenter> implements View.
     TextView toolbarText;
     @BindView(R.id.energy_usermark)
     TextView energyUsermark;
-    @BindView(R.id.energy_bar)
-    RatingBar energyBar;
     @BindView(R.id.energy_baseenergy)
     LinearLayout energyBaseenergy;
     @BindView(R.id.energy_electrical)
@@ -56,6 +57,8 @@ public class EnergyFragment extends BaseFragment<MainPresenter> implements View.
     LinearLayout energyEnergy;
     @BindView(R.id.energy_transformer)
     LinearLayout energyTransformer;
+    @BindView(R.id.energy_bar)
+    AppCompatRatingBar energyBar;
 
     @Nullable
     @Override
@@ -63,7 +66,6 @@ public class EnergyFragment extends BaseFragment<MainPresenter> implements View.
         super.onCreateView(inflater, container, savedInstanceState);
         View inflate = inflater.inflate(R.layout.fragment_energy, null);
         unbinder = ButterKnife.bind(this, inflate);
-        tasksView.setProgress(35);
         energyBaseenergy.setOnClickListener(this);
         energyElectrical.setOnClickListener(this);
         energyForce.setOnClickListener(this);
@@ -75,18 +77,19 @@ public class EnergyFragment extends BaseFragment<MainPresenter> implements View.
     }
 
     private void initView() {
+        mPresenter.getEnergyFragment();
         toolbarText.setText("电力能效");
-        energyBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
-                ToastUtil.showShort(getActivity(),String.format(""+v,b?1:0) );
-            }
-        });
+//        energyBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+//            @Override
+//            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+//                ToastUtil.showShort(getActivity(), String.format("" + v, b ? 1 : 0));
+//            }
+//        });
     }
 
     @Override
     protected void createPresenter() {
-
+        mPresenter = new EnergyFragmentPresenter(this);
     }
 
     @Override
@@ -98,40 +101,44 @@ public class EnergyFragment extends BaseFragment<MainPresenter> implements View.
     @Override
     public void onClick(View view) {
         Intent intent;
-        switch (view.getId()){
+        switch (view.getId()) {
 //            基本电量优化
             case R.id.energy_baseenergy:
-                intent=new Intent(getActivity(), Energy_BaseenergyActivity.class);
+                intent = new Intent(getActivity(), Energy_BaseenergyActivity.class);
                 startActivity(intent);
                 break;
 //            电度电量优化
             case R.id.energy_electrical:
-                intent=new Intent(getActivity(), Energy_ElectricalActivity.class);
+                intent = new Intent(getActivity(), Energy_ElectricalActivity.class);
                 startActivity(intent);
                 break;
 //            力调电费优化
             case R.id.energy_force:
-                intent=new Intent(getActivity(), Energy_ForceActivity.class);
+                intent = new Intent(getActivity(), Energy_ForceActivity.class);
                 startActivity(intent);
                 break;
-                //变压器优化
+            //变压器优化
             case R.id.energy_transformer:
-                intent=new Intent(getActivity(), Energy_TransformerActivity.class);
+                intent = new Intent(getActivity(), Energy_TransformerActivity.class);
                 startActivity(intent);
                 break;
-                //运维月报
+            //运维月报
             case R.id.energy_ops:
-                intent=new Intent(getActivity(), Energy_OpsActivity.class);
+                intent = new Intent(getActivity(), Energy_OpsActivity.class);
                 startActivity(intent);
                 break;
-                //能效月报
+            //能效月报
             case R.id.energy_energy:
-                intent=new Intent(getActivity(), Energy_EnergyActivity.class);
+                intent = new Intent(getActivity(), Energy_EnergyActivity.class);
                 startActivity(intent);
                 break;
-
-
-
         }
+    }
+
+    @Override
+    public void setEnergyFragmentData(EnergyFragmentbean bean) {
+        energyBar.setRating((float) bean.getStartScore() / 20);
+        tasksView.setProgress(bean.getTotalScore());
+        energyUsermark.setText(bean.getRank() + "%");
     }
 }

@@ -56,4 +56,5 @@ public class Questions_discussFragment extends Fragment {
         super.onDestroyView();
         unbinder.unbind();
     }
+
 }

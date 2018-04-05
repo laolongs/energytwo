@@ -13,7 +13,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="4"
+            android:layout_weight="5"
             android:background="@mipmap/bg_identity"
             android:gravity="center_horizontal"
             android:orientation="vertical">
@@ -28,18 +28,37 @@
                    android:layout_width="120dp"
                    android:layout_height="120dp"
                    app:radius="50dip"
-                   app:ringColor="#BEDCFE"
+                   app:ringColor="#649EE3"
                    app:strokeWidth="10dip"/>
-
             </LinearLayout>
-            <TextView
-                android:id="@+id/energy_usermark"
-                android:layout_marginTop="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="17sp"
-                android:textColor="@color/white"
-                android:text="您目前击败了14%的同行用户！"/>
+            <LinearLayout
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="17sp"
+                    android:textColor="@color/white"
+                    android:text="您目前击败了"/>
+                <TextView
+                    android:id="@+id/energy_usermark"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="17sp"
+                    android:textColor="@color/white"
+                    android:text="14%"/>
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="17sp"
+                    android:textColor="@color/white"
+                    android:text="的同行用户！"/>
+            </LinearLayout>
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -47,10 +66,13 @@
             android:orientation="vertical"
             android:layout_height="0dp"
             android:layout_weight="2">
-            <RatingBar
+            <android.support.v7.widget.AppCompatRatingBar
                 android:id="@+id/energy_bar"
-                android:numStars="5"
-                android:stepSize="1"
+                android:rating="5"
+                android:isIndicator="false"
+                style="?attr/radioButtonStyle"
+                android:progressTint="#C4E8F4"
+                android:secondaryProgressTint="#88CAEB"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView

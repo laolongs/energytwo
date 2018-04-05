@@ -1,23 +1,20 @@
 package tties.cn.energy.view.activity;
 
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.data.Entry;
+import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
 import com.jzxiang.pickerview.listener.OnDateSetListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -25,21 +22,25 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import tties.cn.energy.R;
 import tties.cn.energy.base.BaseActivity;
-import tties.cn.energy.presenter.MainPresenter;
+import tties.cn.energy.chart.LineDataChart;
+import tties.cn.energy.model.result.AllElectricitybean;
+import tties.cn.energy.model.result.Databean;
+import tties.cn.energy.presenter.DataPresenter;
+import tties.cn.energy.utils.StringUtil;
+import tties.cn.energy.utils.ToastUtil;
+import tties.cn.energy.view.dialog.BottomStyleDialog;
 import tties.cn.energy.view.dialog.MyPopupWindow;
-import tties.cn.energy.view.iview.IMainView;
+import tties.cn.energy.view.iview.IDataView;
 
 /**
  * 电费数据
  */
-public class DataActivity extends BaseActivity<MainPresenter> implements IMainView, View.OnClickListener {
+public class DataActivity extends BaseActivity<DataPresenter> implements View.OnClickListener, IDataView {
 
     @BindView(R.id.toolbar_left)
     ImageView toolbarLeft;
     @BindView(R.id.toolbar_text)
     TextView toolbarText;
-    @BindView(R.id.data_toolbar)
-    Toolbar dataToolbar;
     @BindView(R.id.data_time)
     LinearLayout dataTime;
     @BindView(R.id.data_allelectric)
@@ -54,8 +55,20 @@ public class DataActivity extends BaseActivity<MainPresenter> implements IMainVi
     ImageView dataChargeImg3;
     @BindView(R.id.data_charge_img4)
     ImageView dataChargeImg4;
+    @BindView(R.id.data_all_charge)
+    TextView dataAllCharge;
+    @BindView(R.id.data_base_charge)
+    TextView dataBaseCharge;
+    @BindView(R.id.data_year_charge)
+    TextView dataYearCharge;
+    @BindView(R.id.data_forces_charge)
+    TextView dataForcesCharge;
+    @BindView(R.id.data_chart)
+    LineDataChart dataChart;
     private PopupWindow mCurPopupWindow;
     private MyPopupWindow popupWindow;
+    private BottomStyleDialog dialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,10 +84,19 @@ public class DataActivity extends BaseActivity<MainPresenter> implements IMainVi
 
     private void initView() {
         toolbarText.setText("电费数据");
+        toolbarLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+        mPresenter.getData();
+        mPresenter.getchartData();
+        mPresenter.getAllElectricityData();
         dataTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                com.jzxiang.pickerview.TimePickerDialog dialogYearMonth = new com.jzxiang.pickerview.TimePickerDialog.Builder()
+                TimePickerDialog dialogYearMonth = new TimePickerDialog.Builder()
                         .setType(Type.YEAR_MONTH)
                         .setTitleStringId("选择月份")
                         .setThemeColor(R.color.home_btn_lightblue)
@@ -84,15 +106,15 @@ public class DataActivity extends BaseActivity<MainPresenter> implements IMainVi
                         .setWheelItemTextSelectorColor(getResources().getColor(R.color.black))
                         .setCallBack(new OnDateSetListener() {
                             @Override
-                            public void onDateSet(com.jzxiang.pickerview.TimePickerDialog timePickerView, long millseconds) {
+                            public void onDateSet(TimePickerDialog timePickerView, long millseconds) {
                                 Date date = new Date(millseconds);
                                 SimpleDateFormat format = new SimpleDateFormat("yyyy年MM日");
-                                String time= format.format(date);
+                                String time = format.format(date);
                                 dataTimeTv.setText(time);
                             }
                         })
                         .build();
-                        dialogYearMonth.show(getSupportFragmentManager(), "年_月");
+                dialogYearMonth.show(getSupportFragmentManager(), "年_月");
 
             }
         });
@@ -100,24 +122,21 @@ public class DataActivity extends BaseActivity<MainPresenter> implements IMainVi
         dataAllelectric.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (dialog != null) {
+                    dialog.show();
+                }
             }
         });
     }
 
     @Override
     protected void createPresenter() {
-
+        mPresenter = new DataPresenter(this);
     }
 
     @Override
     protected int getLayoutId() {
         return R.layout.activity_data;
-    }
-
-    @Override
-    public void setViewPageData(List<View> list) {
-
     }
 
     @Override
@@ -128,9 +147,10 @@ public class DataActivity extends BaseActivity<MainPresenter> implements IMainVi
             super.onBackPressed();
         }
     }
+
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.data_charge_img1:
 
                 popupWindow.showTipPopupWindow(dataChargeImg1, new View.OnClickListener() {
@@ -168,4 +188,43 @@ public class DataActivity extends BaseActivity<MainPresenter> implements IMainVi
         }
     }
 
+    @Override
+    public void setDataData(Databean bean) {
+        //总电费
+        dataAllCharge.setText(bean.getDataList().get(0).getTotalSum()+"");
+        //基本电费
+        dataBaseCharge.setText(bean.getDataList().get(0).getBaseSum()+"");
+        //年度电费
+        dataYearCharge.setText(bean.getDataList().get(0).getFeeSum()+"");
+        //力调电费
+        dataForcesCharge.setText(bean.getDataList().get(0).getFouceSum()+"");
+    }
+
+    @Override
+    public void setDataChartData(Databean bean) {
+        ArrayList<Entry> values = new ArrayList<>();
+        List<String> listDate = new ArrayList<String>();
+        for (int i = 0; i < bean.getDataList().size(); i++) {
+            Entry entry = new Entry(i, 0f);
+            entry.setY((float) bean.getDataList().get(i).getCost());
+            values.add(entry);
+            String[] split = StringUtil.split(bean.getDataList().get(i).getBaseDate(), "-");
+            listDate.add(split[1]);
+        }
+        dataChart.setDataSet(values, "");
+        dataChart.setDayXAxis(listDate);
+        dataChart.loadChart();
+    }
+
+    @Override
+    public void setAllElectricity(final AllElectricitybean allElectricitybean) {
+        dialog = new BottomStyleDialog(DataActivity.this, allElectricitybean);
+        dialog.setCliekAllElectricity(new BottomStyleDialog.OnCliekAllElectricity() {
+            @Override
+            public void OnCliekAllElectricityListener(int poaiton) {
+                long meterId = allElectricitybean.getMeterList().get(poaiton).getMeterId();
+                ToastUtil.showShort(DataActivity.this, "" + meterId);
+            }
+        });
+    }
 }

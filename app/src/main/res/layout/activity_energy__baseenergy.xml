@@ -10,15 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <android.support.v7.widget.Toolbar
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
-            style="@style/toolbar"
-            app:layout_scrollFlags="scroll|enterAlways">
-            <TextView android:id="@+id/energy_toolbar_text"
-                style="@style/toolbar_center"/>
-        </android.support.v7.widget.Toolbar>
+       <include layout="@layout/toobar"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -63,6 +55,7 @@
             android:background="@drawable/selector_layout">
 
             <TextView
+                android:id="@+id/energy_base_kva"
                 android:gravity="center"
                 android:layout_weight="1"
                 android:layout_gravity="center"
@@ -72,6 +65,7 @@
                 android:textSize="20sp"
                 android:text="1500kVA" />
             <TextView
+                android:id="@+id/energy_base_type"
                 android:gravity="center"
                 android:layout_weight="1"
                 android:layout_gravity="center"
@@ -81,6 +75,7 @@
                 android:textSize="20sp"
                 android:text="容量" />
             <TextView
+                android:id="@+id/energy_base_price"
                 android:gravity="center"
                 android:layout_weight="1"
                 android:layout_gravity="center"
@@ -92,43 +87,8 @@
         </LinearLayout>
         <View
             style="@style/cut_off_line_1dp"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:background="@drawable/selector_layout">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="3"/>
-            <TextView
-                android:layout_weight="1"
-                android:layout_gravity="center"
-                style="@style/identity_textview"
-                android:text="选择年度" />
-            <TextView
-                android:layout_weight="1"
-                android:layout_gravity="center"
-                style="@style/identity_textview"
-                android:text="2018年" />
-            <ImageView
-                android:src="@mipmap/arrows"
-                android:background="@color/black"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                />
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="4"/>
-        </LinearLayout>
 
 
-        <View
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            style="@style/cut_off_line_1dp"/>
         <LinearLayout
             android:layout_height="60dp"
             android:layout_width="match_parent"
@@ -149,6 +109,7 @@
                     android:layout_marginLeft="24dp"
                     android:text="本月最大需量"/>
                 <TextView
+                    android:id="@+id/energy_base_monthmax"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="24dp"
@@ -161,15 +122,57 @@
                 android:gravity="center_vertical"
                 android:layout_height="match_parent">
                 <TextView
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="发生时间"/>
                 <TextView
+                    android:id="@+id/energy_base_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="2017-11-01  12：07"/>
             </LinearLayout>
+        </LinearLayout>
+        <View
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            style="@style/cut_off_line_1dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:background="@drawable/selector_layout">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"/>
+            <TextView
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                style="@style/identity_textview"
+                android:text="选择年度" />
+            <LinearLayout
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+                <TextView
+                    android:layout_gravity="center"
+                    style="@style/identity_textview"
+                    android:text="2018年" />
+                <ImageView
+                    android:id="@+id/energy_base_select"
+                    android:src="@mipmap/arrows"
+                    android:background="@color/black"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"/>
         </LinearLayout>
 
 
@@ -182,6 +185,7 @@
             android:layout_height="200dp"
             android:orientation="vertical">
             <tties.cn.energy.chart.LineDataChart
+                android:id="@+id/energy_base_chart"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -247,6 +251,7 @@
                     android:layout_height="wrap_content"
                     android:text="报装容量"/>
                 <TextView
+                    android:id="@+id/energy_base_plan_kw1"
                     android:layout_alignParentRight="true"
                     android:layout_below="@+id/en_tv3"
                     android:layout_width="wrap_content"
@@ -268,6 +273,7 @@
                     android:layout_height="wrap_content"
                     android:text="全年基本容量"/>
                 <TextView
+                    android:id="@+id/energy_base_plan_allprice1"
                     android:layout_alignParentRight="true"
                     android:layout_below="@+id/en_tv4"
                     android:layout_width="wrap_content"
@@ -325,6 +331,7 @@
                     android:layout_height="wrap_content"
                     android:text="容量"/>
                 <TextView
+                    android:id="@+id/energy_base_plan_kw2"
                     android:layout_alignParentRight="true"
                     android:layout_below="@+id/en_tv5"
                     android:layout_width="wrap_content"
@@ -346,6 +353,7 @@
                     android:layout_height="wrap_content"
                     android:text="全年基本容量"/>
                 <TextView
+                    android:id="@+id/energy_base_plan_allprice2"
                     android:layout_alignParentRight="true"
                     android:layout_below="@+id/en_tv6"
                     android:layout_width="wrap_content"
@@ -404,6 +412,7 @@
                     android:layout_height="wrap_content"
                     android:text="最大需量"/>
                 <TextView
+                    android:id="@+id/energy_base_plan_kw3"
                     android:layout_alignParentRight="true"
                     android:layout_below="@+id/en_tv1"
                     android:layout_width="wrap_content"
@@ -425,6 +434,7 @@
                     android:layout_height="wrap_content"
                     android:text="全年基本电费"/>
                 <TextView
+                    android:id="@+id/energy_base_plan_allprice3"
                     android:layout_alignParentRight="true"
                     android:layout_below="@+id/en_tv2"
                     android:layout_width="wrap_content"

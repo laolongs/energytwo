@@ -9,16 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <android.support.v7.widget.Toolbar
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:id="@+id/electrical_toolbar"
-            style="@style/toolbar"
-            app:layout_scrollFlags="scroll|enterAlways">
-            <TextView android:id="@+id/data_toolbar_text"
-                style="@style/toolbar_center"/>
-        </android.support.v7.widget.Toolbar>
+        <include
+            layout="@layout/toobar"/>
         <RelativeLayout
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
@@ -44,6 +36,7 @@
                         android:text="上月用电比例"
                        />
                     <TextView
+                        android:id="@+id/enerey_electrical_month"
                         android:layout_marginTop="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -87,15 +80,20 @@
                         android:layout_weight="1"
                         android:orientation="horizontal"
                         android:layout_height="match_parent">
-                        <ImageView
-                            android:background="#FFCA57"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp" />
                         <TextView
+                            android:gravity="center"
+                            android:background="@drawable/energy_cusp_text_shop"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:textColor="@color/white"
+                            android:text="尖"/>
+                        <TextView
+                            android:id="@+id/enerey_electrical_cusp"
+                            android:textColor="@color/white"
                             android:layout_marginLeft="5dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="123124度"/>
+                            android:text="0度"/>
                     </LinearLayout>
                     <LinearLayout
                         android:gravity="center"
@@ -103,15 +101,21 @@
                         android:layout_weight="1"
                         android:orientation="horizontal"
                         android:layout_height="match_parent">
-                        <ImageView
-                            android:background="#74BDFF"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp" />
+                        <!--android:background="#74BDFF"-->
                         <TextView
+                            android:gravity="center"
+                            android:background="@drawable/energy_hight_text_shop"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:textColor="@color/white"
+                            android:text="高"/>
+                        <TextView
+                            android:id="@+id/enerey_electrical_hight"
+                            android:textColor="@color/white"
                             android:layout_marginLeft="5dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="123124度"/>
+                            android:text="0度"/>
                     </LinearLayout>
                     <LinearLayout
                         android:gravity="center"
@@ -120,15 +124,20 @@
                         android:layout_marginRight="10dp"
                         android:orientation="horizontal"
                         android:layout_height="match_parent">
-                        <ImageView
-                            android:background="#6BE96A"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp" />
                         <TextView
+                            android:gravity="center"
+                            android:background="@drawable/energy_low_text_shop"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:textColor="@color/white"
+                            android:text="低"/>
+                        <TextView
+                            android:id="@+id/enerey_electrical_low"
                             android:layout_marginLeft="5dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="123124度"/>
+                            android:textColor="@color/white"
+                            android:text="0度"/>
                     </LinearLayout>
                 </LinearLayout>
             </RelativeLayout>
@@ -204,6 +213,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content" />
             <TextView
+                android:id="@+id/enerey_electrical_kva"
                 android:gravity="center"
                 android:layout_weight="6"
                 android:layout_width="0dp"
@@ -217,6 +227,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content" />
             <TextView
+                android:id="@+id/enerey_electrical_price"
                 android:gravity="center"
                 android:layout_weight="6"
                 android:layout_width="0dp"
@@ -245,7 +256,7 @@
                 android:layout_width="0dp"
                 android:gravity="center"
                 android:textColor="@color/black"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:layout_height="wrap_content"
                 android:text="历史趋势"/>
             <TextView
@@ -274,6 +285,7 @@
 
                 />
             <ImageView
+                android:id="@+id/enerey_electrical_select"
                 android:layout_marginRight="24dp"
                 android:background="@color/black"
                 android:src="@mipmap/arrows"
@@ -284,13 +296,14 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="230dp"
             android:orientation="vertical">
                 <tties.cn.energy.chart.LineDataChart
+                    android:id="@+id/enerey_electrical_chart"
                     android:layout_marginTop="10dp"
                     android:layout_below="@+id/electrical_r2"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="200dp"
                     android:padding="12dp" >
                 </tties.cn.energy.chart.LineDataChart>
         </LinearLayout>
