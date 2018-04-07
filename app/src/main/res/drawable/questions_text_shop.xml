@@ -7,10 +7,10 @@
     <corners android:radius="24dip" />
     <!-- padding：Button里面的文字与Button边界的间隔 -->
     <padding
-        android:bottom="2dp"
-        android:left="2dp"
-        android:right="2dp"
-        android:top="2dp" />
+        android:bottom="0dp"
+        android:left="@dimen/y4"
+        android:right="@dimen/y4"
+        android:top="0dp" />
     <solid
         android:color="@color/gray"/>
     <stroke

@@ -216,7 +216,7 @@ public class QuestionsActivity extends BaseActivity<QuestionsPresenter> implemen
     @Override
     public void setQuestionDiscussData(Discussbean discussbean) {
         if (discussbean.getErrorCode() == 0) {
-//            mPresenter.getQuestion(questionId);
+            mPresenter.getQuestion(questionId);
             ToastUtil.showShort(QuestionsActivity.this, "回复成功");
         } else {
             ToastUtil.showShort(QuestionsActivity.this, "回复失败");

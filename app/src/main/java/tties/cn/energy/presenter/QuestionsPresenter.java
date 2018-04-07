@@ -54,7 +54,7 @@ public class QuestionsPresenter extends BasePresenter<IQuestionsView> {
         map.put("pagesize",10);
         map.put("pagenum",1);
         map.put("questionId",questionId);
-        model.getQuestionsData().getOps(map).observeOn(AndroidSchedulers.mainThread())
+        model.getQuestionsData().getOpsQuertion(map).observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<Opsbean>() {
                     @Override

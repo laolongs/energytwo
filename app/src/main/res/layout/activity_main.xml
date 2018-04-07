@@ -18,8 +18,8 @@
         android:id="@+id/main_rg"
         android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:paddingTop="5dp"
+        android:layout_height="@dimen/y50"
+        android:paddingTop="@dimen/y6"
         android:orientation="horizontal"
         >
         <RadioButton

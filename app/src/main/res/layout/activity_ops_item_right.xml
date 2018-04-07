@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-
    >
     <LinearLayout
         android:id="@+id/ops_item_ll"
@@ -14,39 +13,44 @@
         android:layout_height="wrap_content">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="@dimen/x80"
             android:orientation="horizontal">
             <TextView
                 android:id="@+id/ops_item_title"
                 style="@style/ops_item_top_textview"
+                android:layout_weight="4"
                 android:text="显示异常报警，正常开启亮度不适，显示文字不清晰，时钟不正确，操作不灵活，屏幕屏保不正"
                 />
-            <ImageView
-                android:id="@+id/ops_item_img"
-                android:src="@mipmap/ops_cabinet_pending"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:gravity="center"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                />
+                android:layout_weight="1">
+                <ImageView
+                    android:id="@+id/ops_item_img"
+                    android:src="@mipmap/ops_cabinet_pending"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+            </LinearLayout>
+
         </LinearLayout>
         <View
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginTop="@dimen/x6"
+            android:layout_marginLeft="@dimen/x6"
             android:layout_marginRight="10dp"
             style="@style/cut_off_line_1dp"
           />
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="@dimen/x60"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/ops_item_time"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="@dimen/x10"
                 android:textColor="@color/gray"
                 android:text="2018年03月05日  18：20"
                 />
@@ -64,14 +68,14 @@
                         android:src="@mipmap/ops_location"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="@dimen/x10"
                         />
                     <TextView
-                        android:layout_marginLeft="3dp"
+                        android:layout_marginLeft="@dimen/x3"
                         android:id="@+id/ops_item_address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="1dp"
+                        android:layout_marginTop="@dimen/x2"
                         android:text="88#高压室"/>
                 </LinearLayout>
 
@@ -80,7 +84,7 @@
     </LinearLayout>
     <View
         android:layout_width="match_parent"
-        android:layout_height="9dp"
+        android:layout_height="@dimen/x2"
         android:background="@color/border"
         />
 </LinearLayout>

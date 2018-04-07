@@ -30,7 +30,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
         mActivity = getActivity();
         mContext = getActivity();
         createPresenter();
-//        mPresenter.attachView(this);
+        mPresenter.attachView(this);
     }
 
     protected abstract void createPresenter();

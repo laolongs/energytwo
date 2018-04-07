@@ -8,6 +8,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/btn_date_dwmy_normal"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp" />
+            android:layout_marginLeft="@dimen/y20"
+            android:layout_marginRight="@dimen/y20" />
 </RelativeLayout>

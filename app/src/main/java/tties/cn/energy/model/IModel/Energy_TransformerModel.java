@@ -12,7 +12,22 @@ import tties.cn.energy.api.RetrofitApiOps;
 
 public class Energy_TransformerModel implements IEnergy_TransformerModel {
     @Override
-    public Api getEnergy_TransformerData() {
+    public Api getEnergy_TransformerListData() {
+        return RetrofitApiOps.getServer();
+    }
+
+    @Override
+    public Api getEnergy_TransformerTemperatureData() {
+        return RetrofitApiOps.getServer();
+    }
+
+    @Override
+    public Api getEnergy_TransformerDamgeData() {
+        return RetrofitApiOps.getServer();
+    }
+
+    @Override
+    public Api getEnergy_TransformerVolumeData() {
         return RetrofitApiOps.getServer();
     }
 }

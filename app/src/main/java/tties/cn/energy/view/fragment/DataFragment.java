@@ -63,17 +63,21 @@ public class DataFragment extends BaseFragment<DataFragmentPresenter> implements
     Unbinder unbinder;
     @BindView(R.id.datafragment_time_tv)
     TextView datafragmentTimeTv;
-    @BindView(R.id.datafragment_chart)
-    LineDataChart datafragmentChart;
-    @BindView(R.id.datafragment_price)
+//    @BindView(R.id.datafragment_chart)
+//    LineDataChart datafragmentChart;
+//    @BindView(R.id.datafragment_price)
     TextView datafragmentPrice;
     int mYear;
     int mMonth;
+    private LineDataChart datafragmentChart;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View inflate = inflater.inflate(R.layout.fragment_data, null);
+        datafragmentChart = inflate.findViewById(R.id.datafragment_chart);
+        datafragmentPrice = inflate.findViewById(R.id.datafragment_price);
         unbinder = ButterKnife.bind(this, inflate);
         initView();
         dataCharge.setOnClickListener(this);
@@ -158,8 +162,11 @@ public class DataFragment extends BaseFragment<DataFragmentPresenter> implements
             entry.setY((float) bean.getDataList().get(i).getCost());
             values.add(entry);
         }
-        datafragmentChart.setDataSet(values, "");
-        datafragmentChart.loadChart();
-        datafragmentPrice.setText(bean.getDataList().get(0).getCost()+"");
+        if(values!=null){
+            datafragmentChart.setDataSet(values, "");
+            datafragmentChart.loadChart();
+            datafragmentPrice.setText(bean.getDataList().get(0).getCost()+"");
+        }
+
     }
 }

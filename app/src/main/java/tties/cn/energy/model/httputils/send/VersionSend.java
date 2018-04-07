@@ -37,24 +37,30 @@ public class VersionSend {
 
                   @Override
                   public void onNext(Versionbean versionbean) {
-                      try {
-                          Log.d(TAG, "检查新版本: " + versionbean);
-                          ACache.getInstance().put(Constants.CACHEE_VERSION, versionbean);
-                          EventBusBean bean = new EventBusBean();
-                          bean.setKind(EventKind.EVENT_VERSION_SYCN);
-                          EventBus.getDefault().post(bean);
-                      } catch (Exception e) {
-                          e.printStackTrace();
-                      } finally {
+                      if(versionbean!=null){
+                          try {
+                              Log.d(TAG, "检查新版本: " + versionbean);
+                              ACache.getInstance().put(Constants.CACHEE_VERSION, versionbean);
+                              EventBusBean bean = new EventBusBean();
+                              bean.setKind(EventKind.EVENT_VERSION_SYCN);
+                              EventBus.getDefault().post(bean);
+                          } catch (Exception e) {
+                              e.printStackTrace();
+                          } finally {
+                          }
+                      }else{
+                          Log.i(TAG, "onNext: "+"数据有误");
                       }
+
                   }
 
                   @Override
                   public void onError(Throwable e) {
-                      Log.d(TAG, "异常错误");
-                      EventBusBean bean = new EventBusBean();
-                      bean.setKind(EventKind.EVENT_VERSION_SYCN);
-                      EventBus.getDefault().post(bean);
+                      Log.i(TAG, "onError: "+e.getMessage());
+//                      Log.d(TAG, "异常错误");
+//                      EventBusBean bean = new EventBusBean();
+//                      bean.setKind(EventKind.EVENT_VERSION_SYCN);
+//                      EventBus.getDefault().post(bean);
                   }
               });
   }

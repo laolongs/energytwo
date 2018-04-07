@@ -82,7 +82,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         mContext = this;
         MyApplication.getInstance().addActivity(this);//添加当前Activity
         createPresenter();
-//        mPresenter.attachView(this);
+        mPresenter.attachView(this);
         //注册Eventbus
         EventBus.getDefault().register(this);
     }

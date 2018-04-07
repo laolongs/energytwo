@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources><dimen name="y1">1dp</dimen>
+<resources><dimen name="y0">0dp</dimen>
+    <dimen name="y1">1dp</dimen>
     <dimen name="y2">2dp</dimen>
     <dimen name="y3">3dp</dimen>
     <dimen name="y4">4dp</dimen>
@@ -123,6 +124,10 @@
     <dimen name="y130">130dp</dimen>
     <dimen name="y140">140dp</dimen>
     <dimen name="y150">150dp</dimen>
+    <dimen name="y160">160dp</dimen>
+    <dimen name="y170">170dp</dimen>
+    <dimen name="y180">180dp</dimen>
+    <dimen name="y190">190dp</dimen>
     <dimen name="y200">200dp</dimen>
     <dimen name="y210">210dp</dimen>
     <dimen name="y220">220dp</dimen>

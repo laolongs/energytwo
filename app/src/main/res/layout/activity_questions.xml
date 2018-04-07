@@ -10,6 +10,8 @@
     <include
         layout="@layout/toobar"/>
     <LinearLayout
+        android:layout_marginRight="@dimen/x8"
+        android:layout_marginLeft="@dimen/x8"
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="wrap_content">
@@ -17,26 +19,25 @@
             android:layout_width="match_parent"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_height="60dp">
+            android:layout_height="@dimen/x60">
             <ImageView
                 android:id="@+id/ques_img"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="3"
-                android:paddingLeft="24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:gravity="center"
                 android:src="@mipmap/ops_electricity_pending"/>
             <LinearLayout
+                android:layout_marginTop="@dimen/y5"
+                android:layout_marginLeft="@dimen/y10"
                 android:layout_width="0dp"
                 android:orientation="vertical"
-                android:paddingLeft="5dp"
                 android:layout_height="match_parent"
                 android:layout_weight="3">
                 <TextView
                     android:id="@+id/ques_index_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingTop="5dp"
+                    android:paddingTop="@dimen/x4"
                     android:text="配电房问题"/>
                 <TextView
                     android:id="@+id/ques_index"
@@ -44,7 +45,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
-                    android:textSize="23sp"
+                    android:textSize="20sp"
                     android:text="E0189234"/>
             </LinearLayout>
             <RelativeLayout
@@ -52,15 +53,21 @@
                 android:layout_height="match_parent"
                 android:layout_weight="3">
             </RelativeLayout>
-            <TextView
-                android:id="@+id/ques_rank"
+            <RelativeLayout
                 android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="wrap_content"
-                android:textColor="@color/orangered"
-                android:layout_gravity="center"
-                android:textSize="25sp"
-                android:text="紧急"/>
+                android:layout_height="match_parent"
+                android:layout_weight="2">
+                <TextView
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/ques_rank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/orangered"
+                    android:textSize="20sp"
+                    android:text="紧急"/>
+            </RelativeLayout>
+
         </LinearLayout>
     </LinearLayout>
     <View
@@ -74,10 +81,12 @@
             android:id="@+id/qu_ll_top"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_marginRight="24dp"
-            android:layout_marginLeft="24dp"
+
             android:layout_height="wrap_content">
             <FrameLayout
+                android:layout_marginRight="@dimen/x8"
+                android:layout_marginLeft="@dimen/x8"
+                android:layout_marginTop="@dimen/y4"
                 android:id="@+id/ptrlayout_question"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -100,7 +109,9 @@
                 <!--android:textSize="18sp"-->
                 <!--android:text="显示异常报警，正常开启亮度不适，显示文字不清晰，时钟不正确，操作不灵活，屏幕屏保不正常"/>-->
             <LinearLayout
-                android:layout_marginTop="10dp"
+                android:layout_marginRight="@dimen/x8"
+                android:layout_marginLeft="@dimen/x8"
+                android:layout_marginTop="@dimen/y4"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:layout_width="match_parent"
@@ -113,36 +124,35 @@
                     android:id="@+id/ques_value_title1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:textSize="18sp"
+                    android:layout_marginLeft="@dimen/x4"
                     android:text="420V"/>
                 <TextView
                     android:id="@+id/ques_value_tv2"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="@dimen/x10"
                     style="@style/questions_text_style"
                     android:text="B项"/>
                 <TextView
                     android:id="@+id/ques_value_title2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:textSize="18sp"
+                    android:layout_marginLeft="@dimen/x4"
                     android:text="420V"/>
                 <TextView
                     android:id="@+id/ques_value_tv3"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="@dimen/x10"
                     style="@style/questions_text_style"
                     android:text="C项"/>
                 <TextView
                     android:id="@+id/ques_value_title3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:textSize="18sp"
+                    android:layout_marginLeft="@dimen/x4"
                     android:text="420V"/>
             </LinearLayout>
             <LinearLayout
-                android:layout_marginTop="10dp"
+                android:layout_marginRight="@dimen/x8"
+                android:layout_marginLeft="@dimen/x8"
+                android:layout_marginTop="@dimen/y10"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -153,38 +163,45 @@
                     android:text="2018/03/05"/>
             </LinearLayout>
             <LinearLayout
-                android:layout_marginTop="10dp"
+                android:layout_marginRight="@dimen/x8"
+                android:layout_marginLeft="@dimen/x8"
+                android:layout_marginTop="@dimen/y2"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <ImageView
+                    android:layout_gravity="center"
+                    android:src="@mipmap/ops_location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                    />
                 <TextView
                     android:id="@+id/ques_address"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="@dimen/x2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1#高压室.1#馈线柜.1#刀闸"/>
             </LinearLayout>
         </LinearLayout>
         <View
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="@dimen/y10"
             android:id="@+id/qu_ll_cneter"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y5"
             android:layout_below="@+id/qu_ll_top"
-            style="@style/cut_off_line_5dp" >
-        </View>
+            android:background="@mipmap/ops_wavyline"/>
         <android.support.design.widget.TabLayout
+            android:layout_marginRight="@dimen/x8"
+            android:layout_marginLeft="@dimen/x8"
             android:id="@+id/qu_tab"
-            android:layout_marginRight="24dp"
-            android:layout_marginLeft="24dp"
             android:layout_below="@id/qu_ll_cneter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabSelectedTextColor="@color/statment_layout_title_h_line">
         </android.support.design.widget.TabLayout>
         <android.support.v4.view.ViewPager
+            android:layout_marginRight="@dimen/x8"
+            android:layout_marginLeft="@dimen/x8"
             android:id="@+id/qu_vp"
             android:layout_below="@id/qu_tab"
             android:layout_above="@+id/qu_bt_ll"
@@ -194,7 +211,7 @@
         <LinearLayout
             android:id="@+id/qu_bt_ll"
             android:layout_width="match_parent"
-            android:layout_height="49dp"
+            android:layout_height="@dimen/y50"
             android:layout_alignParentBottom="true"
             android:orientation="horizontal"
             android:background="@color/slategrey"
@@ -212,13 +229,11 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
                     android:text="联系工程师"/>
-                <ImageView
-                    android:src="@mipmap/arrows"
-                    android:layout_marginLeft="5dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    />
             </LinearLayout>
+            <View
+                android:layout_width="@dimen/x1"
+                android:layout_height="match_parent"
+                android:background="@color/white"/>
             <LinearLayout
                 android:id="@+id/qu_reply"
                 android:layout_width="0dp"
@@ -231,12 +246,6 @@
                     android:layout_gravity="center_vertical"
                     android:textColor="@color/white"
                     android:text="回复"/>
-                <ImageView
-                    android:src="@mipmap/arrows"
-                    android:layout_marginLeft="5dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"/>
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>

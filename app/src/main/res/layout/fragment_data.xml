@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context="tties.cn.energy.view.activity.DataActivity">
      <LinearLayout
          android:layout_width="match_parent"
@@ -22,8 +23,8 @@
               style="@style/toolbar_center"/>
           </android.support.v7.widget.Toolbar>
           <RelativeLayout
-              android:layout_marginLeft="20dp"
-              android:layout_marginRight="20dp"
+              android:layout_marginLeft="@dimen/y8"
+              android:layout_marginRight="@dimen/y8"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:background="@drawable/btn_date_dwmy_norma_colorl"
@@ -33,51 +34,59 @@
                    android:layout_height="wrap_content">
                     <TextView
                         android:id="@+id/datafragment_time_tv"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="@dimen/y8"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginRight="@dimen/y8"
                         android:layout_alignParentRight="true"
                         android:text="3月"
-                        android:textSize="18sp"/>
+                       />
                     <tties.cn.energy.chart.LineDataChart
                         android:id="@+id/datafragment_chart"
                         android:layout_below="@+id/datafragment_time_tv"
                         android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:background="@color/orangered"
-                        android:padding="12dp" >
+                        android:layout_height="@dimen/y130"
+                        android:background="#FF6130">
                     </tties.cn.energy.chart.LineDataChart>
                     <LinearLayout
                         android:layout_below="@+id/datafragment_chart"
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="80dp">
-                         <ImageView
-                             android:layout_width="0dp"
-                             android:layout_height="wrap_content"
+                        android:layout_height="@dimen/y80">
+                         <RelativeLayout
                              android:layout_weight="2"
-                             android:layout_marginLeft="10dp"
-                             android:layout_marginTop="10dp"
-                             android:src="@mipmap/ic_logo"/>
+                             android:layout_width="0dp"
+                             android:layout_height="match_parent">
+                              <ImageView
+                                  android:layout_alignParentBottom="true"
+                                  android:layout_width="wrap_content"
+                                  android:layout_height="wrap_content"
+                                  android:layout_marginLeft="@dimen/y8"
+                                  android:layout_marginBottom="@dimen/y15"
+                                  android:src="@mipmap/ic_logo"/>
+                         </RelativeLayout>
+
                          <TextView
                              android:layout_width="0dp"
                              android:layout_height="wrap_content"
                              android:layout_weight="1"/>
                          <LinearLayout
                              android:layout_width="0dp"
-                             android:layout_height="wrap_content"
+                             android:layout_height="match_parent"
+                             android:gravity="center"
                              android:orientation="vertical"
                              android:layout_weight="3">
                               <TextView
+                                  android:gravity="center"
                                   android:id="@+id/datafragment_price"
                                   android:layout_width="match_parent"
                                   android:layout_height="wrap_content"
                                   android:textSize="30sp"
-                                  android:text="0.8345"
+                                  android:text="0"
                                   android:textColor="@color/white"/>
                               <TextView
+                                  android:gravity="center"
                                   android:layout_width="wrap_content"
                                   android:layout_height="wrap_content"
                                   android:textColor="@color/white"
@@ -87,8 +96,8 @@
                </RelativeLayout>
           </RelativeLayout>
           <View
-              android:layout_marginTop="15dp"
-              style="@style/cut_off_line_9dp"
+              android:layout_marginTop="@dimen/y15"
+              style="@style/cut_off_line_5dp"
               />
           <LinearLayout
               android:id="@+id/data_charge"
@@ -114,8 +123,8 @@
 
 
           <View
-              android:layout_marginLeft="24dp"
-              android:layout_marginRight="24dp"
+              android:layout_marginLeft="@dimen/y20"
+              android:layout_marginRight="@dimen/y20"
               style="@style/cut_off_line_1dp"/>
           <LinearLayout
               android:id="@+id/data_amount"
@@ -141,8 +150,8 @@
 
 
           <View
-              android:layout_marginLeft="24dp"
-              android:layout_marginRight="24dp"
+              android:layout_marginLeft="@dimen/y20"
+              android:layout_marginRight="@dimen/y20"
               style="@style/cut_off_line_1dp"/>
           <LinearLayout
               android:id="@+id/data_rate"
@@ -168,8 +177,8 @@
 
 
           <View
-              android:layout_marginLeft="24dp"
-              android:layout_marginRight="24dp"
+              android:layout_marginLeft="@dimen/y20"
+              android:layout_marginRight="@dimen/y20"
               style="@style/cut_off_line_1dp"/>
           <LinearLayout
               android:id="@+id/data_factor"
@@ -195,8 +204,8 @@
 
 
           <View
-              android:layout_marginLeft="24dp"
-              android:layout_marginRight="24dp"
+              android:layout_marginLeft="@dimen/y20"
+              android:layout_marginRight="@dimen/y20"
               style="@style/cut_off_line_1dp"/>
           <LinearLayout
               android:id="@+id/data_flow"
@@ -222,8 +231,8 @@
 
 
           <View
-              android:layout_marginLeft="24dp"
-              android:layout_marginRight="24dp"
+              android:layout_marginLeft="@dimen/y20"
+              android:layout_marginRight="@dimen/y20"
               style="@style/cut_off_line_1dp"/>
           <LinearLayout
               android:id="@+id/data_no"
@@ -249,8 +258,8 @@
 
 
           <View
-              android:layout_marginLeft="24dp"
-              android:layout_marginRight="24dp"
+              android:layout_marginLeft="@dimen/y20"
+              android:layout_marginRight="@dimen/y20"
               style="@style/cut_off_line_1dp"/>
           <LinearLayout
               android:id="@+id/data_press"

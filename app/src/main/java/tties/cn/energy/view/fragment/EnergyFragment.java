@@ -4,12 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatRatingBar;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import butterknife.BindView;
@@ -18,9 +17,9 @@ import butterknife.Unbinder;
 import tties.cn.energy.R;
 import tties.cn.energy.base.BaseFragment;
 import tties.cn.energy.common.CircleProgressBar;
+import tties.cn.energy.common.MyEnergyProgressRound;
 import tties.cn.energy.model.result.EnergyFragmentbean;
 import tties.cn.energy.presenter.EnergyFragmentPresenter;
-import tties.cn.energy.utils.ToastUtil;
 import tties.cn.energy.view.activity.Energy_BaseenergyActivity;
 import tties.cn.energy.view.activity.Energy_ElectricalActivity;
 import tties.cn.energy.view.activity.Energy_EnergyActivity;
@@ -36,14 +35,10 @@ import tties.cn.energy.view.iview.IEnergyFragmentView;
  */
 
 public class EnergyFragment extends BaseFragment<EnergyFragmentPresenter> implements View.OnClickListener, IEnergyFragmentView {
-    @BindView(R.id.tasks_view)
-    CircleProgressBar tasksView;
+    //    @BindView(R.id.tasks_view)
+    MyEnergyProgressRound tasksView;
     Unbinder unbinder;
-    @BindView(R.id.toolbar_left)
-    ImageView toolbarLeft;
-    @BindView(R.id.toolbar_text)
-    TextView toolbarText;
-    @BindView(R.id.energy_usermark)
+    //    @BindView(R.id.energy_usermark)
     TextView energyUsermark;
     @BindView(R.id.energy_baseenergy)
     LinearLayout energyBaseenergy;
@@ -57,14 +52,19 @@ public class EnergyFragment extends BaseFragment<EnergyFragmentPresenter> implem
     LinearLayout energyEnergy;
     @BindView(R.id.energy_transformer)
     LinearLayout energyTransformer;
-    @BindView(R.id.energy_bar)
+    //    @BindView(R.id.energy_bar)
     AppCompatRatingBar energyBar;
+    @BindView(R.id.energy_toolbar_text)
+    TextView energyToolbarText;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View inflate = inflater.inflate(R.layout.fragment_energy, null);
+        energyBar = inflate.findViewById(R.id.energy_bar);
+        tasksView = inflate.findViewById(R.id.tasks_view);
+        energyUsermark = inflate.findViewById(R.id.energy_usermark);
         unbinder = ButterKnife.bind(this, inflate);
         energyBaseenergy.setOnClickListener(this);
         energyElectrical.setOnClickListener(this);
@@ -78,7 +78,7 @@ public class EnergyFragment extends BaseFragment<EnergyFragmentPresenter> implem
 
     private void initView() {
         mPresenter.getEnergyFragment();
-        toolbarText.setText("电力能效");
+        energyToolbarText.setText("电力能效");
 //        energyBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
 //            @Override
 //            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
@@ -138,7 +138,8 @@ public class EnergyFragment extends BaseFragment<EnergyFragmentPresenter> implem
     @Override
     public void setEnergyFragmentData(EnergyFragmentbean bean) {
         energyBar.setRating((float) bean.getStartScore() / 20);
-        tasksView.setProgress(bean.getTotalScore());
-        energyUsermark.setText(bean.getRank() + "%");
+//        tasksView.setProgress(bean.getTotalScore());
+        tasksView.setProgressMax(bean.getTotalScore());
+        energyUsermark.setText("您目前击败了"+bean.getRank() + "%的同行用户");
     }
 }

@@ -16,15 +16,15 @@
           <LinearLayout
               android:layout_width="match_parent"
               android:orientation="horizontal"
-              android:layout_height="60dp">
+              android:layout_height="@dimen/y60">
                <TextView
                    android:layout_width="0dp"
                    android:layout_height="match_parent"
                    android:layout_weight="3"
-                   android:paddingLeft="24dp"
+                   android:paddingLeft="@dimen/y8"
                    android:gravity="center_vertical"
                    android:text="总电费"
-                   android:textSize="20sp"
+                   android:textSize="17sp"
                    android:textColor="@color/black"/>
 
                <RelativeLayout
@@ -36,7 +36,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:paddingTop="5dp"
+                        android:paddingTop="@dimen/y8"
+                        android:textSize="13sp"
                         android:text="原始"/>
                     <TextView
                         android:id="@+id/data_all_charge"
@@ -44,9 +45,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:paddingTop="5dp"
-                        android:textSize="20sp"
-                        android:text="￥768678.03"/>
+                        android:textSize="17sp"
+                        android:text="￥"/>
                </RelativeLayout>
                <RelativeLayout
                    android:layout_width="0dp"
@@ -65,8 +65,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:paddingTop="5dp"
-                        android:textSize="20sp"
+                        android:layout_alignParentRight="true"
+                        android:textSize="17sp"
                         android:textColor="@color/orangered"
                         android:text="正在校验"/>
                </RelativeLayout>
@@ -77,28 +77,28 @@
                     <ImageView
                         android:id="@+id/data_charge_img1"
                         android:src="@mipmap/data_checkout"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginLeft="@dimen/y6"
                         android:layout_gravity="center"
-                        android:layout_width="15dp"
-                        android:layout_height="15dp" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
                </LinearLayout>
           </LinearLayout>
           <View
               style="@style/cut_off_line_1dp"
-              android:layout_marginLeft="24dp"
-              android:layout_marginRight="24dp"/>
+              android:layout_marginLeft="@dimen/y8"
+              android:layout_marginRight="@dimen/y8"/>
           <LinearLayout
               android:layout_width="match_parent"
               android:orientation="horizontal"
-              android:layout_height="60dp">
+              android:layout_height="@dimen/y60">
                <TextView
                    android:layout_width="0dp"
                    android:layout_height="match_parent"
                    android:layout_weight="3"
-                   android:paddingLeft="24dp"
+                   android:paddingLeft="@dimen/y8"
                    android:gravity="center_vertical"
                    android:text="基本电费"
-                   android:textSize="20sp"
+                   android:textSize="17sp"
                    android:textColor="@color/black"/>
 
                <RelativeLayout
@@ -110,7 +110,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:paddingTop="5dp"
+                        android:paddingTop="@dimen/y8"
+                        android:textSize="13sp"
                         android:text="原始"/>
                     <TextView
                         android:id="@+id/data_base_charge"
@@ -118,9 +119,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:paddingTop="5dp"
-                        android:textSize="20sp"
-                        android:text="￥768678.03"/>
+                        android:textSize="17sp"
+                        android:text="￥"/>
                </RelativeLayout>
                <RelativeLayout
                    android:layout_width="0dp"
@@ -136,11 +136,11 @@
                     <!--android:paddingTop="5dp"-->
                     <!--android:text="校验后"/>-->
                     <TextView
+                        android:layout_alignParentRight="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:paddingTop="5dp"
-                        android:textSize="20sp"
+                        android:textSize="17sp"
                         android:textColor="@color/orangered"
                         android:text="正在校验"/>
                </RelativeLayout>
@@ -151,28 +151,28 @@
                     <ImageView
                         android:id="@+id/data_charge_img2"
                         android:src="@mipmap/data_checkout"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginLeft="@dimen/y6"
                         android:layout_gravity="center"
-                        android:layout_width="15dp"
-                        android:layout_height="15dp" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
                </LinearLayout>
           </LinearLayout>
           <View
               style="@style/cut_off_line_1dp"
-              android:layout_marginLeft="24dp"
-              android:layout_marginRight="24dp"/>
+              android:layout_marginLeft="@dimen/y8"
+              android:layout_marginRight="@dimen/y8"/>
           <LinearLayout
               android:layout_width="match_parent"
               android:orientation="horizontal"
-              android:layout_height="60dp">
+              android:layout_height="@dimen/y60">
                <TextView
                    android:layout_width="0dp"
                    android:layout_height="match_parent"
                    android:layout_weight="3"
-                   android:paddingLeft="24dp"
+                   android:paddingLeft="@dimen/y8"
                    android:gravity="center_vertical"
                    android:text="年度电费"
-                   android:textSize="20sp"
+                   android:textSize="17sp"
                    android:textColor="@color/black"/>
 
                <RelativeLayout
@@ -184,7 +184,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:paddingTop="5dp"
+                        android:paddingTop="@dimen/y8"
+                        android:textSize="13sp"
                         android:text="原始"/>
                     <TextView
                         android:id="@+id/data_year_charge"
@@ -192,9 +193,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:paddingTop="5dp"
-                        android:textSize="20sp"
-                        android:text="￥768678.03"/>
+                        android:textSize="17sp"
+                        android:text="￥"/>
                </RelativeLayout>
                <RelativeLayout
                    android:layout_width="0dp"
@@ -210,11 +210,11 @@
                     <!--android:paddingTop="5dp"-->
                     <!--android:text="校验后"/>-->
                     <TextView
+                        android:layout_alignParentRight="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:paddingTop="5dp"
-                        android:textSize="20sp"
+                        android:textSize="17sp"
                         android:textColor="@color/orangered"
                         android:text="正在校验"/>
                </RelativeLayout>
@@ -225,28 +225,28 @@
                     <ImageView
                         android:id="@+id/data_charge_img3"
                         android:src="@mipmap/data_checkout"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginLeft="@dimen/y6"
                         android:layout_gravity="center"
-                        android:layout_width="15dp"
-                        android:layout_height="15dp" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
                </LinearLayout>
           </LinearLayout>
           <View
               style="@style/cut_off_line_1dp"
-              android:layout_marginLeft="24dp"
-              android:layout_marginRight="24dp"/>
+              android:layout_marginLeft="@dimen/y8"
+              android:layout_marginRight="@dimen/y8"/>
           <LinearLayout
               android:layout_width="match_parent"
               android:orientation="horizontal"
-              android:layout_height="60dp">
+              android:layout_height="@dimen/y60">
                <TextView
                    android:layout_width="0dp"
                    android:layout_height="match_parent"
                    android:layout_weight="3"
-                   android:paddingLeft="24dp"
+                   android:paddingLeft="@dimen/y8"
                    android:gravity="center_vertical"
                    android:text="力调电费"
-                   android:textSize="20sp"
+                   android:textSize="17sp"
                    android:textColor="@color/black"/>
 
                <RelativeLayout
@@ -258,7 +258,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:paddingTop="5dp"
+                        android:paddingTop="@dimen/y8"
+                        android:textSize="13sp"
                         android:text="原始"/>
                     <TextView
                         android:id="@+id/data_forces_charge"
@@ -266,9 +267,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:paddingTop="5dp"
-                        android:textSize="20sp"
-                        android:text="￥768678.03"/>
+                        android:textSize="17sp"
+                        android:text="￥"/>
                </RelativeLayout>
                <RelativeLayout
                    android:layout_width="0dp"
@@ -284,11 +284,11 @@
                     <!--android:paddingTop="5dp"-->
                     <!--android:text="校验后"/>-->
                     <TextView
+                        android:layout_alignParentRight="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:paddingTop="5dp"
-                        android:textSize="20sp"
+                        android:textSize="17sp"
                         android:textColor="@color/orangered"
                         android:text="正在校验"/>
                </RelativeLayout>
@@ -299,13 +299,13 @@
                     <ImageView
                         android:id="@+id/data_charge_img4"
                         android:src="@mipmap/data_checkout"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginLeft="@dimen/y6"
                         android:layout_gravity="center"
-                        android:layout_width="15dp"
-                        android:layout_height="15dp" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
                </LinearLayout>
           </LinearLayout>
-              <View style="@style/cut_off_line_9dp"
+              <View style="@style/cut_off_line_5dp"
               />
           <RelativeLayout
               android:layout_width="match_parent"
@@ -317,28 +317,28 @@
                    android:orientation="vertical">
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
+                        android:layout_height="@dimen/y60"
                         android:orientation="vertical">
                          <TextView
                              android:layout_height="match_parent"
                              android:layout_width="wrap_content"
-                             android:paddingLeft="24dp"
+                             android:paddingLeft="@dimen/y8"
                              android:gravity="center_vertical"
                              android:text="电费详情"
-                             android:textSize="20sp"
+                             android:textSize="17sp"
                              android:textColor="@color/black"/>
                     </LinearLayout>
                     <tties.cn.energy.chart.LineDataChart
                         android:id="@+id/data_chart"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp">
+                        android:layout_height="@dimen/y200">
                     </tties.cn.energy.chart.LineDataChart>
                </LinearLayout>
                <View
                    android:id="@+id/data_vv"
                    android:layout_below="@+id/data_ll"
                    android:layout_width="match_parent"
-                   android:layout_height="20dp"></View>
+                   android:layout_height="@dimen/y20"></View>
                <LinearLayout
                    android:layout_below="@+id/data_vv"
                    android:layout_width="match_parent"
@@ -362,11 +362,15 @@
                              android:text="2018年2月"/>
                          <ImageView
                              android:src="@mipmap/arrows"
-                             android:layout_marginLeft="5dp"
+                             android:layout_marginLeft="@dimen/y6"
                              android:layout_width="wrap_content"
                              android:layout_height="wrap_content"
                              />
                     </LinearLayout>
+                    <View
+                        android:background="@color/white"
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"/>
                     <LinearLayout
                         android:id="@+id/data_allelectric"
                         android:layout_width="0dp"
@@ -381,7 +385,7 @@
                              android:text="总电量"/>
                          <ImageView
                              android:src="@mipmap/arrows"
-                             android:layout_marginLeft="5dp"
+                             android:layout_marginLeft="@dimen/y6"
                              android:layout_width="wrap_content"
                              android:layout_height="wrap_content"
                              android:layout_gravity="center_vertical"/>

@@ -35,7 +35,7 @@ import tties.cn.energy.view.iview.IMainView;
 /**
  * 关于我们
  */
-public class AboutActivity extends BaseActivity<MainPresenter> implements IMainView {
+public class AboutActivity extends AppCompatActivity{
 
     @BindView(R.id.toolbar_text)
     TextView toolbarText;
@@ -55,6 +55,7 @@ public class AboutActivity extends BaseActivity<MainPresenter> implements IMainV
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_about);
         ButterKnife.bind(this);
         initToolBar();
         initClick();
@@ -65,15 +66,7 @@ public class AboutActivity extends BaseActivity<MainPresenter> implements IMainV
 
     }
 
-    @Override
-    protected void createPresenter() {
 
-    }
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.activity_about;
-    }
 
     private void initClick() {
         layoutNewversion.setOnClickListener(new View.OnClickListener() {
@@ -128,8 +121,4 @@ public class AboutActivity extends BaseActivity<MainPresenter> implements IMainV
         }
     }
 
-    @Override
-    public void setViewPageData(List<View> list) {
-
-    }
 }

@@ -74,4 +74,9 @@ public class DataFragmentPresenter extends BasePresenter<IDataFragmentView> {
                 });
     }
 
+    @Override
+    public void detachView() {
+        super.detachView();
+
+    }
 }

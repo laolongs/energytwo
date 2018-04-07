@@ -1,6 +1,7 @@
 package tties.cn.energy.view.activity;
 
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,6 +21,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import tties.cn.energy.R;
+import tties.cn.energy.application.MyApplication;
 import tties.cn.energy.base.BaseActivity;
 import tties.cn.energy.chart.LineDataChart;
 import tties.cn.energy.model.result.AllElectricitybean;
@@ -144,7 +146,8 @@ public class Data_RateActivity extends BaseActivity<Data_RatePresenter> implemen
             listDate.add(split[0]);
         }
         LineDataSet lineDataSet = havakwChart.setDataSet(values, "");
-        lineDataSet.setFillColor(R.color.analysis_textview_right);
+        //图标填充色
+        lineDataSet.setFillColor(ContextCompat.getColor(MyApplication.getInstance(), R.color.analysis_textview_right));
         havakwChart.setDayXAxis(listDate);
         havakwChart.loadChart();
     }

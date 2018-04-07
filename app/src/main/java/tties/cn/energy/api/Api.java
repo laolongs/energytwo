@@ -21,9 +21,13 @@ import tties.cn.energy.model.result.Data_Pressbean;
 import tties.cn.energy.model.result.Databean;
 import tties.cn.energy.model.result.Discussbean;
 import tties.cn.energy.model.result.EnergyFragmentbean;
-import tties.cn.energy.model.result.Energy_BaseEnergybean;
 import tties.cn.energy.model.result.Energy_BasePlanbean;
+import tties.cn.energy.model.result.Energy_Monthlybean;
+import tties.cn.energy.model.result.Identity_Passbean;
+import tties.cn.energy.model.result.Energy_TransformerDamgebean;
 import tties.cn.energy.model.result.Energy_TransformerListbean;
+import tties.cn.energy.model.result.Energy_TransformerTemperaturebean;
+import tties.cn.energy.model.result.Energy_TransformerVolumebean;
 import tties.cn.energy.model.result.Loginbean;
 import tties.cn.energy.model.result.OpsLoginbean;
 import tties.cn.energy.model.result.Opsbean;
@@ -37,6 +41,10 @@ public interface Api {
     @POST("login.htm")
     @FormUrlEncoded
     Observable<Loginbean> getLogin(@FieldMap Map<String,Object> map);
+    //修改密码接口
+    @POST("changePassword.htm")
+    @FormUrlEncoded
+    Observable<Identity_Passbean> gettIdentity_Pass(@FieldMap Map<String,Object> map);
     //版本号请求方法
     @POST("getUpdateVersion.htm")
     Observable<Versionbean> getVersion();
@@ -44,6 +52,10 @@ public interface Api {
     @POST("queryQuertionForEnergy.do")
     @FormUrlEncoded
     Observable<Opsbean> getOps(@FieldMap Map<String,Object> map);
+    //Ops问题详情
+    @POST("queryQuertionForEnergy.do")
+    @FormUrlEncoded
+    Observable<Opsbean> getOpsQuertion(@FieldMap Map<String,Object> map);
     //回复问题
     @POST("AddAdvice.do")
     @FormUrlEncoded
@@ -60,6 +72,22 @@ public interface Api {
     @POST("getBindTransformer.do")
     @FormUrlEncoded
     Observable<Energy_TransformerListbean> getEnergy_TransformerList(@FieldMap Map<String,Object> map);
+    //变压器变损  运维
+    @POST("getTransformerDamgeAndConsume.do")
+    @FormUrlEncoded
+    Observable<Energy_TransformerDamgebean> getEnergy_TransformerDamge(@FieldMap Map<String,Object> map);
+    //变压器温度  运维
+    @POST("getTransformerTemperature.do")
+    @FormUrlEncoded
+    Observable<Energy_TransformerTemperaturebean> getEnergy_TransformerTemperature(@FieldMap Map<String,Object> map);
+    //变压器容量  运维
+    @POST("getTransformerVolume.do")
+    @FormUrlEncoded
+    Observable<Energy_TransformerVolumebean> getEnergy_TransformerVolume(@FieldMap Map<String,Object> map);
+    //月报  运维及能效
+    @POST("getReportList.do")
+    @FormUrlEncoded
+    Observable<Energy_Monthlybean> getEnergy_Monthly(@FieldMap Map<String,Object> map);
     //电力数据
     @POST("queryMonthCostData.htm")
     @FormUrlEncoded

@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="@dimen/y100"
             android:src="@mipmap/ic_logo" />
 
         <TextView
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="45dp"
+            android:layout_marginBottom="@dimen/y45"
             android:textColor="@color/splash_version"
             android:text="北京天天智慧智电科技有限公司"
             android:textSize="12sp" />
@@ -33,7 +33,7 @@
             android:id="@+id/version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="@dimen/y30"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:text="Copyright ©2016-2017"

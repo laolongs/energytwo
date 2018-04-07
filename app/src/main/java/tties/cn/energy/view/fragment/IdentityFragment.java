@@ -45,7 +45,7 @@ public class IdentityFragment extends BaseFragment<IdentityFragmentPresenter> im
     Unbinder unbinder;
     @BindView(R.id.identity_toolbar)
     Toolbar identityToolbar;
-    @BindView(R.id.identity_name)
+//    @BindView(R.id.identity_name)
     TextView identityName;
     @BindView(R.id.identity_company)
     TextView identityCompany;
@@ -70,8 +70,8 @@ public class IdentityFragment extends BaseFragment<IdentityFragmentPresenter> im
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-
         View inflate = inflater.inflate(R.layout.fragment_identity, null);
+        identityName=inflate.findViewById(R.id.identity_name);
         unbinder = ButterKnife.bind(this, inflate);
         Loginbean loginbean = ACache.getInstance().getAsObject(Constants.CACHE_USERINFO);
 //        Log.i("----------", "onCreateView: "+loginbean.getAccountId());

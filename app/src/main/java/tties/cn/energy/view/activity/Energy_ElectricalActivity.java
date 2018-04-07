@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -90,13 +91,19 @@ public class Energy_ElectricalActivity extends BaseActivity<DataPresenter> imple
 
     @Override
     public void setDataData(Databean bean) {
+        int percentage=0;
+        int num=0;
+        int low=bean.getDataList().get(0).getSectorGuValue();
+        int hight=bean.getDataList().get(0).getSectorJianValue();
+        int cusp=bean.getDataList().get(0).getSectorFengValue();
+        num=low+hight+cusp;
         enereyElectricalMonth.setText(bean.getDataList().get(0).getBaseDate()+"");
         //尖峰
-        electricalMyview.setProgressMax(bean.getDataList().get(0).getSectorJianValue());
+        electricalMyview.setProgressMax(cusp/num);
         //高峰
-        electricalMyview.setProgressCenter(bean.getDataList().get(0).getSectorFengValue());
+        electricalMyview.setProgressCenter(hight/num);
         //低谷
-        electricalMyview.setProgressMin(bean.getDataList().get(0).getSectorGuValue());
+        electricalMyview.setProgressMin(low/num);
         enereyElectricalCusp.setText(bean.getDataList().get(0).getSectorJianValue()+"度");
         enereyElectricalHight.setText(bean.getDataList().get(0).getSectorFengValue()+"度");
         enereyElectricalLow.setText(bean.getDataList().get(0).getSectorGuValue()+"度");

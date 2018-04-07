@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context="tties.cn.energy.view.activity.DataActivity">
     <LinearLayout
         android:orientation="vertical"
@@ -23,15 +24,15 @@
                 android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="@dimen/y60"
                     android:orientation="vertical">
                     <TextView
                         android:layout_height="match_parent"
                         android:layout_width="wrap_content"
-                        android:paddingLeft="24dp"
+                        android:paddingLeft="@dimen/y8"
                         android:gravity="center_vertical"
                         android:text="电流数据详情"
-                        android:textSize="20sp"
+                        android:textSize="17sp"
                         android:textColor="@color/black"/>
                 </LinearLayout>
                 <tties.cn.energy.chart.LineDataChart
@@ -48,15 +49,15 @@
                 android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="@dimen/y60"
                     android:orientation="vertical">
                     <TextView
                         android:layout_height="match_parent"
                         android:layout_width="wrap_content"
-                        android:paddingLeft="24dp"
+                        android:paddingLeft="@dimen/y8"
                         android:gravity="center_vertical"
                         android:text="电压数据详情"
-                        android:textSize="20sp"
+                        android:textSize="17sp"
                         android:textColor="@color/black"/>
                 </LinearLayout>
                 <tties.cn.energy.chart.LineDataChart
@@ -69,13 +70,12 @@
                 android:layout_below="@+id/data_currentpress_ll"
                 android:id="@+id/data_currentpress_vv"
                 android:layout_width="match_parent"
-                android:layout_height="20dp">
-
+                android:layout_height="@dimen/y20">
             </View>
             <LinearLayout
                 android:layout_below="@+id/data_currentpress_vv"
                 android:layout_width="match_parent"
-                android:layout_height="49dp"
+                android:layout_height="@dimen/y49"
                 android:layout_alignParentBottom="true"
                 android:orientation="horizontal"
                 android:background="@color/slategrey"
@@ -95,11 +95,15 @@
                         android:text="2018年2月"/>
                     <ImageView
                         android:src="@mipmap/arrows"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginLeft="@dimen/y6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         />
                 </LinearLayout>
+                <View
+                    android:background="@color/white"
+                    android:layout_width="@dimen/x1"
+                    android:layout_height="match_parent"/>
                 <LinearLayout
                     android:id="@+id/data_current_allelectric"
                     android:layout_width="0dp"
@@ -114,7 +118,7 @@
                         android:text="总电量"/>
                     <ImageView
                         android:src="@mipmap/arrows"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginLeft="@dimen/y6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"/>

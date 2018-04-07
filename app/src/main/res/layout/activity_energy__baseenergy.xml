@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context="tties.cn.energy.view.activity.Energy_BaseenergyActivity">
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,7 +14,7 @@
        <include layout="@layout/toobar"/>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="@dimen/y40"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:background="@drawable/selector_layout">
@@ -24,7 +25,6 @@
                 android:layout_gravity="center"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:textSize="15sp"
                 android:text="变压器容量" />
             <TextView
                 android:gravity="center"
@@ -32,7 +32,6 @@
                 android:layout_gravity="center"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:textSize="15sp"
                 android:text="缴费模式" />
             <TextView
                 android:gravity="center"
@@ -40,7 +39,6 @@
                 android:layout_gravity="center"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:textSize="15sp"
                 android:text="上月基本电费" />
         </LinearLayout>
 
@@ -49,7 +47,7 @@
             style="@style/cut_off_line_1dp"/>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="@dimen/y40"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:background="@drawable/selector_layout">
@@ -62,7 +60,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="17sp"
                 android:text="1500kVA" />
             <TextView
                 android:id="@+id/energy_base_type"
@@ -72,7 +70,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="17sp"
                 android:text="容量" />
             <TextView
                 android:id="@+id/energy_base_price"
@@ -82,7 +80,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:textColor="@color/black"
-                android:textSize="20sp"
+                android:textSize="17sp"
                 android:text="45000元" />
         </LinearLayout>
         <View
@@ -90,8 +88,10 @@
 
 
         <LinearLayout
-            android:layout_height="60dp"
+            android:layout_height="@dimen/y60"
             android:layout_width="match_parent"
+            android:layout_marginLeft="@dimen/x6"
+            android:layout_marginRight="@dimen/y6"
             android:id="@+id/data_factor"
             android:orientation="horizontal"
             android:background="@drawable/beseenergy_item_bg"
@@ -99,90 +99,91 @@
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_weight="2"
-                android:layout_marginLeft="40dp"
                 android:layout_width="0dp"
                 android:gravity="center_vertical"
                 android:layout_height="match_parent">
                 <TextView
+                    android:textColor="@color/white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="24dp"
+                    android:layout_marginLeft="@dimen/x15"
                     android:text="本月最大需量"/>
                 <TextView
+                    android:textColor="@color/white"
                     android:id="@+id/energy_base_monthmax"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="24dp"
+                    android:layout_marginLeft="@dimen/x15"
                     android:text="678kw"/>
             </LinearLayout>
             <LinearLayout
                 android:orientation="vertical"
-                android:layout_weight="3"
+                android:layout_weight="4"
                 android:layout_width="0dp"
                 android:gravity="center_vertical"
                 android:layout_height="match_parent">
                 <TextView
+                    android:textColor="@color/white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="发生时间"/>
                 <TextView
+                    android:textColor="@color/white"
                     android:id="@+id/energy_base_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="2017-11-01  12：07"/>
             </LinearLayout>
         </LinearLayout>
-        <View
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            style="@style/cut_off_line_1dp"/>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="@dimen/y50"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:background="@drawable/selector_layout">
-            <TextView
+            <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="3"/>
-            <TextView
-                android:layout_weight="1"
-                android:layout_gravity="center"
-                style="@style/identity_textview"
-                android:text="选择年度" />
-            <LinearLayout
-                android:gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_weight="1">
                 <TextView
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentRight="true"
                     android:layout_gravity="center"
-                    style="@style/identity_textview"
+                    android:layout_marginRight="@dimen/x10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="选择年度" />
+            </RelativeLayout>
+            <LinearLayout
+                android:layout_marginLeft="@dimen/x10"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+                <TextView
+                    android:textColor="@color/black"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="2018年" />
                 <ImageView
+                    android:layout_marginLeft="@dimen/x6"
+                    android:layout_gravity="center_vertical"
                     android:id="@+id/energy_base_select"
                     android:src="@mipmap/arrows"
                     android:background="@color/black"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
+                    android:layout_width="@dimen/x15"
+                    android:layout_height="@dimen/y15"
                     />
             </LinearLayout>
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="4"/>
         </LinearLayout>
 
 
         <View
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            style="@style/cut_off_line_1dp"/>
+            style="@style/cut_off_line_5dp"/>
         <LinearLayout
            android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="@dimen/y200"
             android:orientation="vertical">
             <tties.cn.energy.chart.LineDataChart
                 android:id="@+id/energy_base_chart"
@@ -196,23 +197,25 @@
             android:id="@+id/data_no"
             android:gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="@dimen/y60"
             android:background="#F2F2F2"
-            android:layout_marginLeft="0dp"
             >
-
             <TextView
-                android:layout_marginLeft="0dp"
                 android:layout_gravity="center"
-                style="@style/identity_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="17sp"
+                android:textColor="@color/black"
                 android:text="报装方案" />
         </LinearLayout>
 
         <LinearLayout
             android:orientation="horizontal"
+            android:layout_marginLeft="@dimen/x8"
+            android:layout_marginRight="@dimen/y8"
             android:layout_width="match_parent"
             android:background="@drawable/beseenergy_item_bgtwo"
-            android:layout_height="80dp">
+            android:layout_height="@dimen/x80">
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -221,8 +224,9 @@
                 android:layout_weight="3">
                 <TextView
                     android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:layout_marginTop="3dp"
+                    android:textSize="17sp"
+                    android:layout_marginTop="@dimen/x2"
+                    android:layout_marginLeft="@dimen/x2"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="3"
@@ -232,9 +236,12 @@
                     android:layout_height="0dp"
                     android:layout_weight="3"/>
                 <TextView
+                    android:layout_marginLeft="@dimen/x2"
+                    android:gravity="center"
                     android:textColor="@color/white"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
+                    android:textSize="13sp"
                     android:layout_weight="2"
                     android:text="推荐报装方案"/>
             </LinearLayout>
@@ -256,9 +263,9 @@
                     android:layout_below="@+id/en_tv3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
+                    android:textSize="17sp"
                     android:textColor="@color/black"
-                    android:text="476kW"/>
+                    android:text="0kW"/>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="0dp"
@@ -278,21 +285,21 @@
                     android:layout_below="@+id/en_tv4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
+                    android:textSize="17sp"
                     android:textColor="@color/black"
-                    android:text="290288元"/>
+                    android:text="0元"/>
             </RelativeLayout>
         </LinearLayout>
         <View
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            style="@style/cut_off_line_1dp"/>
+            style="@style/cut_off_line_5dp"/>
 
         <LinearLayout
+            android:layout_marginLeft="@dimen/x8"
+            android:layout_marginRight="@dimen/y8"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:background="@drawable/beseenergy_item_bgtwo"
-            android:layout_height="80dp">
+            android:layout_height="@dimen/y80">
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -301,8 +308,9 @@
                 android:layout_weight="3">
                 <TextView
                     android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:layout_marginTop="3dp"
+                    android:textSize="17sp"
+                    android:layout_marginTop="@dimen/y2"
+                    android:layout_marginLeft="@dimen/x2"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="3"
@@ -316,6 +324,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="2"
+                    android:textSize="13sp"
                     android:text="容量报装方案"/>
             </LinearLayout>
             <RelativeLayout
@@ -336,9 +345,9 @@
                     android:layout_below="@+id/en_tv5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
+                    android:textSize="17sp"
                     android:textColor="@color/black"
-                    android:text="1500kW"/>
+                    android:text="0kW"/>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="0dp"
@@ -358,22 +367,22 @@
                     android:layout_below="@+id/en_tv6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
+                    android:textSize="17sp"
                     android:textColor="@color/black"
-                    android:text="290288元"/>
+                    android:text="0元"/>
             </RelativeLayout>
         </LinearLayout>
         <View
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            style="@style/cut_off_line_1dp"/>
+            style="@style/cut_off_line_5dp"/>
 
         <LinearLayout
+            android:layout_marginLeft="@dimen/x8"
+            android:layout_marginRight="@dimen/y8"
             android:id="@+id/data_press"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:background="@drawable/beseenergy_item_bgtwo"
-            android:layout_height="80dp">
+            android:layout_height="@dimen/y80">
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -382,8 +391,9 @@
                 android:layout_weight="3">
                 <TextView
                     android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:layout_marginTop="3dp"
+                    android:textSize="17sp"
+                    android:layout_marginTop="@dimen/y2"
+                    android:layout_marginLeft="@dimen/x2"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="3"
@@ -397,6 +407,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="2"
+                    android:textSize="13sp"
                     android:text="最大需量方案"/>
             </LinearLayout>
             <RelativeLayout
@@ -417,9 +428,9 @@
                     android:layout_below="@+id/en_tv1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
+                    android:textSize="17sp"
                     android:textColor="@color/black"
-                    android:text="800kW"/>
+                    android:text="0kW"/>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="0dp"
@@ -439,9 +450,9 @@
                     android:layout_below="@+id/en_tv2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
+                    android:textSize="17sp"
                     android:textColor="@color/black"
-                    android:text="290288元"/>
+                    android:text="0元"/>
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>

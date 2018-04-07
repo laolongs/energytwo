@@ -145,7 +145,7 @@ public class MyOpsrightAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public int getItemViewType(int position) {
 
-        if (opsbean.getCount() == 0) {
+        if (opsbean.getCount() == 0&&position<listhead.size()) {
             Log.i("----0000--------", "setHeadView: " + "0000");
             return TYPE_ONE;
         } else {
@@ -157,10 +157,7 @@ public class MyOpsrightAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public int getItemCount() {
-        if(opsbean!=null){
-            Log.i("------", "getItemCount: "+"00000");
-            return listbean.size();
-        }
+
         return listbean != null ? listbean.size() : 0;
     }
 

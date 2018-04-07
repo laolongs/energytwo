@@ -63,7 +63,7 @@ public class OpsFragment extends BaseFragment<OpsPresenter> implements IOpsView 
     RadioButton opsRcyLeftBt6;
     @BindView(R.id.ops_rcy_left_rg)
     RadioGroup opsRcyLeftRg;
-    @BindView(R.id.ops_number)
+//    @BindView(R.id.ops_number)
     TextView opsNumber;
     List<Opsbean.ResultBean.QuestionListBean> list;
     List<String> listview;
@@ -85,6 +85,7 @@ public class OpsFragment extends BaseFragment<OpsPresenter> implements IOpsView 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View inflate = inflater.inflate(R.layout.fragment_ops, null);
+        opsNumber = inflate.findViewById(R.id.ops_number);
         unbinder = ButterKnife.bind(this, inflate);
         initView();
         initRefresh();

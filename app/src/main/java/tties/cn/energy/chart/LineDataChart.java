@@ -96,7 +96,8 @@ public class LineDataChart extends  LineChart {
         set.setDrawFilled(true);//设置禁用范围背景填充 设置包括的范围区域填充颜色
         //设置线条为圆滑
 //        set.setDrawCubic(true);  //设置曲线为圆滑的线
-        set.setDrawCircles(true);  //设置有圆点
+//        set.setCubicIntensity(50);
+//        set.setDrawCircles(true);  //设置有圆点
         set.setFillColor(ContextCompat.getColor(MyApplication.getInstance(), R.color.chart_line_draw));
 
         setList.add(set);

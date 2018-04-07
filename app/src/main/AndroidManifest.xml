@@ -41,7 +41,8 @@
         <activity
             android:screenOrientation="portrait"
             android:name=".view.activity.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden|stateHidden|adjustPan">
             <!--<intent-filter>-->
                 <!--<action android:name="android.intent.action.MAIN" />-->
 
@@ -94,7 +95,8 @@
         <activity
             android:screenOrientation="portrait"
             android:name=".view.activity.PasswordActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden|stateHidden|adjustPan"/>
         <!-- 关于我们 -->
         <activity
             android:screenOrientation="portrait"

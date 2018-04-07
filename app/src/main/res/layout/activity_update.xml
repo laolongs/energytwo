@@ -9,7 +9,7 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:background="@drawable/layout_corners_black"
-        android:elevation="5dp"
+        android:elevation="@dimen/y5"
 
         android:orientation="vertical">
         <TextView
@@ -17,18 +17,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="@dimen/y10"
             android:text="发现新版本"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
         <TextView
             android:id="@+id/description"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/y10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="@dimen/y10"
             android:text="描述"
             android:textColor="@color/black"
             android:textSize="15sp" />
@@ -36,14 +36,14 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="@dimen/y20">
 
             <Button
                 android:id="@+id/btn_confirm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_marginRight="20dp"
+                android:layout_marginRight="@dimen/y20"
                 android:background="@color/colorTransparent"
                 android:text="更新"
                 android:textColor="@color/main" />
@@ -53,7 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_marginRight="20dp"
+                android:layout_marginRight="@dimen/y20"
                 android:layout_toStartOf="@+id/btn_confirm"
                 android:background="@color/colorTransparent"
                 android:text="取消"

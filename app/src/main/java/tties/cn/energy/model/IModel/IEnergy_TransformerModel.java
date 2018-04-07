@@ -9,6 +9,9 @@ import tties.cn.energy.api.Api;
  */
 
 public interface IEnergy_TransformerModel {
-    public Api getEnergy_TransformerData();
+    public Api getEnergy_TransformerListData();
+    public Api getEnergy_TransformerTemperatureData();
+    public Api getEnergy_TransformerDamgeData();
+    public Api getEnergy_TransformerVolumeData();
 
 }

@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
 import com.jzxiang.pickerview.listener.OnDateSetListener;
@@ -211,7 +212,9 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
             String[] split = StringUtil.split(bean.getDataList().get(i).getBaseDate(), "-");
             listDate.add(split[1]);
         }
-        dataChart.setDataSet(values, "");
+        LineDataSet lineDataSet = dataChart.setDataSet(values, "");
+        //设置有圆点
+        lineDataSet.setDrawCircles(true);
         dataChart.setDayXAxis(listDate);
         dataChart.loadChart();
     }

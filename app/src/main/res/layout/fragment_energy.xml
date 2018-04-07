@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="tties.cn.energy.view.activity.EnergyActivity">
-    <include layout="@layout/toobar"/>
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -14,52 +13,62 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="5"
-            android:background="@mipmap/bg_identity"
+            android:background="@mipmap/energy_bg"
             android:gravity="center_horizontal"
             android:orientation="vertical">
+            <android.support.v7.widget.Toolbar
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/data_toolbar"
+                style="@style/headtoolbar"
+                app:layout_scrollFlags="scroll|enterAlways">
+                <TextView android:id="@+id/energy_toolbar_text"
+                    android:textColor="@color/white"
+                    style="@style/toolbar_center"/>
+            </android.support.v7.widget.Toolbar>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:layout_marginTop="50dp"
-                android:layout_height="wrap_content">
-               <tties.cn.energy.common.CircleProgressBar
-                   android:id="@+id/tasks_view"
-                   android:layout_width="120dp"
-                   android:layout_height="120dp"
-                   app:radius="50dip"
-                   app:ringColor="#649EE3"
-                   app:strokeWidth="10dip"/>
-            </LinearLayout>
-            <LinearLayout
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <TextView
-                    android:layout_marginTop="5dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="17sp"
-                    android:textColor="@color/white"
-                    android:text="您目前击败了"/>
-                <TextView
-                    android:id="@+id/energy_usermark"
-                    android:layout_marginTop="5dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="17sp"
-                    android:textColor="@color/white"
-                    android:text="14%"/>
-                <TextView
-                    android:layout_marginTop="5dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="17sp"
-                    android:textColor="@color/white"
-                    android:text="的同行用户！"/>
-            </LinearLayout>
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/y5"
+                    android:layout_height="wrap_content">
+                    <!--<tties.cn.energy.common.CircleProgressBar-->
+                        <!--android:id="@+id/tasks_view"-->
+                        <!--android:layout_width="@dimen/y120"-->
+                        <!--android:layout_height="@dimen/x120"-->
+                        <!--app:radius="50dip"-->
+                        <!--app:ringColor="#649EE3"-->
+                        <!--app:strokeWidth="10dip"/>-->
+                    <tties.cn.energy.common.MyEnergyProgressRound
+                        android:id="@+id/tasks_view"
+                        android:layout_width="@dimen/y120"
+                        android:layout_height="@dimen/y120"
+                        app:ringSize="10dp"
+                        app:progressColor="#BFDDFF"
+                        app:textSize="30sp"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/energy_usermark"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="您目前击败了0%的同行用户！"/>
+                </LinearLayout>
 
+            </LinearLayout>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:gravity="center"
@@ -78,19 +87,18 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:textSize="13sp"
                 android:text="用电经济星级评价"/>
         </LinearLayout>
         <View
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="@dimen/y5"
            style="@style/cut_off_line_1dp"/>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="230dp"
+            android:layout_height="@dimen/y230"
             android:orientation="vertical"
            >
             <LinearLayout
-
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -105,11 +113,11 @@
                     android:gravity="center"
                     android:orientation="vertical">
                     <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:src="@mipmap/energy_base"/>
                     <TextView
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="@dimen/y8"
                         android:text="基本电费优化"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -126,11 +134,11 @@
                     android:gravity="center"
                     android:orientation="vertical">
                     <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:src="@mipmap/energy_charge"/>
                     <TextView
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="@dimen/y8"
                         android:text="电度电费优化"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -147,11 +155,11 @@
                     android:gravity="center"
                     android:orientation="vertical">
                     <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:src="@mipmap/energy_force"/>
                     <TextView
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="@dimen/y8"
                         android:text="力调电费优化"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -175,11 +183,11 @@
                     android:gravity="center"
                     android:orientation="vertical">
                     <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:src="@mipmap/energy_transformer"/>
                     <TextView
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="@dimen/y8"
                         android:text="变压器优化"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -196,11 +204,11 @@
                     android:gravity="center"
                     android:orientation="vertical">
                     <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:src="@mipmap/energy_ops"/>
                     <TextView
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="@dimen/y8"
                         android:text="运维月报"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -217,11 +225,11 @@
                     android:gravity="center"
                     android:orientation="vertical">
                     <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:src="@mipmap/energy_energy"/>
                     <TextView
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="@dimen/y8"
                         android:text="能效月报"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />

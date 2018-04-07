@@ -26,7 +26,9 @@ import tties.cn.energy.model.result.Data_Electricbean;
 import tties.cn.energy.presenter.Data_ElectricPresenter;
 import tties.cn.energy.utils.StringUtil;
 import tties.cn.energy.utils.ToastUtil;
+import tties.cn.energy.view.adapter.MyMonthlyAdapter;
 import tties.cn.energy.view.dialog.BottomStyleDialog;
+import tties.cn.energy.view.dialog.MyTimePickerDialog;
 import tties.cn.energy.view.iview.IData_ElectricView;
 
 /**
@@ -51,7 +53,7 @@ public class Data_ElectricActivity extends BaseActivity<Data_ElectricPresenter> 
     LinearLayout dataAllelectricElectrical;
     private BottomStyleDialog dialog;
     int num = 0;
-
+    MyTimePickerDialog dialogtime;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +64,7 @@ public class Data_ElectricActivity extends BaseActivity<Data_ElectricPresenter> 
     }
 
     private void initView() {
+        dialogtime=new MyTimePickerDialog();
         toolbarText.setText("电量数据");
         toolbarLeft.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,25 +75,7 @@ public class Data_ElectricActivity extends BaseActivity<Data_ElectricPresenter> 
         dataElectricalTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TimePickerDialog dialogYearMonth = new TimePickerDialog.Builder()
-                        .setType(Type.YEAR_MONTH)
-                        .setTitleStringId("选择月份")
-                        .setThemeColor(R.color.home_btn_lightblue)
-                        .setWheelItemTextNormalColor(getResources().getColor(R.color.home_btn_lightblue))
-                        .setWheelItemTextSelectorColor(getResources().getColor(R.color.radiobtn_meterlist_colorLineDefault))
-                        .setThemeColor(getResources().getColor(R.color.radiobtn_meterlist_colorLineDefault))
-                        .setWheelItemTextSelectorColor(getResources().getColor(R.color.black))
-                        .setCallBack(new OnDateSetListener() {
-                            @Override
-                            public void onDateSet(TimePickerDialog timePickerView, long millseconds) {
-                                Date date = new Date(millseconds);
-                                SimpleDateFormat format = new SimpleDateFormat("yyyy年MM日");
-                                String time = format.format(date);
-                                dataElectricalTv.setText(time);
-                            }
-                        })
-                        .build();
-                dialogYearMonth.show(getSupportFragmentManager(), "年_月");
+                dialogtime.getTimePickerDialog(Data_ElectricActivity.this,dataElectricalTv);
             }
         });
         dataAllelectricElectrical.setOnClickListener(new View.OnClickListener() {
