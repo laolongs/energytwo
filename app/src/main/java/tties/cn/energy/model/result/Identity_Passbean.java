@@ -7,4 +7,17 @@ package tties.cn.energy.model.result;
  */
 
 public class Identity_Passbean {
+    /**
+     * flag : true
+     */
+
+    private boolean flag;
+
+    public boolean isFlag() {
+        return flag;
+    }
+
+    public void setFlag(boolean flag) {
+        this.flag = flag;
+    }
 }

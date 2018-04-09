@@ -56,7 +56,7 @@
                         android:id="@+id/electrical_myview"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:ringSize="10dp"
+                        app:ringSize="5dp"
                         app:progressColor="#883399"
                         app:textSize="30sp"
                         android:layout_centerInParent="true"/>

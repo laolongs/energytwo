@@ -5,7 +5,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -15,6 +21,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import tties.cn.energy.R;
 import tties.cn.energy.base.BaseActivity;
+import tties.cn.energy.chart.BarDataChart;
+import tties.cn.energy.chart.BarDataCharttwo;
 import tties.cn.energy.chart.LineDataChart;
 import tties.cn.energy.model.result.AllElectricitybean;
 import tties.cn.energy.model.result.DataFragmentbean;
@@ -67,6 +75,10 @@ public class Energy_ForceActivity extends BaseActivity<Energy_ForcePresenter> im
         //当年
         mPresenter.getEnergy_ForcechartData();
         mPresenter.getEnergy_Forcecharge();
+//        XAxis xAxis =energyForceChart2.getXAxis();
+//        xAxis.setDrawAxisLine(true);
+//        YAxis axisLeft = energyForceChart2.getAxisLeft();
+//        axisLeft.setDrawZeroLine(true);
         //每月节约活每年节约
 //        if(mYear==year){
 //            mPresenter.getEnergy_Forcecharge(mYear+"-"+mMonth,mMonth+1);

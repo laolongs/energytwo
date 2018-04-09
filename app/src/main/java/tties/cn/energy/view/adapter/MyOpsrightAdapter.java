@@ -65,7 +65,7 @@ public class MyOpsrightAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof MyNoQuestionViewHoder) {
-            ((MyNoQuestionViewHoder) holder).opsItemRightNoTv.setText("无问题");
+            ((MyNoQuestionViewHoder) holder).opsItemRightNoTv.setText("全部设备运转良好，请继续保持！");
         }
         if (holder instanceof MyViewHoder) {
             ((MyViewHoder) holder).opsItemTitle.setText(listbean.get(position).getTitle());
@@ -77,7 +77,6 @@ public class MyOpsrightAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     listener.onClickItemListener(position);
                 }
             });
-//            if(listbean.get(position).getPatrolType())
             //没问题的  处理过的
            if(listbean.get(position).getStatus()==1){
                switch (listbean.get(position).getPatrolType()) {
@@ -144,9 +143,7 @@ public class MyOpsrightAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public int getItemViewType(int position) {
-
-        if (opsbean.getCount() == 0&&position<listhead.size()) {
-            Log.i("----0000--------", "setHeadView: " + "0000");
+        if (opsbean.getCount()== 0&&position<listhead.size()) {
             return TYPE_ONE;
         } else {
             return TYPE_TWO;

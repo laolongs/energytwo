@@ -1,6 +1,7 @@
 package tties.cn.energy.view.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,7 +31,7 @@ import tties.cn.energy.view.iview.IMainView;
  * 电度电量优化
  */
 public class Energy_ElectricalActivity extends BaseActivity<DataPresenter> implements IDataView {
-
+    private static final String TAG = "Energy_ElectricalActivi";
     @BindView(R.id.electrical_myview)
     MyProgressRound electricalMyview;
     @BindView(R.id.toolbar_left)
@@ -92,18 +93,20 @@ public class Energy_ElectricalActivity extends BaseActivity<DataPresenter> imple
     @Override
     public void setDataData(Databean bean) {
         int percentage=0;
-        int num=0;
+        double num=0;
         int low=bean.getDataList().get(0).getSectorGuValue();
         int hight=bean.getDataList().get(0).getSectorJianValue();
         int cusp=bean.getDataList().get(0).getSectorFengValue();
         num=low+hight+cusp;
+        Log.i(TAG, "setDataDatalow: "+low);
+        Log.i(TAG, "setDataDatanum: "+num);
         enereyElectricalMonth.setText(bean.getDataList().get(0).getBaseDate()+"");
         //尖峰
-        electricalMyview.setProgressMax(cusp/num);
+        electricalMyview.setProgressMax(cusp,num);
         //高峰
-        electricalMyview.setProgressCenter(hight/num);
+        electricalMyview.setProgressCenter(hight,num);
         //低谷
-        electricalMyview.setProgressMin(low/num);
+        electricalMyview.setProgressMin(low,num);
         enereyElectricalCusp.setText(bean.getDataList().get(0).getSectorJianValue()+"度");
         enereyElectricalHight.setText(bean.getDataList().get(0).getSectorFengValue()+"度");
         enereyElectricalLow.setText(bean.getDataList().get(0).getSectorGuValue()+"度");

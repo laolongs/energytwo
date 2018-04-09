@@ -33,6 +33,7 @@ import tties.cn.energy.utils.PtrClassicFoot;
 import tties.cn.energy.utils.PtrClassicHeader;
 import tties.cn.energy.view.activity.QuestionsActivity;
 import tties.cn.energy.view.adapter.MyOpsrightAdapter;
+import tties.cn.energy.view.adapter.MyOpsrightNoDataAdapter;
 import tties.cn.energy.view.iview.IOpsView;
 
 /**
@@ -181,15 +182,10 @@ public class OpsFragment extends BaseFragment<OpsPresenter> implements IOpsView 
 
     @Override
     public void setOpsRightData(Opsbean opsbean) {
-        Log.i(TAG, "setOpsRightData: " + opsbean);
-        Log.i(TAG, "setOpsRightData    : " + this.opsbean);
         if (opsbean.getResult().getQuestionList().size() > 0) {
-//            opsRefreshLayout.setVisibility(View.VISIBLE);
-//            opsRightRL.setVisibility(View.GONE);
             count = opsbean.getResult().getQuestionList().size();
             Log.i(TAG, "setOpsRightData:countcountcount "+count);
             if (flag) {
-//                list = opsbean.getResult().getQuestionList();
                 list.addAll(list);
             } else {
                 list = opsbean.getResult().getQuestionList();
@@ -198,7 +194,6 @@ public class OpsFragment extends BaseFragment<OpsPresenter> implements IOpsView 
             adapter.setApapterData(list);
             adapter.notifyDataSetChanged();
             opsNumber.setText(opsbean.getResult().getCount() + "");
-//            opsRcyRight.setAdapter(adapter);
             adapter.setonClickListener(new MyOpsrightAdapter.onClickListener() {
                 @Override
                 public void onClickItemListener(int postion) {
@@ -208,9 +203,11 @@ public class OpsFragment extends BaseFragment<OpsPresenter> implements IOpsView 
                 }
             });
         } else {
-//            opsRightRL.setVisibility(View.VISIBLE);
-//            opsRefreshLayout.setVisibility(View.GONE);
             Log.i(TAG, "setOpsRightData: " + "当前bean里无数据");
+        }
+        if(opsbean.getResult().getCount()==0&&opsbean.getResult().getQuestionList().size()==0){
+            MyOpsrightNoDataAdapter adapter=new MyOpsrightNoDataAdapter(getActivity(),opsbean.getResult());
+            opsRcyRight.setAdapter(adapter);
         }
 
     }

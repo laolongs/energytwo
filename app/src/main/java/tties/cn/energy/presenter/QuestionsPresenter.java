@@ -84,7 +84,7 @@ public class QuestionsPresenter extends BasePresenter<IQuestionsView> {
                 });
     }
     public void getDiscuss(String questionId,String content){
-        OpsLoginbean opsLoginbean = ACache.getInstance().getAsObject(Constants.CACHE_OPSLOGIN_STATUS);
+        OpsLoginbean opsLoginbean = ACache.getInstance().getAsObject(Constants.CACHE_OPSLOGIN_USERINFO);
 //        int staffId = opsLoginbean.getResult().getMaintUser().getStaffId();
         HashMap<String,Object> map=new HashMap<>();
         map.put("questionId",questionId);//对应的问题id

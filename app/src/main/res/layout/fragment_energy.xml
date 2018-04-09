@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context="tties.cn.energy.view.activity.EnergyActivity">
     <LinearLayout
         android:orientation="vertical"
@@ -49,9 +50,9 @@
                         android:id="@+id/tasks_view"
                         android:layout_width="@dimen/y120"
                         android:layout_height="@dimen/y120"
-                        app:ringSize="10dp"
+                        app:ringSize="5dp"
                         app:progressColor="#BFDDFF"
-                        app:textSize="30sp"
+                        app:textSize="40sp"
                         />
                 </LinearLayout>
                 <LinearLayout
@@ -74,17 +75,17 @@
             android:gravity="center"
             android:orientation="vertical"
             android:layout_height="0dp"
-            android:layout_weight="2">
-            <android.support.v7.widget.AppCompatRatingBar
+            android:layout_weight="1.5">
+            <RatingBar
                 android:id="@+id/energy_bar"
                 android:rating="5"
-                android:isIndicator="false"
-                style="?attr/radioButtonStyle"
-                android:progressTint="#C4E8F4"
-                android:secondaryProgressTint="#88CAEB"
+                android:isIndicator="true"
+                android:stepSize="0.05"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="@dimen/y30"
+                style="@style/roomRatingBar"/>
             <TextView
+                android:layout_marginTop="@dimen/y8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="13sp"

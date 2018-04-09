@@ -13,4 +13,5 @@ public interface IIdentity_PassView extends BaseView {
     public void setIdentity_PassData(Identity_Passbean bean);
     public String getOldPass();
     public String getNewPass();
+    public String getNew2Pass();
 }

@@ -26,7 +26,7 @@ import tties.cn.energy.view.iview.IOpsView;
 
 public class OpsPresenter extends BasePresenter<IOpsView> {
     private static final String TAG = "OpsPresenter";
-    OpsLoginbean bean = ACache.getInstance().getAsObject(Constants.CACHE_OPSLOGIN_STATUS);
+    OpsLoginbean bean = ACache.getInstance().getAsObject(Constants.CACHE_OPSLOGIN_USERINFO);
     IOpsView view;
     OpsDataModel model;
     int pagenum;

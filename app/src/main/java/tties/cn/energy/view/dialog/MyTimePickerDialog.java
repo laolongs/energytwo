@@ -22,7 +22,7 @@ public class MyTimePickerDialog {
     public  void getTimePickerDialog(Context context, final TextView tv){
 //        时间选择器
         com.jzxiang.pickerview.TimePickerDialog dialogYearMonth = new com.jzxiang.pickerview.TimePickerDialog.Builder()
-                .setType(Type.YEAR_MONTH)
+                .setType(Type.YEAR)
                 .setTitleStringId("选择月份")
                 .setThemeColor(R.color.home_btn_lightblue)
                 .setWheelItemTextNormalColor(context.getResources().getColor(R.color.home_btn_lightblue))
@@ -34,7 +34,7 @@ public class MyTimePickerDialog {
                     public void onDateSet(com.jzxiang.pickerview.TimePickerDialog timePickerView, long millseconds) {
                         Date date = new Date(millseconds);
                         SimpleDateFormat format = new SimpleDateFormat("yyyy年MM日");
-                       String time= format.format(date);
+                        String time= format.format(date);
                         tv.setText(time);
                     }
                 })

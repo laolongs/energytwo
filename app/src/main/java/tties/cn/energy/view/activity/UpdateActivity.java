@@ -39,6 +39,8 @@ import tties.cn.energy.utils.AppUtils;
 import tties.cn.energy.view.dialog.ConfirmDialog;
 import tties.cn.energy.view.dialog.HorProgressDialog;
 
+import static tties.cn.energy.R.drawable.versetion_text_shop_select;
+
 public class UpdateActivity extends Activity implements View.OnClickListener,EasyPermissions.PermissionCallbacks {
     @BindView(R.id.title)
     TextView title;
@@ -81,7 +83,7 @@ public class UpdateActivity extends Activity implements View.OnClickListener,Eas
         }
 //        x.view().inject(this);
         description.setText(Html.fromHtml(mVersion.getDescription()));
-        title.setText("发现新版本 " + mVersion.getVersionName());
+        title.setText("检测到新版本 " + mVersion.getVersionName());
         if (AppUtils.getVersionCode() < mVersion.getMinVersionCode()) {
             isMminVersion = true;
             btnCancel.setVisibility(View.GONE);

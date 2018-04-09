@@ -4,12 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 
 import java.util.ArrayList;
@@ -21,6 +23,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import tties.cn.energy.R;
 import tties.cn.energy.base.BaseFragment;
+import tties.cn.energy.chart.BarDataChart;
 import tties.cn.energy.chart.LineDataChart;
 import tties.cn.energy.model.result.DataFragmentbean;
 import tties.cn.energy.presenter.DataFragmentPresenter;
@@ -69,7 +72,7 @@ public class DataFragment extends BaseFragment<DataFragmentPresenter> implements
     TextView datafragmentPrice;
     int mYear;
     int mMonth;
-    private LineDataChart datafragmentChart;
+    private BarDataChart datafragmentChart;
 
     @Nullable
     @Override
@@ -156,17 +159,15 @@ public class DataFragment extends BaseFragment<DataFragmentPresenter> implements
 
     @Override
     public void setDataFragmentData(DataFragmentbean bean) {
-        ArrayList<Entry> values = new ArrayList<>();
-        for (int i = 0; i < bean.getDataList().size(); i++) {
-            Entry entry = new Entry(i, 0f);
+        ArrayList<BarEntry> values = new ArrayList<>();
+        for (int i =bean.getDataList().size()-1 ; i >=0; i--) {
+            BarEntry entry = new BarEntry(i, 0f);
             entry.setY((float) bean.getDataList().get(i).getCost());
+
             values.add(entry);
         }
-        if(values!=null){
-            datafragmentChart.setDataSet(values, "");
-            datafragmentChart.loadChart();
-            datafragmentPrice.setText(bean.getDataList().get(0).getCost()+"");
-        }
-
+        datafragmentChart.setDataSet(values, "");
+        datafragmentChart.loadChart();
+        datafragmentPrice.setText(bean.getDataList().get(0).getCost()+"");
     }
 }

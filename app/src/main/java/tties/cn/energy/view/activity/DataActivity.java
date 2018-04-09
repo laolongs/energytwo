@@ -66,9 +66,12 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
     TextView dataForcesCharge;
     @BindView(R.id.data_chart)
     LineDataChart dataChart;
+    @BindView(R.id.data_electricity_tv)
+    TextView dataElectricityTv;
     private PopupWindow mCurPopupWindow;
     private MyPopupWindow popupWindow;
     private BottomStyleDialog dialog;
+    int objType = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +96,7 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
         });
         mPresenter.getData();
         mPresenter.getchartData();
-        mPresenter.getAllElectricityData();
+        mPresenter.getAllElectricityData(objType);
         dataTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -192,13 +195,13 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
     @Override
     public void setDataData(Databean bean) {
         //总电费
-        dataAllCharge.setText(bean.getDataList().get(0).getTotalSum()+"");
+        dataAllCharge.setText(bean.getDataList().get(0).getTotalSum() + "");
         //基本电费
-        dataBaseCharge.setText(bean.getDataList().get(0).getBaseSum()+"");
+        dataBaseCharge.setText(bean.getDataList().get(0).getBaseSum() + "");
         //年度电费
-        dataYearCharge.setText(bean.getDataList().get(0).getFeeSum()+"");
+        dataYearCharge.setText(bean.getDataList().get(0).getFeeSum() + "");
         //力调电费
-        dataForcesCharge.setText(bean.getDataList().get(0).getFouceSum()+"");
+        dataForcesCharge.setText(bean.getDataList().get(0).getFouceSum() + "");
     }
 
     @Override
@@ -221,12 +224,20 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
 
     @Override
     public void setAllElectricity(final AllElectricitybean allElectricitybean) {
+        dataElectricityTv.setText(allElectricitybean.getLedgerName());
         dialog = new BottomStyleDialog(DataActivity.this, allElectricitybean);
         dialog.setCliekAllElectricity(new BottomStyleDialog.OnCliekAllElectricity() {
             @Override
             public void OnCliekAllElectricityListener(int poaiton) {
-                long meterId = allElectricitybean.getMeterList().get(poaiton).getMeterId();
-                ToastUtil.showShort(DataActivity.this, "" + meterId);
+                if (poaiton == 0) {
+                    long ledgerId = allElectricitybean.getLedgerId();
+                    dataElectricityTv.setText(allElectricitybean.getLedgerName());
+//
+                }
+                if (poaiton > 0) {
+                    long meterId = allElectricitybean.getMeterList().get(poaiton - 1).getMeterId();
+                    dataElectricityTv.setText(allElectricitybean.getMeterList().get(poaiton - 1).getMeterName());
+                }
             }
         });
     }

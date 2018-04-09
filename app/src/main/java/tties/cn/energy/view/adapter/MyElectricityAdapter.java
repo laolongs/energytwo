@@ -4,7 +4,10 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.TextView;
+
+import java.util.List;
 
 import tties.cn.energy.R;
 import tties.cn.energy.model.result.AllElectricitybean;
@@ -39,21 +42,45 @@ public class MyElectricityAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
+    public View getView(final int position, View convertView, ViewGroup parent) {
+        final ViewHolder holder;
         if (convertView == null) {
             convertView = View.inflate(mContext, R.layout.item_dialog_style, null);
             holder = new ViewHolder();
-            holder.tvName = (TextView) convertView.findViewById(R.id.tv_item_dialog_name);
+            holder.tvName = (TextView) convertView.findViewById(R.id.table_electrical_name);
+            holder.check=convertView.findViewById(R.id.table_electrical_check);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.tvName.setText(bean.getResult().getEnergyLedgerList().get(position).getEnergyLedgerId()+"");
+        final List<OpsLoginbean.ResultBean.EnergyLedgerListBean> energyLedgerList = bean.getResult().getEnergyLedgerList();
+        holder.check.setChecked(energyLedgerList.get(position).ischeck);
+        holder.tvName.setText(energyLedgerList.get(position).getEnergyLedgerId()+"");
+        holder.check.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                for (int i = 0; i < energyLedgerList.size(); i++) {
+                    if (i!=position){
+                        energyLedgerList.get(i).setIscheck(false);
+                    }else{
+                        energyLedgerList.get(i).setIscheck(true);
+                    }
+                }
+                if(holder.check.isChecked()){
+                    energyLedgerList.get(position).setIscheck(true);
+                }else{
+                    energyLedgerList.get(position).setIscheck(false);
+                }
+                notifyDataSetChanged();
+            }
+
+
+        });
         return convertView;
     }
 
     static class ViewHolder {
+        CheckBox check;
         TextView tvName;
     }
 }

@@ -23,7 +23,6 @@ public class StyleAdapter extends BaseAdapter {
         mContext = context;
         this.allElectricitybean=allElectricitybean;
     }
-
     @Override
     public int getCount() {
         return allElectricitybean!=null?allElectricitybean.getMeterList().size():0;
@@ -40,22 +39,23 @@ public class StyleAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
-        if (convertView == null) {
-            convertView = View.inflate(mContext, R.layout.item_dialog_style, null);
-            holder = new ViewHolder();
-            holder.tvName = (TextView) convertView.findViewById(R.id.tv_item_dialog_name);
-            convertView.setTag(holder);
-        } else {
-            holder = (ViewHolder) convertView.getTag();
-        }
-        holder.tvName.setText(allElectricitybean.getMeterList().get(position).getMeterName());
 
-        return convertView;
+            ViewHoldertwo holder;
+            if (convertView == null) {
+                convertView = View.inflate(mContext, R.layout.item_dialog, null);
+                holder = new ViewHoldertwo();
+                holder.tvNametwo = (TextView) convertView.findViewById(R.id.tv_item_dialog_name);
+                convertView.setTag(holder);
+            } else {
+                holder = (ViewHoldertwo) convertView.getTag();
+            }
+            holder.tvNametwo.setText(allElectricitybean.getMeterList().get(position).getMeterName());
+            return convertView;
+
+
     }
 
-    static class ViewHolder {
-        TextView tvName;
+    static class ViewHoldertwo {
+        TextView tvNametwo;
     }
-
 }

@@ -27,6 +27,7 @@ import tties.cn.energy.presenter.IdentityFragmentPresenter;
 import tties.cn.energy.utils.ACache;
 import tties.cn.energy.utils.ToastUtil;
 import tties.cn.energy.view.activity.AboutActivity;
+import tties.cn.energy.view.activity.ChangeTableActivity;
 import tties.cn.energy.view.activity.LoginActivity;
 import tties.cn.energy.view.activity.PasswordActivity;
 import tties.cn.energy.view.activity.VersionActivity;
@@ -63,9 +64,9 @@ public class IdentityFragment extends BaseFragment<IdentityFragmentPresenter> im
     TextView identitySwitchElectricity;
     @BindView(R.id.identity_img)
     ImageView identityImg;
-    MyElectricityPopupWindow popupWindow;
-    MyElectricityPopupWindow.OnclickItem onclickItem;
     OpsLoginbean bean;
+    int num=0;
+    long electricitynum=0;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -74,15 +75,11 @@ public class IdentityFragment extends BaseFragment<IdentityFragmentPresenter> im
         identityName=inflate.findViewById(R.id.identity_name);
         unbinder = ButterKnife.bind(this, inflate);
         Loginbean loginbean = ACache.getInstance().getAsObject(Constants.CACHE_USERINFO);
-//        Log.i("----------", "onCreateView: "+loginbean.getAccountId());
-        mPresenter.getOpsloginData(loginbean.getAccountId()+"");//1502183891109
-//        long accountid=1502183891109;
-//        mPresenter.getOpsloginData();
+        mPresenter.getOpsloginData();//1502183891109
         layoutPassword.setOnClickListener(this);
         layoutVersion.setOnClickListener(this);
         identityAbout.setOnClickListener(this);
         layoutLoginout.setOnClickListener(this);
-        identitySwitchElectricity.setOnClickListener(this);
         return inflate;
     }
 
@@ -130,25 +127,6 @@ public class IdentityFragment extends BaseFragment<IdentityFragmentPresenter> im
                     }
                 });
                 break;
-            //切换表号
-            case R.id.identity_switch_electricity:
-                    if(popupWindow!=null){
-                        popupWindow.showTipPopupWindow(identitySwitchElectricity);
-//                        onclickItem=new MyElectricityPopupWindow.OnclickItem() {
-//                            @Override
-//                            public void OnclickItemListener(int i) {
-//                                identityNumber.setText(bean.getResult().getEnergyLedgerList().get(i).getEnergyLedgerId()+"");
-//                            }
-//                        };
-                        popupWindow.setOnclickItem(new MyElectricityPopupWindow.OnclickItem() {
-                            @Override
-                            public void OnclickItemListener(int i) {
-                                identityNumber.setText(bean.getResult().getEnergyLedgerList().get(i).getEnergyLedgerId()+"");
-                            }
-                        });
-                    }
-
-                break;
         }
     }
 
@@ -159,10 +137,25 @@ public class IdentityFragment extends BaseFragment<IdentityFragmentPresenter> im
     }
 
     @Override
-    public void getOpsLoginData(OpsLoginbean opsLoginbean) {
+    public void getOpsLoginData(final OpsLoginbean opsLoginbean) {
             this.bean=opsLoginbean;
             identityName.setText(opsLoginbean.getResult().getMaintUser().getStaffName());
-            popupWindow=new MyElectricityPopupWindow(getActivity(),opsLoginbean);
-//            identityImg.setImageResource();
+            num=opsLoginbean.getResult().getEnergyLedgerList().size();
+            electricitynum=opsLoginbean.getResult().getEnergyLedgerList().get(0).getEnergyLedgerId();
+            if(num>0&&num==1){
+                identitySwitchElectricity.setText("仅有1个电表");
+                identityNumber.setText(electricitynum+"");
+            }else{
+                identityNumber.setText(electricitynum+"");
+                identitySwitchElectricity.setText("共有"+num+"个电表 切换电表");
+                identitySwitchElectricity.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent1 = new Intent(getActivity(), ChangeTableActivity.class);
+                        intent1.putExtra("bean",opsLoginbean);
+                        startActivity(intent1);
+                    }
+                });
+            }
     }
 }

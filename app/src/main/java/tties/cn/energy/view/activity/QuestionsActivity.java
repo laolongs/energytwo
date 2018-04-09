@@ -2,6 +2,7 @@ package tties.cn.energy.view.activity;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -16,12 +17,16 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -107,6 +112,7 @@ public class QuestionsActivity extends BaseActivity<QuestionsPresenter> implemen
     List<Fragment> listFragment;
     private Questions_discussFragment discussFragment;
     private Questions_progressFragment progressFragment;
+    public String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,31 +146,55 @@ public class QuestionsActivity extends BaseActivity<QuestionsPresenter> implemen
         });
         //回复
         quReply.setOnClickListener(new View.OnClickListener() {
+
+
             @Override
             public void onClick(View view) {
 //                mPresenter.getDiscuss(questionId,"");
                 View inflate = View.inflate(QuestionsActivity.this, R.layout.dialog_schedule, null);
                 final EditText editText = inflate.findViewById(R.id.message);
+                TextView staffname = inflate.findViewById(R.id.question_dialog_name);
+                Button confirm = inflate.findViewById(R.id.question_btn_confirm);
+                Button cancel = inflate.findViewById(R.id.question_btn_cancel);
                 Loginbean userInfo = MyApplication.getUserInfo();
+                AlertDialog.Builder builder = new AlertDialog.Builder(QuestionsActivity.this);
+                builder.setView(inflate);
+                final AlertDialog dialog = builder.create();
+                dialog.show();
+                if(!name.isEmpty()){
+                    staffname.setText(name);
+                }
+                confirm.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mPresenter.getDiscuss(questionId, editText.getText().toString());
+                        dialog.dismiss();
+                    }
+                });
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
 //                Log.i(TAG, "onClick: "+userInfo.g);
                 ToastUtil.showShort(QuestionsActivity.this, "回复");
-                AlertDialog.Builder builder = new AlertDialog.Builder(QuestionsActivity.this);
-                builder.setTitle("问题讨论");
-                builder.setView(inflate);
-                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
 
-                    }
-                });
-                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        mPresenter.getDiscuss(questionId, editText.getText().toString());
-                    }
-                });
-                AlertDialog dialog = builder.create();
-                dialog.show();
+//                builder.setTitle("问题讨论");
+
+//                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//
+//                    }
+//                });
+//                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        mPresenter.getDiscuss(questionId, editText.getText().toString());
+//                    }
+//                });
+
             }
         });
     }
@@ -208,6 +238,7 @@ public class QuestionsActivity extends BaseActivity<QuestionsPresenter> implemen
             listFragment.add(discussFragment);
             mPresenter.getQuestionsTabData();
             initRecycleView(listbean);
+            name=bean.getResult().getQuestionList().get(0).getAdviceList().get(0).getMbStaff().getStaffName();
         } else {
             Log.i(TAG, "setQuestionData: " + "无数据");
         }

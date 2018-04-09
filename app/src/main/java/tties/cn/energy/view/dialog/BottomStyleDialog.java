@@ -10,6 +10,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import tties.cn.energy.R;
 import tties.cn.energy.model.result.AllElectricitybean;
@@ -64,6 +65,10 @@ public class BottomStyleDialog extends Dialog implements AdapterView.OnItemClick
         // 填充数据集合
         mAdapter = new StyleAdapter(getContext(), allElectricitybean);
         mLv.setAdapter(mAdapter);
+        View inflate = View.inflate(getContext(), R.layout.item_dialog, null);
+        TextView viewhead = inflate.findViewById(R.id.tv_item_dialog_name);
+        viewhead.setText(allElectricitybean.getLedgerName());
+        mLv.addHeaderView(inflate);
         mLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -71,6 +76,7 @@ public class BottomStyleDialog extends Dialog implements AdapterView.OnItemClick
                 dismiss();
             }
         });
+
     }
 
     @Override

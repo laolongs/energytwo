@@ -1,79 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/bg_login"
-    android:fitsSystemWindows="true">
-
-    <RelativeLayout
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+    <include
+        layout="@layout/toobar"/>
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/y38">
-
-        <ImageView
-            android:id="@+id/logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/y70"
-            android:src="@mipmap/ic_login_logo" />
-
-        <RelativeLayout
-            android:id="@+id/layout_username"
-            style="@style/login_layout"
-            android:layout_below="@+id/logo"
-            android:layout_marginTop="@dimen/y80">
-
-                <ImageView
-                    android:id="@+id/image_username"
-                    style="@style/login_image"
-                    android:src="@mipmap/ic_login_user" />
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <EditText
-                    android:id="@+id/edittext_username"
-                    android:hint="用户名"
-                    android:text=""
-                    style="@style/login_editview" />
-            </android.support.design.widget.TextInputLayout>
-
-            <ImageView style="@style/login_image_bottom" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            style="@style/login_layout"
-            android:layout_below="@+id/layout_username"
-            android:layout_marginTop="@dimen/y20">
-
-            <ImageView
-                android:id="@+id/image_password"
-                style="@style/login_image"
-                android:src="@mipmap/ic_login_password" />
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
-                    <EditText
-                        android:id="@+id/edittext_password"
-                        android:inputType="textPassword"
-                        android:hint="密码"
-                        android:text=""
-                        style="@style/login_editview" />
-                </android.support.design.widget.TextInputLayout>
-            <ImageView style="@style/login_image_bottom" />
-        </RelativeLayout>
-        <Button
-            android:id="@+id/btn_intoMain"
+        android:layout_height="@dimen/y120"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/y15"
+        android:paddingRight="@dimen/y50">
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y49"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/y80"
-            android:background="@drawable/selector_btn_login_click"
-            android:text="登录"
-            android:textColor="@color/login_btn" />
-    </RelativeLayout>
-</android.support.design.widget.CoordinatorLayout>
+            android:layout_height="@dimen/y36"
+            android:layout_marginTop="@dimen/y20">
+            <TextView
+                android:gravity="center_vertical"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:text="用户名"
+                android:textColor="@color/black" />
+
+            <EditText
+                android:background="@null"
+                android:id="@+id/edittext_username"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:layout_toRightOf="@+id/identity_pass_oldpwdtv"
+              />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y36"
+            android:layout_marginTop="@dimen/y20">
+            <TextView
+                android:gravity="center_vertical"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="密码"
+                android:textColor="@color/black" />
+
+            <EditText
+                android:background="@null"
+                android:id="@+id/edittext_password"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:layout_toRightOf="@+id/identity_pass_newpwdtv"
+                android:inputType="textPassword" />
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:paddingLeft="@dimen/y15"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y60"
+        android:layout_marginTop="@dimen/y20">
+        <CheckBox
+            android:gravity="center_vertical"
+            android:id="@+id/login_check"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="match_parent"
+            android:singleLine="true"
+            android:text="保存密码"
+            android:textColor="@color/black" />
+    </LinearLayout>
+    <Button
+        android:layout_gravity="center"
+        android:id="@+id/btn_intoMain"
+        android:layout_width="@dimen/y200"
+        android:layout_height="@dimen/y49"
+        android:layout_marginTop="@dimen/y10"
+        android:background="@drawable/versetion_text_shop_select"
+        android:text="登录"
+        android:textColor="@color/white" />
+    <LinearLayout
+        android:layout_marginTop="@dimen/y20"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_gravity="center"
+            android:layout_width="@dimen/y250"
+            android:layout_height="wrap_content"
+            android:text="您正在进行修改密码操作，如遇账户问题请联系天天智电客户服务热线"/>
+        <LinearLayout
+            android:layout_marginTop="@dimen/y10"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/login_phone"/>
+            <TextView
+                android:layout_marginLeft="@dimen/y10"
+                android:id="@+id/login_call"
+                android:textSize="17sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="400 668 2879"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
+

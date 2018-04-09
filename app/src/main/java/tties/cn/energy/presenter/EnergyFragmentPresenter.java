@@ -11,6 +11,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import tties.cn.energy.api.RetrofitApi;
 import tties.cn.energy.base.BasePresenter;
+import tties.cn.energy.common.Constants;
 import tties.cn.energy.model.IModel.Data_ElectricModel;
 import tties.cn.energy.model.IModel.EnergyFragmentModel;
 import tties.cn.energy.model.IModel.IData_ElectricModel;
@@ -18,6 +19,8 @@ import tties.cn.energy.model.IModel.IEnergyFragmentModel;
 import tties.cn.energy.model.result.AllElectricitybean;
 import tties.cn.energy.model.result.Data_Electricbean;
 import tties.cn.energy.model.result.EnergyFragmentbean;
+import tties.cn.energy.model.result.Loginbean;
+import tties.cn.energy.utils.ACache;
 import tties.cn.energy.view.iview.IData_ElectricView;
 import tties.cn.energy.view.iview.IEnergyFragmentView;
 
@@ -36,10 +39,13 @@ public class EnergyFragmentPresenter extends BasePresenter<IEnergyFragmentView> 
         model=new EnergyFragmentModel();
     }
     public void getEnergyFragment(){
+        String name = ACache.getInstance().getAsObject(Constants.CACHE_LOGIN_USERNAME);
+        String pass = ACache.getInstance().getAsObject(Constants.CACHE_LOGIN_PASSWORDMD5);
+        Loginbean bean = ACache.getInstance().getAsObject(Constants.CACHE_USERINFO);
         Map<String,Object> map=new HashMap<>();
-        map.put("userName","test");
-        map.put("password","E10ADC3949BA59ABBE56E057F20F883E");
-        map.put("accountId","1486535776800");
+        map.put("userName",name);
+        map.put("password",pass);
+        map.put("accountId",bean.getAccountId());
         model.getEnergyFragmentData().getEnergyFragment(map).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<EnergyFragmentbean>() {

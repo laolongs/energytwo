@@ -11,6 +11,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import tties.cn.energy.api.RetrofitApi;
 import tties.cn.energy.base.BasePresenter;
+import tties.cn.energy.common.Constants;
 import tties.cn.energy.model.IModel.Data_CurrentModel;
 import tties.cn.energy.model.IModel.Data_RateModel;
 import tties.cn.energy.model.IModel.IData_CurrentModel;
@@ -20,6 +21,8 @@ import tties.cn.energy.model.result.Data_CurrentPressbean;
 import tties.cn.energy.model.result.Data_Currentbean;
 import tties.cn.energy.model.result.Data_HaveKwbean;
 import tties.cn.energy.model.result.Data_NoKvarbean;
+import tties.cn.energy.model.result.Loginbean;
+import tties.cn.energy.utils.ACache;
 import tties.cn.energy.view.iview.IData_CurrentView;
 import tties.cn.energy.view.iview.IData_RateView;
 
@@ -36,9 +39,11 @@ public class Data_CurrentPresenter extends BasePresenter<IData_CurrentView>  {
         this.model = new Data_CurrentModel();
     }
     public void getData_CurrentData(int dataType){
+        String name = ACache.getInstance().getAsObject(Constants.CACHE_LOGIN_USERNAME);
+        String pass = ACache.getInstance().getAsObject(Constants.CACHE_LOGIN_PASSWORDMD5);
         Map<String,Object> map=new HashMap<>();
-        map.put("userName","test");
-        map.put("password","E10ADC3949BA59ABBE56E057F20F883E");
+        map.put("userName",name);
+        map.put("password",pass);
         map.put("objId","1486536312217");
         map.put("objType","2");
         map.put("dataType",dataType);

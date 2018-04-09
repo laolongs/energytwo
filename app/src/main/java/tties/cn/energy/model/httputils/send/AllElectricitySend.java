@@ -11,7 +11,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import tties.cn.energy.api.RetrofitApi;
+import tties.cn.energy.common.Constants;
 import tties.cn.energy.model.result.AllElectricitybean;
+import tties.cn.energy.model.result.OpsLoginbean;
+import tties.cn.energy.utils.ACache;
 import tties.cn.energy.view.activity.Data_NoActivity;
 import tties.cn.energy.view.dialog.BottomStyleDialog;
 
@@ -29,11 +32,13 @@ public class AllElectricitySend {
     AllElectricitybean allElectricitybean;
     private static final String TAG = "AllElectricitySend";
     public void getAllElectricityData() {
-
+        String name = ACache.getInstance().getAsObject(Constants.CACHE_LOGIN_USERNAME);
+        String pass = ACache.getInstance().getAsObject(Constants.CACHE_LOGIN_PASSWORDMD5);
+        long energyledgerId = ACache.getInstance().getAsObject(Constants.CACHE_OPS_ENERGYLEDGERID);
         Map<String,Object> map=new HashMap<>();
-        map.put("userName","test");
-        map.put("password","E10ADC3949BA59ABBE56E057F20F883E");
-        map.put("objId","1486535776800");
+        map.put("userName",name);
+        map.put("password",pass);
+        map.put("objId",energyledgerId);
         map.put("objType",1);
         RetrofitApi.getServer().getAllElectricity(map)
                 .observeOn(AndroidSchedulers.mainThread())

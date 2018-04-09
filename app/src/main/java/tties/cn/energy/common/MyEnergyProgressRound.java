@@ -30,6 +30,7 @@ import tties.cn.energy.R;
 public class MyEnergyProgressRound extends View{
 
     Paint paint;
+    Paint painttext;
     Paint paintCenter;
     Paint paintMin;
 
@@ -78,12 +79,13 @@ public class MyEnergyProgressRound extends View{
     }
 
     public void init(){
+        Paint.Cap cap=Paint.Cap.ROUND;
         paint = new Paint();
         paint.setAntiAlias(true);
-        paintCenter = new Paint();
-        paint.setAntiAlias(true);
-        paintMin = new Paint();
-        paint.setAntiAlias(true);
+        paint.setStrokeCap(cap);
+        painttext = new Paint();
+        painttext.setAntiAlias(true);
+
     }
 
     //widthMeasureSpec／heightMeasureSpec 是一个32为的int类型
@@ -131,10 +133,18 @@ public class MyEnergyProgressRound extends View{
         canvas.drawCircle(getMeasuredWidth()/2, getMeasuredHeight()/2, mRadiuSize, paint);
 
 
-        paint.setTextSize(mTextSize);
-        String text = mCountProgress+"分";
-        float textWidth = paint.measureText(text);
-        canvas.drawText(text, getMeasuredWidth()/2-textWidth/2 , getMeasuredWidth()/2 + mTextSize/2, paint);
+        painttext.setTextSize(mTextSize);
+        painttext.setStrokeWidth(10);
+        painttext.setColor(paintMaxRadiucolor);
+        String text = mCountProgress+"";
+        float textWidth = painttext.measureText(text);
+        canvas.drawText(text, getMeasuredWidth()/2-textWidth/2-20 , getMeasuredHeight()/2 + mTextSize/2-10, painttext);
+        painttext.setTextSize(30);
+        painttext.setStrokeWidth(5);
+        String text2 = "分";
+        float textWidth2 = painttext.measureText(text);
+        canvas.drawText(text2, getMeasuredWidth()/2-textWidth2/2 +30, getMeasuredHeight()/2 + mTextSize/2-10, painttext);
+//
         RectF rectF = new RectF(getMeasuredWidth()/2 - mRadiuSize,getMeasuredHeight()/2 - mRadiuSize,getMeasuredWidth()/2 + mRadiuSize  ,getMeasuredHeight()/2 + mRadiuSize);
         paint.setStrokeWidth(mRingSize);
         paint.setColor(paintMaxRadiucolor);

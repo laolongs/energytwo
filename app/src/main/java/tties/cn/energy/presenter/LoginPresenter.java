@@ -1,5 +1,6 @@
 package tties.cn.energy.presenter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -53,6 +54,7 @@ public class LoginPresenter extends BasePresenter<ILoginView>  {
         setPassword(loginPass);
         Map<String,Object> map=new HashMap<>();
         Log.i(TAG, "showloginData: "+getPassword());
+        Log.i(TAG, "------------showloginData: "+loginPass);
         map.put("userName",loginName);
         map.put("password",loginPass);
         map.put("type",3);
@@ -72,14 +74,16 @@ public class LoginPresenter extends BasePresenter<ILoginView>  {
                         Log.d(TAG, "返回数据: " + value);
                         EventBusBean bean = new EventBusBean();
                         dialog.removeDialog();
-                        Log.d(TAG, "------"+value.isLoginFlag());
                         if (value.isLoginFlag()) {
+                            Log.d(TAG, "------"+value.isLoginFlag());
                             ACache.getInstance().put(Constants.CACHE_USERINFO, value);
                             ACache.getInstance().put(Constants.CACHE_LOGIN_STATUS, true);
                             ACache.getInstance().put(Constants.CACHE_LOGIN_USERNAME, loginName);
                             ACache.getInstance().put(Constants.CACHE_LOGIN_PASSWORD, view.getLoginPass());
+                            ACache.getInstance().put(Constants.CACHE_LOGIN_PASSWORDMD5, getPassword());
                             Intent intent = new Intent(context, MainActivity.class);
                             context.startActivity(intent);
+                            ((Activity)context).finish();
 //                            MeterSend send = new MeterSend();
 //                            send.send(null);
                         } else {

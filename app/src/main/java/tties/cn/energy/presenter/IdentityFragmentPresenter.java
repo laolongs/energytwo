@@ -11,6 +11,7 @@ import tties.cn.energy.base.BasePresenter;
 import tties.cn.energy.common.Constants;
 import tties.cn.energy.model.IModel.IIdentityFragmentModel;
 import tties.cn.energy.model.IModel.IdentityFragmentModel;
+import tties.cn.energy.model.result.Loginbean;
 import tties.cn.energy.model.result.OpsLoginbean;
 import tties.cn.energy.utils.ACache;
 import tties.cn.energy.view.iview.IIdentityFragmentView;
@@ -25,12 +26,14 @@ public class IdentityFragmentPresenter extends BasePresenter<IIdentityFragmentVi
     private static final String TAG = "IdentityFragmentPresent";
     IIdentityFragmentView view;
     IIdentityFragmentModel model;
+    long EleAccountId=0;
     public IdentityFragmentPresenter(IIdentityFragmentView view){
         this.view=view;
         model= new IdentityFragmentModel();
     }
-    public void getOpsloginData(String accountid){
-        model.getOpsLoginData().getOpsLogin(accountid).subscribeOn(Schedulers.io())
+    public void getOpsloginData(){
+        Loginbean bean = ACache.getInstance().getAsObject(Constants.CACHE_USERINFO);
+        model.getOpsLoginData().getOpsLogin(bean.getAccountId()+"").subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<OpsLoginbean>() {
                     @Override
@@ -41,7 +44,9 @@ public class IdentityFragmentPresenter extends BasePresenter<IIdentityFragmentVi
                     @Override
                     public void onNext(OpsLoginbean value) {
                         if(value != null&&value.getErrorCode()==0){
-                            ACache.getInstance().put(Constants.CACHE_OPSLOGIN_STATUS,value);
+                            EleAccountId=value.getResult().getEnergyLedgerList().get(0).getEleAccountId();
+                            ACache.getInstance().put(Constants.CACHE_OPSLOGIN_USERINFO,value);
+                            ACache.getInstance().put(Constants.CACHE_OPS_ENERGYLEDGERID,EleAccountId);
                             Log.i(TAG, "onNext: "+value.getResult().getMaintUser().getStaffName());
                             view.getOpsLoginData(value);
                         }else{

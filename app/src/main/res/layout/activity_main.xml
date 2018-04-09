@@ -13,6 +13,11 @@
         android:layout_above="@+id/main_rg"
        >
     </FrameLayout>
+    <View
+        android:layout_below="@id/main_fl"
+        android:id="@+id/main_vv"
+        android:layout_above="@id/main_rg"
+        style="@style/cut_off_line_1dp"/>
     <RadioGroup
         android:layout_alignParentBottom="true"
         android:id="@+id/main_rg"

@@ -13,7 +13,7 @@ import android.view.View;
 import tties.cn.energy.R;
 
 /**
- * Created by yfeng on 2017/10/9.
+ *
  * 在xml里面可以设置 进度圆环的属性
  * 1、颜色
  * 2、文本大小
@@ -33,9 +33,9 @@ public class MyProgressRound extends View{
     Paint paintCenter;
     Paint paintMin;
 
-    private int mProgressMax = 0;
-    private int mProgressCenter = 0;
-    private int mProgressMin = 0;
+    private float mProgressMax = 0;
+    private float mProgressCenter = 0;
+    private float mProgressMin = 0;
     private int mCountProgress = 0;
 
     private float mRadiuSize = 0;
@@ -78,12 +78,16 @@ public class MyProgressRound extends View{
     }
 
     public void init(){
+        Paint.Cap round = Paint.Cap.ROUND;
         paint = new Paint();
+//        paint.setStrokeCap(round);
         paint.setAntiAlias(true);
         paintCenter = new Paint();
-        paint.setAntiAlias(true);
+//        paintCenter.setStrokeCap(round);
+        paintCenter.setAntiAlias(true);
         paintMin = new Paint();
-        paint.setAntiAlias(true);
+        paintMin.setStrokeCap(round);
+        paintMin.setAntiAlias(true);
     }
 
     //widthMeasureSpec／heightMeasureSpec 是一个32为的int类型
@@ -129,13 +133,13 @@ public class MyProgressRound extends View{
         int paintMincolor = Color.parseColor("#435E60");
         int paintMinRadiucolor = Color.parseColor("#6BE96A");
 
-        paint.setStrokeWidth(10);
+        paint.setStrokeWidth(5);
         paint.setColor(paintMaxcolor);
         paint.setStyle(Paint.Style.STROKE);
-        paintCenter.setStrokeWidth(10);
+        paintCenter.setStrokeWidth(5);
         paintCenter.setColor(paintCentercolor);
         paintCenter.setStyle(Paint.Style.STROKE);
-        paintMin.setStrokeWidth(10);
+        paintMin.setStrokeWidth(5);
         paintMin.setColor(paintMincolor);
         paintMin.setStyle(Paint.Style.STROKE);
         canvas.drawCircle(getMeasuredWidth()/2, getMeasuredHeight()/2, mRadiuSize, paint);
@@ -150,28 +154,28 @@ public class MyProgressRound extends View{
         RectF rectF = new RectF(getMeasuredWidth()/2 - mRadiuSize,getMeasuredHeight()/2 - mRadiuSize,getMeasuredWidth()/2 + mRadiuSize  ,getMeasuredHeight()/2 + mRadiuSize);
         paint.setStrokeWidth(mRingSize);
         paint.setColor(paintMaxRadiucolor);
-        canvas.drawArc(rectF, -90, mProgressMax, false, paint);
+        canvas.drawArc(rectF, -90,  mProgressMax, false, paint);
         RectF rectF2 = new RectF(getMeasuredWidth()/2 - mRadiuSize +30,getMeasuredHeight()/2 - mRadiuSize +30,getMeasuredWidth()/2 + mRadiuSize - 30,getMeasuredHeight()/2 + mRadiuSize - 30);
         paintCenter.setStrokeWidth(mRingSize);
         paintCenter.setColor(paintCenterRadiucolor);
-        canvas.drawArc(rectF2, -90, mProgressCenter, false, paintCenter);
+        canvas.drawArc(rectF2, -90,  mProgressCenter, false, paintCenter);
         RectF rectF3 = new RectF(getMeasuredWidth()/2 - mRadiuSize +60,getMeasuredHeight()/2 - mRadiuSize +60,getMeasuredWidth()/2 + mRadiuSize - 60,getMeasuredHeight()/2 + mRadiuSize - 60);
         paintMin.setStrokeWidth(mRingSize);
         paintMin.setColor(paintMinRadiucolor);
-        canvas.drawArc(rectF3, -90, mProgressMin, false, paintMin);
+        canvas.drawArc(rectF3, -90,  mProgressMin, false, paintMin);
     }
-    public void setProgressMax(int progress){
-        mProgressMax = progress;
+    public void setProgressMax(int progress,double num){
+        mProgressMax = (float) ((360/num)*progress);
         mCountProgress = progress*100/360;
         invalidate();
     }
-    public void setProgressCenter(int progress){
-        mProgressCenter = progress;
+    public void setProgressCenter(int progress,double num){
+        mProgressCenter =(float) ((360/num)*progress);
         mCountProgress = progress*100/360;
         invalidate();
     }
-    public void setProgressMin(int progress){
-        mProgressMin = progress;
+    public void setProgressMin(int progress,double num){
+        mProgressMin = (float) ((360/num)*progress);
         mCountProgress = progress*100/360;
         invalidate();
     }

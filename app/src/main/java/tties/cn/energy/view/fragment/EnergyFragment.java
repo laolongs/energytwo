@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import butterknife.BindView;
@@ -53,7 +54,7 @@ public class EnergyFragment extends BaseFragment<EnergyFragmentPresenter> implem
     @BindView(R.id.energy_transformer)
     LinearLayout energyTransformer;
     //    @BindView(R.id.energy_bar)
-    AppCompatRatingBar energyBar;
+    RatingBar energyBar;
     @BindView(R.id.energy_toolbar_text)
     TextView energyToolbarText;
 

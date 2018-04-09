@@ -44,7 +44,7 @@ public class OpsLoginbean implements Serializable {
         this.errorCode = errorCode;
     }
 
-    public static class ResultBean {
+    public static class ResultBean  implements Serializable{
         /**
          * maintUser : {"profilePhoto":"\\photo\\头像1.jpg","staffNo":"energy_test","loginPwd":"$shiro1$SHA-256$500000$K/90Nsao9yJGEY1HuiqAYg==$wWviCGx1vVVv6U3S6MUEREa6oyAnTl2UPaHaYcyWKAc=","createTime":"2018-03-26 15:48:35","staffTel":"0","staffName":"测试","staffId":266,"status":0}
          * energyLedgerList : [{"companyId":23,"energyLedgerId":1486535776800,"eleAccountId":54,"eleNo":"12322324"},{"companyId":23,"energyLedgerId":1520665743556,"eleAccountId":55,"eleNo":"13211s"}]
@@ -69,7 +69,7 @@ public class OpsLoginbean implements Serializable {
             this.energyLedgerList = energyLedgerList;
         }
 
-        public static class MaintUserBean {
+        public static class MaintUserBean implements Serializable {
             /**
              * profilePhoto : \photo\头像1.jpg
              * staffNo : energy_test
@@ -155,7 +155,7 @@ public class OpsLoginbean implements Serializable {
             }
         }
 
-        public static class EnergyLedgerListBean {
+        public static class EnergyLedgerListBean implements Serializable {
             /**
              * companyId : 23
              * energyLedgerId : 1486535776800
@@ -167,6 +167,16 @@ public class OpsLoginbean implements Serializable {
             private long energyLedgerId;
             private int eleAccountId;
             private String eleNo;
+
+            public boolean isIscheck() {
+                return ischeck;
+            }
+
+            public void setIscheck(boolean ischeck) {
+                this.ischeck = ischeck;
+            }
+
+            public boolean ischeck;
 
             public int getCompanyId() {
                 return companyId;

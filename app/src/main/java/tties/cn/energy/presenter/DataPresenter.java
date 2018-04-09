@@ -11,6 +11,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import tties.cn.energy.api.RetrofitApi;
 import tties.cn.energy.base.BasePresenter;
+import tties.cn.energy.common.Constants;
 import tties.cn.energy.model.IModel.DataModel;
 import tties.cn.energy.model.IModel.Data_ElectricModel;
 import tties.cn.energy.model.IModel.IDataModel;
@@ -18,6 +19,7 @@ import tties.cn.energy.model.IModel.IData_ElectricModel;
 import tties.cn.energy.model.result.AllElectricitybean;
 import tties.cn.energy.model.result.Data_Electricbean;
 import tties.cn.energy.model.result.Databean;
+import tties.cn.energy.utils.ACache;
 import tties.cn.energy.view.iview.IDataView;
 import tties.cn.energy.view.iview.IData_ElectricView;
 
@@ -109,13 +111,15 @@ public class DataPresenter extends BasePresenter<IDataView> {
                     }
                 });
     }
-    public void getAllElectricityData() {
-
+    public void getAllElectricityData(int objType) {
+        String name = ACache.getInstance().getAsString(Constants.CACHE_LOGIN_USERNAME);
+        String pass = ACache.getInstance().getAsString(Constants.CACHE_LOGIN_PASSWORDMD5);
+        long energyledgerId = ACache.getInstance().getAsObject(Constants.CACHE_OPS_ENERGYLEDGERID);
         Map<String,Object> map=new HashMap<>();
-        map.put("userName","test");
-        map.put("password","E10ADC3949BA59ABBE56E057F20F883E");
+        map.put("userName",name);
+        map.put("password",pass);
         map.put("objId","1486535776800");
-        map.put("objType",1);
+        map.put("objType",objType);
         RetrofitApi.getServer().getAllElectricity(map)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io()).subscribe(new Observer<AllElectricitybean>() {

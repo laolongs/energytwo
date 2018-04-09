@@ -1,64 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@mipmap/bg_splash"
-    android:gravity="center"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
-    <LinearLayout
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/layout_corners_black"
-        android:elevation="@dimen/y5"
-
-        android:orientation="vertical">
+    <!--<LinearLayout-->
+        <!--android:layout_width="300dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@drawable/layout_corners_black"-->
+        <!--android:elevation="@dimen/y5"-->
+        <!--android:orientation="vertical">-->
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="@dimen/y10"
-            android:text="发现新版本"
+            android:layout_gravity="center"
+            android:text="检测到新版本"
             android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textSize="17sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/description"
+                android:layout_marginTop="@dimen/y10"
+                android:paddingLeft="@dimen/y30"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="描述"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/description"
-            android:layout_marginTop="@dimen/y10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="@dimen/y10"
-            android:text="描述"
-            android:textColor="@color/black"
-            android:textSize="15sp" />
-
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/y20">
-
-            <Button
-                android:id="@+id/btn_confirm"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:gravity="center"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginRight="@dimen/y20"
-                android:background="@color/colorTransparent"
-                android:text="更新"
-                android:textColor="@color/main" />
-
-            <Button
-                android:id="@+id/btn_cancel"
-                android:layout_width="wrap_content"
+                android:layout_weight="1">
+                <Button
+                    android:id="@+id/btn_confirm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/y40"
+                    android:background="@drawable/versetion_text_shop_select"
+                    android:text="马上升级"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+            <LinearLayout
+                android:gravity="center"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginRight="@dimen/y20"
-                android:layout_toStartOf="@+id/btn_confirm"
-                android:background="@color/colorTransparent"
-                android:text="取消"
-                android:textColor="@color/main" />
-        </RelativeLayout>
-    </LinearLayout>
+                android:layout_weight="1">
+                <Button
+                    android:id="@+id/btn_cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/y40"
+                    android:background="@drawable/versetion_text_shop"
+                    android:text="取消"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+    <!--</LinearLayout>-->
 
 </LinearLayout>
