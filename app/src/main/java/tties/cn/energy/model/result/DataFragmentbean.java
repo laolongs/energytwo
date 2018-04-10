@@ -9,72 +9,73 @@ import java.util.List;
  */
 
 public class DataFragmentbean {
-    private List<DataListBean> dataList;
 
-    public List<DataListBean> getDataList() {
+    private List<Databean.DataListBean> dataList;
+
+    public List<Databean.DataListBean> getDataList() {
         return dataList;
     }
 
-    public void setDataList(List<DataListBean> dataList) {
+    public void setDataList(List<Databean.DataListBean> dataList) {
         this.dataList = dataList;
     }
 
     public static class DataListBean {
         /**
-         * sectorFengFee : 1047468.837
-         * sectorGuFee : 441957.435
-         * cost : 0.7156
-         * baseDate : 2017-03
+         * sectorFengFee : 614061
+         * sectorGuFee : 308181.536
+         * cost : 0.6782
+         * baseDate : 2018-01
          * declareType : 1
-         * totalEnergy : 3339738
+         * totalEnergy : 1423111
          * sectorJianValue : 0
-         * sectorPingValue : 1232734
-         * feeSum : 2348641.87
-         * fouceSum : 11266.3875
-         * maxMDDate : 2017-03-19 10:45:00
-         * ap : 2249741
-         * totalSum : 2389908.2575
+         * sectorPingValue : 682290
+         * feeSum : 922242.536
+         * fouceSum : 12890.7525
+         * maxMDDate : 2018-01-18 01:30:00
+         * ap : 1583216
+         * totalSum : 965133.2885
          * volume : 1000
          * sectorFengValue : 0
-         * sectorPingFee : 859215.598
+         * sectorPingFee : 0
          * sectorJianFee : 0
-         * rate : 684.372
+         * rate : 764.295
          * baseSum : 30000
-         * maxMD : 4998
-         * sectorGuValue : 984315
-         * feeValue : 2217049
-         * rp : 2249741
+         * maxMD : 4672
+         * sectorGuValue : 740821
+         * feeValue : 1423111
+         * rp : 1583216
          */
 
         private double sectorFengFee;
         private double sectorGuFee;
         private double cost;
         private String baseDate;
-        private int declareType;
-        private int totalEnergy;
+        private double declareType;
+        private double totalEnergy;
         private int sectorJianValue;
         private int sectorPingValue;
         private double feeSum;
         private double fouceSum;
         private String maxMDDate;
-        private int ap;
+        private double ap;
         private double totalSum;
-        private int volume;
+        private double volume;
         private int sectorFengValue;
         private double sectorPingFee;
-        private int sectorJianFee;
+        private double sectorJianFee;
         private double rate;
-        private int baseSum;
-        private int maxMD;
+        private double baseSum;
+        private double maxMD;
         private int sectorGuValue;
         private int feeValue;
-        private int rp;
+        private double rp;
 
         public double getSectorFengFee() {
             return sectorFengFee;
         }
 
-        public void setSectorFengFee(double sectorFengFee) {
+        public void setSectorFengFee(int sectorFengFee) {
             this.sectorFengFee = sectorFengFee;
         }
 
@@ -102,7 +103,7 @@ public class DataFragmentbean {
             this.baseDate = baseDate;
         }
 
-        public int getDeclareType() {
+        public double getDeclareType() {
             return declareType;
         }
 
@@ -110,7 +111,7 @@ public class DataFragmentbean {
             this.declareType = declareType;
         }
 
-        public int getTotalEnergy() {
+        public double getTotalEnergy() {
             return totalEnergy;
         }
 
@@ -158,7 +159,7 @@ public class DataFragmentbean {
             this.maxMDDate = maxMDDate;
         }
 
-        public int getAp() {
+        public double getAp() {
             return ap;
         }
 
@@ -174,7 +175,7 @@ public class DataFragmentbean {
             this.totalSum = totalSum;
         }
 
-        public int getVolume() {
+        public double getVolume() {
             return volume;
         }
 
@@ -194,11 +195,11 @@ public class DataFragmentbean {
             return sectorPingFee;
         }
 
-        public void setSectorPingFee(double sectorPingFee) {
+        public void setSectorPingFee(int sectorPingFee) {
             this.sectorPingFee = sectorPingFee;
         }
 
-        public int getSectorJianFee() {
+        public double getSectorJianFee() {
             return sectorJianFee;
         }
 
@@ -214,7 +215,7 @@ public class DataFragmentbean {
             this.rate = rate;
         }
 
-        public int getBaseSum() {
+        public double getBaseSum() {
             return baseSum;
         }
 
@@ -222,7 +223,7 @@ public class DataFragmentbean {
             this.baseSum = baseSum;
         }
 
-        public int getMaxMD() {
+        public double getMaxMD() {
             return maxMD;
         }
 
@@ -246,7 +247,7 @@ public class DataFragmentbean {
             this.feeValue = feeValue;
         }
 
-        public int getRp() {
+        public double getRp() {
             return rp;
         }
 

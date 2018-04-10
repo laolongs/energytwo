@@ -113,6 +113,7 @@
                 android:text="选择年度"
                 />
             <TextView
+                android:id="@+id/energy_force_year"
                 android:gravity="center"
                 android:layout_weight="4"
                 android:layout_width="0dp"

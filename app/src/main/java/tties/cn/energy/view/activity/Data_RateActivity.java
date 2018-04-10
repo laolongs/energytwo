@@ -24,13 +24,16 @@ import tties.cn.energy.R;
 import tties.cn.energy.application.MyApplication;
 import tties.cn.energy.base.BaseActivity;
 import tties.cn.energy.chart.LineDataChart;
+import tties.cn.energy.common.Constants;
 import tties.cn.energy.model.result.AllElectricitybean;
 import tties.cn.energy.model.result.Data_HaveKwbean;
 import tties.cn.energy.model.result.Data_NoKvarbean;
 import tties.cn.energy.presenter.Data_RatePresenter;
+import tties.cn.energy.utils.ACache;
+import tties.cn.energy.utils.DateUtil;
 import tties.cn.energy.utils.StringUtil;
-import tties.cn.energy.utils.ToastUtil;
 import tties.cn.energy.view.dialog.BottomStyleDialog;
+import tties.cn.energy.view.dialog.MyTimePickerDialog;
 import tties.cn.energy.view.iview.IData_RateView;
 
 /**
@@ -64,19 +67,22 @@ public class Data_RateActivity extends BaseActivity<Data_RatePresenter> implemen
     LinearLayout dataRateTime;
     @BindView(R.id.data_rate_electrical)
     LinearLayout dataRateElectrical;
+    @BindView(R.id.data_rate_ele_tv)
+    TextView dataRateEleTv;
     private BottomStyleDialog dialog;
-
+    MyTimePickerDialog dialogtime;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
         initView();
         mPresenter.getAllElectricityData();
-        mPresenter.getData_HaveKwData(3);
-        mPresenter.getData_NoKvarKwData(4);
+
     }
 
     private void initView() {
+        dialogtime = new MyTimePickerDialog();
+        dataRateTv.setText(DateUtil.getCurrentYear()+"年"+DateUtil.getCurrentMonth()+"月");
         toolbarText.setText("功率数据");
         toolbarLeft.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,29 +93,17 @@ public class Data_RateActivity extends BaseActivity<Data_RatePresenter> implemen
         dataRateTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TimePickerDialog dialogYearMonth = new TimePickerDialog.Builder()
-                        .setType(Type.YEAR_MONTH)
-                        .setTitleStringId("选择月份")
-                        .setThemeColor(R.color.home_btn_lightblue)
-                        .setWheelItemTextNormalColor(getResources().getColor(R.color.home_btn_lightblue))
-                        .setWheelItemTextSelectorColor(getResources().getColor(R.color.radiobtn_meterlist_colorLineDefault))
-                        .setThemeColor(getResources().getColor(R.color.radiobtn_meterlist_colorLineDefault))
-                        .setWheelItemTextSelectorColor(getResources().getColor(R.color.black))
-                        .setCallBack(new OnDateSetListener() {
-                            @Override
-                            public void onDateSet(TimePickerDialog timePickerView, long millseconds) {
-                                Date date = new Date(millseconds);
-                                SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月");
-                                SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
-                                String time = format.format(date);
-                                //时间参数值
-                                String time2 = format2.format(date);
-                                dataRateTv.setText(time);
+                dialogtime.getTimePickerDialog(Data_RateActivity.this);
+                dialogtime.setOnTimeClick(new MyTimePickerDialog.OnTimeClick() {
+                    @Override
+                    public void OnTimeClickListener(String text) {
+                        ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, text);
+                        dataRateTv.setText(text);
+                        mPresenter.getData_HaveKwData();
+                        mPresenter.getData_NoKvarKwData();
 
-                            }
-                        })
-                        .build();
-                dialogYearMonth.show(getSupportFragmentManager(), "年_月");
+                    }
+                });
             }
         });
         dataRateElectrical.setOnClickListener(new View.OnClickListener() {
@@ -136,46 +130,75 @@ public class Data_RateActivity extends BaseActivity<Data_RatePresenter> implemen
 
     @Override
     public void setData_HaveKWData(Data_HaveKwbean data_haveKwbean) {
-        ArrayList<Entry> values = new ArrayList<>();
-        List<String> listDate = new ArrayList<String>();
-        for (int i = 0; i < data_haveKwbean.getDataList().size(); i++) {
-            Entry entry = new Entry(i, 0f);
-            entry.setY((float) data_haveKwbean.getDataList().get(i).getD());
-            values.add(entry);
-            String[] split = StringUtil.split(data_haveKwbean.getDataList().get(i).getFreezeTime(), " ");
-            listDate.add(split[0]);
+        if(data_haveKwbean.getDataList().size()>0){
+            havakwChart.clearData();
+            ArrayList<Entry> values = new ArrayList<>();
+            List<String> listDate = new ArrayList<String>();
+            for (int i = 0; i < data_haveKwbean.getDataList().size(); i++) {
+                Entry entry = new Entry(i, 0f);
+                entry.setY((float) data_haveKwbean.getDataList().get(i).getD());
+                values.add(entry);
+                String[] split = StringUtil.split(data_haveKwbean.getDataList().get(i).getFreezeTime(), " ");
+                listDate.add(split[0]);
+            }
+            LineDataSet lineDataSet = havakwChart.setDataSet(values, "");
+            //图标填充色
+            lineDataSet.setFillColor(ContextCompat.getColor(MyApplication.getInstance(), R.color.analysis_textview_right));
+            havakwChart.setDayXAxis(listDate);
+            havakwChart.loadChart();
         }
-        LineDataSet lineDataSet = havakwChart.setDataSet(values, "");
-        //图标填充色
-        lineDataSet.setFillColor(ContextCompat.getColor(MyApplication.getInstance(), R.color.analysis_textview_right));
-        havakwChart.setDayXAxis(listDate);
-        havakwChart.loadChart();
+
     }
 
     @Override
     public void setData_NoKvarData(Data_NoKvarbean data_noKvarbean) {
-        ArrayList<Entry> values = new ArrayList<>();
-        List<String> listDate = new ArrayList<String>();
-        for (int i = 0; i < data_noKvarbean.getDataList().size(); i++) {
-            Entry entry = new Entry(i, 0f);
-            entry.setY((float) data_noKvarbean.getDataList().get(i).getD());
-            values.add(entry);
-            String[] split = StringUtil.split(data_noKvarbean.getDataList().get(i).getFreezeTime(), " ");
-            listDate.add(split[0]);
+        if(data_noKvarbean.getDataList().size()>0){
+            nokvarChart.clearData();
+            ArrayList<Entry> values = new ArrayList<>();
+            List<String> listDate = new ArrayList<String>();
+            for (int i = 0; i < data_noKvarbean.getDataList().size(); i++) {
+                Entry entry = new Entry(i, 0f);
+                entry.setY((float) data_noKvarbean.getDataList().get(i).getD());
+                values.add(entry);
+                String[] split = StringUtil.split(data_noKvarbean.getDataList().get(i).getFreezeTime(), " ");
+                listDate.add(split[0]);
+            }
+            nokvarChart.setDataSet(values, "");
+            nokvarChart.setDayXAxis(listDate);
+            nokvarChart.loadChart();
         }
-        nokvarChart.setDataSet(values, "");
-        nokvarChart.setDayXAxis(listDate);
-        nokvarChart.loadChart();
+
     }
 
     @Override
     public void setAllElectricity(final AllElectricitybean allElectricitybean) {
-        dialog=new BottomStyleDialog(Data_RateActivity.this,allElectricitybean);
+        ACache.getInstance().put(Constants.CACHE_OPS_OBJID, allElectricitybean.getLedgerId());
+        ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE, 1);
+        ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, DateUtil.getCurrentYear() + "-" + DateUtil.getCurrentMonth());
+        mPresenter.getData_HaveKwData();
+        mPresenter.getData_NoKvarKwData();
+        dataRateEleTv.setText(allElectricitybean.getLedgerName());
+        dialog = new BottomStyleDialog(Data_RateActivity.this, allElectricitybean);
         dialog.setCliekAllElectricity(new BottomStyleDialog.OnCliekAllElectricity() {
             @Override
             public void OnCliekAllElectricityListener(int poaiton) {
-                long meterId = allElectricitybean.getMeterList().get(poaiton).getMeterId();
-                ToastUtil.showShort(Data_RateActivity.this,""+meterId);
+                if (poaiton == 0) {
+                    long ledgerId = allElectricitybean.getLedgerId();
+                    dataRateEleTv.setText(allElectricitybean.getLedgerName());
+                    ACache.getInstance().put(Constants.CACHE_OPS_OBJID, ledgerId);
+                    ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE, 1);
+
+                }
+                if (poaiton > 0) {
+                    long meterId = allElectricitybean.getMeterList().get(poaiton - 1).getMeterId();
+                    dataRateEleTv.setText(allElectricitybean.getMeterList().get(poaiton - 1).getMeterName());
+                    ACache.getInstance().put(Constants.CACHE_OPS_OBJID, meterId);
+                    ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE, 2);
+
+                }
+                mPresenter.getData_HaveKwData();
+                mPresenter.getData_NoKvarKwData();
+
             }
         });
     }

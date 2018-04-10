@@ -92,7 +92,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"
-                        android:text="2018年2月"/>
+                        android:text=""/>
                     <ImageView
                         android:src="@mipmap/arrows"
                         android:layout_marginLeft="@dimen/y6"
@@ -111,6 +111,7 @@
                     android:gravity="center"
                     android:layout_weight="1">
                     <TextView
+                        android:id="@+id/data_current_ele_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"

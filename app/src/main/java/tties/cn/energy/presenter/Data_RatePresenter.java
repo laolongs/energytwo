@@ -11,14 +11,17 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import tties.cn.energy.api.RetrofitApi;
 import tties.cn.energy.base.BasePresenter;
+import tties.cn.energy.common.Constants;
 import tties.cn.energy.model.IModel.Data_NoModel;
 import tties.cn.energy.model.IModel.Data_RateModel;
 import tties.cn.energy.model.IModel.IData_NoModel;
 import tties.cn.energy.model.IModel.IData_RateModel;
 import tties.cn.energy.model.result.AllElectricitybean;
+import tties.cn.energy.model.result.DataAllbean;
 import tties.cn.energy.model.result.Data_HaveKwbean;
 import tties.cn.energy.model.result.Data_NoKvarbean;
 import tties.cn.energy.model.result.Data_Nobean;
+import tties.cn.energy.utils.ACache;
 import tties.cn.energy.view.iview.IData_NoView;
 import tties.cn.energy.view.iview.IData_RateView;
 
@@ -30,18 +33,20 @@ public class Data_RatePresenter extends BasePresenter<IData_RateView>  {
     private static final String TAG = "Data_RatePresenter";
     IData_RateView view;
     IData_RateModel model;
+    DataAllbean dataAllbean=new DataAllbean();
     public Data_RatePresenter(IData_RateView view) {
         this.view = view;
         this.model = new Data_RateModel();
     }
-    public void getData_HaveKwData(int dataType){
+    public void getData_HaveKwData(){
         Map<String,Object> map=new HashMap<>();
-        map.put("userName","test");
-        map.put("password","E10ADC3949BA59ABBE56E057F20F883E");
-        map.put("objId","1486536312217");
-        map.put("objType","2");
-        map.put("dataType",dataType);
-        map.put("baseDate","2017-03-27");
+        map.put("userName",dataAllbean.getUserName());
+        map.put("password",dataAllbean.getPassword());
+        map.put("objId",dataAllbean.getObjId());
+        map.put("objType",dataAllbean.getObjType());
+        map.put("baseDate",dataAllbean.getBaseData());
+        map.put("dataType",3);//数据类型  6-电量  5-功率因数 3-有功功率 4-无功功率 1-电压 2-电流
+        map.put("dateType",3);//月份
         model.getData_HaveKWData().getData_HaveKw(map).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Data_HaveKwbean>() {
@@ -72,14 +77,15 @@ public class Data_RatePresenter extends BasePresenter<IData_RateView>  {
                 });
 
     }
-    public void getData_NoKvarKwData(int dataType){
+    public void getData_NoKvarKwData(){
         Map<String,Object> map=new HashMap<>();
-        map.put("userName","test");
-        map.put("password","E10ADC3949BA59ABBE56E057F20F883E");
-        map.put("objId","1486536312217");
-        map.put("objType","2");
-        map.put("dataType",dataType);
-        map.put("baseDate","2017-03-27");
+        map.put("userName",dataAllbean.getUserName());
+        map.put("password",dataAllbean.getPassword());
+        map.put("objId",dataAllbean.getObjId());
+        map.put("objType",dataAllbean.getObjType());
+        map.put("baseDate",dataAllbean.getBaseData());
+        map.put("dataType",4);//数据类型  6-电量  5-功率因数 3-有功功率 4-无功功率 1-电压 2-电流
+        map.put("dateType",3);//月份
         model.getData_NoKvarData().getData_NoKvar(map).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Data_NoKvarbean>() {
@@ -111,11 +117,11 @@ public class Data_RatePresenter extends BasePresenter<IData_RateView>  {
 
     }
     public void getAllElectricityData() {
-
         Map<String,Object> map=new HashMap<>();
-        map.put("userName","test");
-        map.put("password","E10ADC3949BA59ABBE56E057F20F883E");
-        map.put("objId","1486535776800");
+        long asObject = ACache.getInstance().getAsObject(Constants.CACHE_OPS_ENERGYLEDGERID);
+        map.put("userName",dataAllbean.getUserName());
+        map.put("password",dataAllbean.getPassword());
+        map.put("objId",asObject);
         map.put("objType",1);
         RetrofitApi.getServer().getAllElectricity(map)
                 .observeOn(AndroidSchedulers.mainThread())

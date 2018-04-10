@@ -359,7 +359,7 @@
                              android:layout_width="wrap_content"
                              android:layout_height="wrap_content"
                              android:textColor="@color/white"
-                             android:text="2018年2月"/>
+                             android:text=""/>
                          <ImageView
                              android:src="@mipmap/arrows"
                              android:layout_marginLeft="@dimen/y6"

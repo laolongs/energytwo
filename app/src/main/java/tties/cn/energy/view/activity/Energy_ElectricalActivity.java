@@ -54,8 +54,7 @@ public class Energy_ElectricalActivity extends BaseActivity<DataPresenter> imple
     ImageView enereyElectricalSelect;
     @BindView(R.id.enerey_electrical_chart)
     LineDataChart enereyElectricalChart;
-    int mYear;
-    int mMonth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,9 +66,6 @@ public class Energy_ElectricalActivity extends BaseActivity<DataPresenter> imple
     private void initView() {
         mPresenter.getData();
         mPresenter.getchartData();
-//        Calendar c = Calendar.getInstance();
-//        mYear = c.get(Calendar.YEAR); // 获取当前年份
-//        mMonth = c.get(Calendar.MONTH);// 获取上前月份
         toolbarText.setText("电度电费优化");
         toolbarLeft.setOnClickListener(new View.OnClickListener() {
             @Override

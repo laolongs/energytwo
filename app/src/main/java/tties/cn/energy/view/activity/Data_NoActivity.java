@@ -2,7 +2,6 @@ package tties.cn.energy.view.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -25,14 +24,17 @@ import butterknife.ButterKnife;
 import tties.cn.energy.R;
 import tties.cn.energy.base.BaseActivity;
 import tties.cn.energy.chart.LineDataChart;
-import tties.cn.energy.model.httputils.send.AllElectricitySend;
+import tties.cn.energy.common.Constants;
 import tties.cn.energy.model.result.AllElectricitybean;
 import tties.cn.energy.model.result.Data_Nobean;
 import tties.cn.energy.presenter.Data_NoPresenter;
+import tties.cn.energy.utils.ACache;
+import tties.cn.energy.utils.DateUtil;
 import tties.cn.energy.utils.StringUtil;
 import tties.cn.energy.utils.ToastUtil;
-import tties.cn.energy.view.adapter.StyleAdapter;
 import tties.cn.energy.view.dialog.BottomStyleDialog;
+import tties.cn.energy.view.dialog.BottomStyleDialogTwo;
+import tties.cn.energy.view.dialog.MyTimePickerDialog;
 import tties.cn.energy.view.iview.IData_NoView;
 
 /**
@@ -59,54 +61,45 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
     LinearLayout dataNoTime;
     @BindView(R.id.data_no_allelectric)
     LinearLayout dataNoAllelectric;
-    private BottomStyleDialog dialog;
-    AllElectricitybean allElectricitybean;
+    @BindView(R.id.data_no_ele_tv)
+    TextView dataNoEleTv;
+    private BottomStyleDialogTwo dialog;
+    MyTimePickerDialog dialogtime;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-        mPresenter.getData_NoData(0);
         mPresenter.getAllElectricityData();
         initView();
     }
 
 
     private void initView() {
+        dataNoTimeTv.setText(DateUtil.getCurrentYear()+"年"+DateUtil.getCurrentMonth()+"月");
+        dialogtime = new MyTimePickerDialog();
         toolbarText.setText("电流不平衡");
         dataNoTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TimePickerDialog dialogYearMonth = new TimePickerDialog.Builder()
-                        .setType(Type.YEAR_MONTH)
-                        .setTitleStringId("选择月份")
-                        .setThemeColor(R.color.home_btn_lightblue)
-                        .setWheelItemTextNormalColor(getResources().getColor(R.color.home_btn_lightblue))
-                        .setWheelItemTextSelectorColor(getResources().getColor(R.color.radiobtn_meterlist_colorLineDefault))
-                        .setThemeColor(getResources().getColor(R.color.radiobtn_meterlist_colorLineDefault))
-                        .setWheelItemTextSelectorColor(getResources().getColor(R.color.black))
-                        .setCallBack(new OnDateSetListener() {
-                            @Override
-                            public void onDateSet(TimePickerDialog timePickerView, long millseconds) {
-                                Date date = new Date(millseconds);
-                                SimpleDateFormat format = new SimpleDateFormat("yyyy年MM日");
-                                String time = format.format(date);
-                                dataNoTimeTv.setText(time);
-                            }
-                        })
-                        .build();
-                dialogYearMonth.show(getSupportFragmentManager(), "年_月");
+                dialogtime.getTimePickerDialog(Data_NoActivity.this);
+                dialogtime.setOnTimeClick(new MyTimePickerDialog.OnTimeClick() {
+                    @Override
+                    public void OnTimeClickListener(String text) {
+                        ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, text);
+                        dataNoTimeTv.setText(text);
+                        mPresenter.getData_NoData();
+                    }
+                });
             }
         });
         dataNoAllelectric.setOnClickListener(new View.OnClickListener() {
-
-
             @Override
             public void onClick(View view) {
-                if(dialog!=null){
+                if (dialog != null) {
                     dialog.show();
                 }
 
-//                ToastUtil.showShort(Data_NoActivity.this,"");
+                ToastUtil.showShort(Data_NoActivity.this,"0000000");
             }
         });
 
@@ -125,7 +118,8 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
 
     @Override
     public void setData_NoData(Data_Nobean bean) {
-        if (bean != null) {
+        if (bean.getMaxTimeData().size()>0) {
+            dataNoChart2.clearData();
             //不平衡最大值
             ArrayList<Entry> values1 = new ArrayList<>();
             List<String> listDate = new ArrayList<String>();
@@ -146,13 +140,16 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
             dataNoChart2.getAxisLeft().setValueFormatter(new IAxisValueFormatter() {
                 @Override
                 public String getFormattedValue(float value, AxisBase axis) {
-                    int i= (int) value;
+                    int i = (int) value;
 //                    i*100/24
-                    String str=i+":00";
+                    String str = i + ":00";
                     return str;
                 }
             });
             dataNoChart2.loadChart();
+        }
+        if(bean.getMaxData().size()>0){
+            dataNoChart1.clearData();
             //不平衡最大值发生时间
             ArrayList<Entry> values2 = new ArrayList<>();
             List<String> listDate2 = new ArrayList<String>();
@@ -166,6 +163,9 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
             dataNoChart1.setDataSet(values2, "");
             dataNoChart1.setDayXAxis(listDate2);
             dataNoChart1.loadChart();
+        }
+        if(bean.getLimitData().size()>0){
+            dataNoChart3.clearData();
             //不平衡度越限日累计时间
             ArrayList<Entry> values3 = new ArrayList<>();
             List<String> listDate3 = new ArrayList<String>();
@@ -179,23 +179,23 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
             dataNoChart3.setDataSet(values3, "");
             dataNoChart3.setDayXAxis(listDate3);
             dataNoChart3.loadChart();
-        } else {
-            dataNoChart1.setNoDataText("无数据");
-            dataNoChart2.setNoDataText("无数据");
-            dataNoChart3.setNoDataText("无数据");
         }
     }
 
     @Override
     public void setAllElectricity(final AllElectricitybean allElectricitybean) {
-//        this.allElectricitybean=allElectricitybean;
-        dialog=new BottomStyleDialog(Data_NoActivity.this,allElectricitybean);
-        dialog.setCliekAllElectricity(new BottomStyleDialog.OnCliekAllElectricity() {
+        ACache.getInstance().put(Constants.CACHE_OPS_OBJID, allElectricitybean.getMeterList().get(0).getMeterId());
+        ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, DateUtil.getCurrentYear()+"-"+DateUtil.getCurrentMonth());
+        mPresenter.getData_NoData();
+        dialog = new BottomStyleDialogTwo(Data_NoActivity.this, allElectricitybean);
+        dialog.setCliekAllElectricity(new BottomStyleDialogTwo.OnCliekAllElectricitytwo() {
             @Override
             public void OnCliekAllElectricityListener(int poaiton) {
                 long meterId = allElectricitybean.getMeterList().get(poaiton).getMeterId();
-                ToastUtil.showShort(Data_NoActivity.this,""+meterId);
-            }
+                dataNoEleTv.setText(allElectricitybean.getMeterList().get(poaiton).getMeterName());
+                ACache.getInstance().put(Constants.CACHE_OPS_OBJID, meterId);
+                mPresenter.getData_NoData();
+                }
         });
     }
 }

@@ -17,6 +17,7 @@ import tties.cn.energy.model.IModel.Data_RateModel;
 import tties.cn.energy.model.IModel.IData_CurrentModel;
 import tties.cn.energy.model.IModel.IData_RateModel;
 import tties.cn.energy.model.result.AllElectricitybean;
+import tties.cn.energy.model.result.DataAllbean;
 import tties.cn.energy.model.result.Data_CurrentPressbean;
 import tties.cn.energy.model.result.Data_Currentbean;
 import tties.cn.energy.model.result.Data_HaveKwbean;
@@ -34,20 +35,25 @@ public class Data_CurrentPresenter extends BasePresenter<IData_CurrentView>  {
     private static final String TAG = "Data_CurrentPresenter";
     IData_CurrentView view;
     IData_CurrentModel model;
+    DataAllbean dataAllbean=new DataAllbean();
     public Data_CurrentPresenter(IData_CurrentView view) {
         this.view = view;
         this.model = new Data_CurrentModel();
     }
-    public void getData_CurrentData(int dataType){
-        String name = ACache.getInstance().getAsObject(Constants.CACHE_LOGIN_USERNAME);
-        String pass = ACache.getInstance().getAsObject(Constants.CACHE_LOGIN_PASSWORDMD5);
+    public void getData_CurrentData(){
+        Log.i(TAG, "onErrordata: "+dataAllbean.getUserName());
+        Log.i(TAG, "onErrordata: "+dataAllbean.getPassword());
+        Log.i(TAG, "onErrordata: "+dataAllbean.getObjId());
+        Log.i(TAG, "onErrordata: "+dataAllbean.getObjType());
+        Log.i(TAG, "onErrordata: "+dataAllbean.getBaseData());
         Map<String,Object> map=new HashMap<>();
-        map.put("userName",name);
-        map.put("password",pass);
-        map.put("objId","1486536312217");
-        map.put("objType","2");
-        map.put("dataType",dataType);
-        map.put("baseDate","2017-03-27");
+        map.put("userName",dataAllbean.getUserName());
+        map.put("password",dataAllbean.getPassword());
+        map.put("objId",dataAllbean.getObjId());
+        map.put("objType",dataAllbean.getObjType());
+        map.put("baseDate",dataAllbean.getBaseData());
+        map.put("dataType",2);//数据类型  6-电量  5-功率因数 3-有功功率 4-无功功率 1-电压 2-电流
+        map.put("dateType",3);//月份
         model.getData_CurrentData().getData_Current(map).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Data_Currentbean>() {
@@ -78,14 +84,15 @@ public class Data_CurrentPresenter extends BasePresenter<IData_CurrentView>  {
                 });
 
     }
-    public void getData_CurrentPressKwData(int dataType){
+    public void getData_CurrentPressKwData(){
         Map<String,Object> map=new HashMap<>();
-        map.put("userName","test");
-        map.put("password","E10ADC3949BA59ABBE56E057F20F883E");
-        map.put("objId","1486536312217");
-        map.put("objType","2");
-        map.put("dataType",dataType);
-        map.put("baseDate","2017-03-27");
+        map.put("userName",dataAllbean.getUserName());
+        map.put("password",dataAllbean.getPassword());
+        map.put("objId",dataAllbean.getObjId());
+        map.put("objType",dataAllbean.getObjType());
+        map.put("baseDate",dataAllbean.getBaseData());
+        map.put("dataType",1);//数据类型  6-电量  5-功率因数 3-有功功率 4-无功功率 1-电压 2-电流
+        map.put("dateType",3);//月份
         model.getData_CurrentPressData().getData_CurrentPress(map).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Data_CurrentPressbean>() {
@@ -117,11 +124,11 @@ public class Data_CurrentPresenter extends BasePresenter<IData_CurrentView>  {
 
     }
     public void getAllElectricityData() {
-
         Map<String,Object> map=new HashMap<>();
-        map.put("userName","test");
-        map.put("password","E10ADC3949BA59ABBE56E057F20F883E");
-        map.put("objId","1486535776800");
+        long asObject = ACache.getInstance().getAsObject(Constants.CACHE_OPS_ENERGYLEDGERID);
+        map.put("userName",dataAllbean.getUserName());
+        map.put("password",dataAllbean.getPassword());
+        map.put("objId",asObject);
         map.put("objType",1);
         RetrofitApi.getServer().getAllElectricity(map)
                 .observeOn(AndroidSchedulers.mainThread())

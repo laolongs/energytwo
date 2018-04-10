@@ -17,6 +17,7 @@ import tties.cn.energy.model.IModel.Data_ElectricModel;
 import tties.cn.energy.model.IModel.IDataModel;
 import tties.cn.energy.model.IModel.IData_ElectricModel;
 import tties.cn.energy.model.result.AllElectricitybean;
+import tties.cn.energy.model.result.DataAllbean;
 import tties.cn.energy.model.result.Data_Electricbean;
 import tties.cn.energy.model.result.Databean;
 import tties.cn.energy.utils.ACache;
@@ -33,19 +34,26 @@ public class DataPresenter extends BasePresenter<IDataView> {
     private static final String TAG = "DataPresenter";
     IDataView view;
     IDataModel model;
+    DataAllbean dataAllbean=new DataAllbean();
     public DataPresenter(IDataView view){
         this.view=view;
         model=new DataModel();
     }
     public void getData(){
+        Log.i(TAG, "onErrordata: "+dataAllbean.getUserName());
+        Log.i(TAG, "onErrordata: "+dataAllbean.getPassword());
+        Log.i(TAG, "onErrordata: "+dataAllbean.getObjId());
+        Log.i(TAG, "onErrordata: "+dataAllbean.getObjType());
+        Log.i(TAG, "onErrordata: "+dataAllbean.getBaseData());
+        Log.i(TAG, "onErrordata: "+dataAllbean.getEleAccountId());
         Map<String,Object> map=new HashMap<>();
-        map.put("userName","test");
-        map.put("password","E10ADC3949BA59ABBE56E057F20F883E");
-        map.put("objId","1486535776800");
-        map.put("objType","1");
-        map.put("baseDate","2017-03");
-        map.put("eleAccountId","54");
-        map.put("dateType","1");
+        map.put("userName",dataAllbean.getUserName());
+        map.put("password",dataAllbean.getPassword());
+        map.put("objId",dataAllbean.getObjId());
+        map.put("objType",dataAllbean.getObjType());
+        map.put("baseDate",dataAllbean.getBaseData());
+        map.put("eleAccountId",dataAllbean.getEleAccountId());
+        map.put("dateType",2);
         model.getDataData().getData(map).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Databean>() {
@@ -65,7 +73,7 @@ public class DataPresenter extends BasePresenter<IDataView> {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.i(TAG, "onError: "+e.getMessage());
+                        Log.i(TAG, "onErrordata: "+e.getMessage());
                     }
 
                     @Override
@@ -76,13 +84,13 @@ public class DataPresenter extends BasePresenter<IDataView> {
     }
     public void getchartData(){
         Map<String,Object> map=new HashMap<>();
-        map.put("userName","test");
-        map.put("password","E10ADC3949BA59ABBE56E057F20F883E");
-        map.put("objId","1486535776800");
-        map.put("objType","1");
-        map.put("baseDate","2017-03");
-        map.put("eleAccountId","54");
-        map.put("dateType","2");
+        map.put("userName",dataAllbean.getUserName());
+        map.put("password",dataAllbean.getPassword());
+        map.put("objId",dataAllbean.getObjId());
+        map.put("objType",dataAllbean.getObjType());
+        map.put("baseDate",dataAllbean.getBaseData());
+        map.put("eleAccountId",dataAllbean.getEleAccountId());
+        map.put("dateType",2);
         model.getDataData().getData(map).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Databean>() {
@@ -102,7 +110,7 @@ public class DataPresenter extends BasePresenter<IDataView> {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.i(TAG, "onError: "+e.getMessage());
+                        Log.i(TAG, "onErrorchart: "+e.getMessage());
                     }
 
                     @Override
@@ -111,15 +119,13 @@ public class DataPresenter extends BasePresenter<IDataView> {
                     }
                 });
     }
-    public void getAllElectricityData(int objType) {
-        String name = ACache.getInstance().getAsString(Constants.CACHE_LOGIN_USERNAME);
-        String pass = ACache.getInstance().getAsString(Constants.CACHE_LOGIN_PASSWORDMD5);
-        long energyledgerId = ACache.getInstance().getAsObject(Constants.CACHE_OPS_ENERGYLEDGERID);
+    public void getAllElectricityData() {
         Map<String,Object> map=new HashMap<>();
-        map.put("userName",name);
-        map.put("password",pass);
-        map.put("objId","1486535776800");
-        map.put("objType",objType);
+        long asObject = ACache.getInstance().getAsObject(Constants.CACHE_OPS_ENERGYLEDGERID);
+        map.put("userName",dataAllbean.getUserName());
+        map.put("password",dataAllbean.getPassword());
+        map.put("objId",asObject);
+        map.put("objType",1);
         RetrofitApi.getServer().getAllElectricity(map)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io()).subscribe(new Observer<AllElectricitybean>() {

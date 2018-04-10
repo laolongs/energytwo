@@ -8,7 +8,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.components.AxisBase;
-import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.jzxiang.pickerview.TimePickerDialog;
@@ -26,13 +25,17 @@ import butterknife.ButterKnife;
 import tties.cn.energy.R;
 import tties.cn.energy.base.BaseActivity;
 import tties.cn.energy.chart.LineDataChart;
-import tties.cn.energy.model.httputils.send.AllElectricitySend;
+import tties.cn.energy.common.Constants;
 import tties.cn.energy.model.result.AllElectricitybean;
 import tties.cn.energy.model.result.Data_Pressbean;
 import tties.cn.energy.presenter.Data_PressPresenter;
+import tties.cn.energy.utils.ACache;
+import tties.cn.energy.utils.DateUtil;
 import tties.cn.energy.utils.StringUtil;
 import tties.cn.energy.utils.ToastUtil;
 import tties.cn.energy.view.dialog.BottomStyleDialog;
+import tties.cn.energy.view.dialog.BottomStyleDialogTwo;
+import tties.cn.energy.view.dialog.MyTimePickerDialog;
 import tties.cn.energy.view.iview.IData_PressView;
 
 /**
@@ -54,25 +57,24 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
     TextView dataTimeTv;
     @BindView(R.id.data_press_time)
     LinearLayout dataPressTime;
-    @BindView(R.id.data_press_allelectric_tv)
-    TextView dataPressAllelectricTv;
     @BindView(R.id.data_press_allelectric)
     LinearLayout dataPressAllelectric;
-    private BottomStyleDialog dialog;
-
+    @BindView(R.id.data_press_ele_tv)
+    TextView dataPressEleTv;
+    private BottomStyleDialogTwo dialog;
+    MyTimePickerDialog dialogtime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-//        YAxis axisLeft = dataPressChart2.getAxisLeft();
-//        axisLeft.setLabelCount(6);
-        mPresenter.getData_PressData(1);
         mPresenter.getAllElectricityData();
         initView();
     }
 
     private void initView() {
+        dataTimeTv.setText(DateUtil.getCurrentYear()+"年"+DateUtil.getCurrentMonth()+"月");
+        dialogtime = new MyTimePickerDialog();
         toolbarLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,39 +85,24 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
         dataPressTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TimePickerDialog dialogYearMonth = new TimePickerDialog.Builder()
-                        .setType(Type.YEAR_MONTH)
-                        .setTitleStringId("选择月份")
-                        .setThemeColor(R.color.home_btn_lightblue)
-                        .setWheelItemTextNormalColor(getResources().getColor(R.color.home_btn_lightblue))
-                        .setWheelItemTextSelectorColor(getResources().getColor(R.color.radiobtn_meterlist_colorLineDefault))
-                        .setThemeColor(getResources().getColor(R.color.radiobtn_meterlist_colorLineDefault))
-                        .setWheelItemTextSelectorColor(getResources().getColor(R.color.black))
-                        .setCallBack(new OnDateSetListener() {
-                            @Override
-                            public void onDateSet(TimePickerDialog timePickerView, long millseconds) {
-                                Date date = new Date(millseconds);
-                                SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月");
-                                SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
-                                String time = format.format(date);
-                                //时间参数值
-                                String time2 = format2.format(date);
-                                dataTimeTv.setText(time);
-
-                            }
-                        })
-                        .build();
-                dialogYearMonth.show(getSupportFragmentManager(), "年_月");
+                dialogtime.getTimePickerDialog(Data_PressActivity.this);
+                dialogtime.setOnTimeClick(new MyTimePickerDialog.OnTimeClick() {
+                    @Override
+                    public void OnTimeClickListener(String text) {
+                        ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, text);
+                        dataTimeTv.setText(text);
+                        mPresenter.getData_PressData();
+                    }
+                });
             }
         });
         dataPressAllelectric.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                if(dialog!=null){
+                if (dialog != null) {
                     dialog.show();
                 }
-//                ToastUtil.showShort(Data_PressActivity.this,""+dialog.getOnclickItem());
             }
         });
     }
@@ -133,7 +120,8 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
 
     @Override
     public void setData_PressData(Data_Pressbean bean) {
-        if (bean != null) {
+        if (bean.getMaxTimeData().size()>0) {
+            dataPressChart2.clearData();
             //不平衡最大值
             ArrayList<Entry> values1 = new ArrayList<>();
             List<String> listDate = new ArrayList<String>();
@@ -155,13 +143,16 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
             dataPressChart2.getAxisLeft().setValueFormatter(new IAxisValueFormatter() {
                 @Override
                 public String getFormattedValue(float value, AxisBase axis) {
-                    int i= (int) value;
+                    int i = (int) value;
 //                    i*100/24
-                    String str=i+":00";
+                    String str = i + ":00";
                     return str;
                 }
             });
             dataPressChart2.loadChart();
+        }
+        if(bean.getMaxData().size()>0) {
+            dataPressChart1.clearData();
             //不平衡最大值发生时间
             ArrayList<Entry> values2 = new ArrayList<>();
             List<String> listDate2 = new ArrayList<String>();
@@ -175,6 +166,9 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
             dataPressChart1.setDataSet(values2, "");
             dataPressChart1.setDayXAxis(listDate2);
             dataPressChart1.loadChart();
+        }
+        if(bean.getLimitData().size()>0){
+            dataPressChart3.clearData();
             //不平衡度越限日累计时间
             ArrayList<Entry> values3 = new ArrayList<>();
             List<String> listDate3 = new ArrayList<String>();
@@ -188,22 +182,23 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
             dataPressChart3.setDataSet(values3, "");
             dataPressChart3.setDayXAxis(listDate3);
             dataPressChart3.loadChart();
-        } else {
-            dataPressChart1.setNoDataText("无数据");
-            dataPressChart2.setNoDataText("无数据");
-            dataPressChart3.setNoDataText("无数据");
         }
 
     }
 
     @Override
     public void setAllElectricity(final AllElectricitybean allElectricitybean) {
-        dialog=new BottomStyleDialog(Data_PressActivity.this,allElectricitybean);
-        dialog.setCliekAllElectricity(new BottomStyleDialog.OnCliekAllElectricity() {
+        ACache.getInstance().put(Constants.CACHE_OPS_OBJID, allElectricitybean.getMeterList().get(0).getMeterId());
+        ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, DateUtil.getCurrentYear()+"-"+DateUtil.getCurrentMonth());
+        mPresenter.getData_PressData();
+        dialog = new BottomStyleDialogTwo(Data_PressActivity.this, allElectricitybean);
+        dialog.setCliekAllElectricity(new BottomStyleDialogTwo.OnCliekAllElectricitytwo() {
             @Override
             public void OnCliekAllElectricityListener(int poaiton) {
                 long meterId = allElectricitybean.getMeterList().get(poaiton).getMeterId();
-                ToastUtil.showShort(Data_PressActivity.this,""+meterId);
+                dataPressEleTv.setText(allElectricitybean.getMeterList().get(poaiton).getMeterName());
+                ACache.getInstance().put(Constants.CACHE_OPS_OBJID, meterId);
+                mPresenter.getData_PressData();
             }
         });
     }
@@ -211,13 +206,14 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
 
     public static float minuteParse(String duration) {
         float allnumber = Float.parseFloat(duration);//1640
-        float minute = allnumber * 60 ;
-        return minute ;
+        float minute = allnumber * 60;
+        return minute;
     }
-    public int  getTime(String str){
+
+    public int getTime(String str) {
 //        String str="1640";
-        int hour=0;
-        SimpleDateFormat sdf=new SimpleDateFormat("hhmm");
+        int hour = 0;
+        SimpleDateFormat sdf = new SimpleDateFormat("hhmm");
         long time = 0;
         try {
             time = sdf.parse(str).getTime();
@@ -226,8 +222,8 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
         }
         Date newTime = new Date(time); //就得到普通的时间了
         hour = newTime.getHours();//就得到了小时
-        Log.i("-------ss----", "onCreate: "+time);
-        Log.i("-------sxxxs----", "onCreate: "+hour);
+        Log.i("-------ss----", "onCreate: " + time);
+        Log.i("-------sxxxs----", "onCreate: " + hour);
         return hour;
     }
 

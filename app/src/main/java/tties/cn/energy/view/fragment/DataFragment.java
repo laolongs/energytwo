@@ -161,10 +161,9 @@ public class DataFragment extends BaseFragment<DataFragmentPresenter> implements
     public void setDataFragmentData(DataFragmentbean bean) {
         ArrayList<BarEntry> values = new ArrayList<>();
         for (int i =bean.getDataList().size()-1 ; i >=0; i--) {
-            BarEntry entry = new BarEntry(i, 0f);
-            entry.setY((float) bean.getDataList().get(i).getCost());
-
-            values.add(entry);
+                BarEntry entry = new BarEntry(i, 0f);
+                entry.setY((float) bean.getDataList().get(i).getCost());
+                values.add(entry);
         }
         datafragmentChart.setDataSet(values, "");
         datafragmentChart.loadChart();

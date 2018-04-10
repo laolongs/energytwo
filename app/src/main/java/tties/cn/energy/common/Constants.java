@@ -21,8 +21,18 @@ public class Constants {
     public static final String CACHE_LOGIN_PASSWORDMD5 = "CACHE_LOGIN_PASSWORDMD5";
     public static final String CACHE_USERINFO = "CACHE_USERINFO";
     public static final String CACHE_MONITOR_DATATYPE = "CACHE_MONITOR_DATATYPE";
+    //数据功能块
     //运维表号  energyLedgerId
     public static final String CACHE_OPS_ENERGYLEDGERID = "CACHE_OPS_ENERGYLEDGERID";
+    //objid
+    public static final String CACHE_OPS_OBJID = "CACHE_OPS_OBJID";
+    //运维表号  energyLedgerId 对应的能效 eleaccountid
+    public static final String CACHE_OPS_ELEACCOUNTID = "CACHE_OPS_ELEACCOUNTID";
+    // 对应的能效 时间 baseDate
+    public static final String CACHE_OPS_BASEDATE = "CACHE_OPS_BASEDATE";
+    //   objType 对象类型（1、分户；2、计量点）
+    public static final String CACHE_OPS_OBJTYPE = "CACHE_OPS_OBJTYPE";
+    //
     public static final String CACHEE_VERSION = "CACHEE_VERSION";
     public static final String CACHEE_VERSION_ALERT = "CACHEE_VERSION_ALERT";
     //更新提示间隔

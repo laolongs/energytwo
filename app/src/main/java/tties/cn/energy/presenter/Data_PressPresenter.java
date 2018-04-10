@@ -25,6 +25,7 @@ import tties.cn.energy.model.IModel.ILoginModel;
 import tties.cn.energy.model.IModel.LoginModel;
 import tties.cn.energy.model.bean.EventBusBean;
 import tties.cn.energy.model.result.AllElectricitybean;
+import tties.cn.energy.model.result.DataAllbean;
 import tties.cn.energy.model.result.Data_Pressbean;
 import tties.cn.energy.model.result.Loginbean;
 import tties.cn.energy.utils.ACache;
@@ -44,20 +45,22 @@ public class Data_PressPresenter extends BasePresenter<IData_PressView>  {
     private static final String TAG = "Data_PressPresenter";
     IData_PressView view;
     IData_PressModel model;
+    DataAllbean dataAllbean=new DataAllbean();
     public Data_PressPresenter(IData_PressView view) {
         this.view = view;
         this.model = new Data_PressModel();
     }
-    public void getData_PressData(int dataType){
+    public void getData_PressData(){
+        Log.i(TAG, "onErrordata: "+dataAllbean.getUserName());
+        Log.i(TAG, "onErrordata: "+dataAllbean.getPassword());
+        Log.i(TAG, "onErrordata: "+dataAllbean.getObjId());
+        Log.i(TAG, "onErrordata: "+dataAllbean.getBaseData());
         Map<String,Object> map=new HashMap<>();
-        map.put("userName","admin");
-        map.put("password","AEC60231D83FE6CF81444BC536596887");
-        map.put("objId","1486536481282");
-        map.put("baseDate","2017-02");
-        //类型
-        map.put("dataType",dataType);
-        //日期
-        map.put("dateType",3);
+        map.put("userName",dataAllbean.getUserName());
+        map.put("password",dataAllbean.getPassword());
+        map.put("objId",dataAllbean.getObjId());
+        map.put("baseDate",dataAllbean.getBaseData());
+        map.put("dataType",1);//数据类型  0-电流不平衡  1-电压不平衡
         model.getData_PressData().getData_Press(map).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Data_Pressbean>() {
@@ -89,9 +92,10 @@ public class Data_PressPresenter extends BasePresenter<IData_PressView>  {
     }
     public void getAllElectricityData() {
         Map<String,Object> map=new HashMap<>();
-        map.put("userName","test");
-        map.put("password","E10ADC3949BA59ABBE56E057F20F883E");
-        map.put("objId","1486535776800");
+        long asObject = ACache.getInstance().getAsObject(Constants.CACHE_OPS_ENERGYLEDGERID);
+        map.put("userName",dataAllbean.getUserName());
+        map.put("password",dataAllbean.getPassword());
+        map.put("objId",asObject);
         map.put("objType",1);
         RetrofitApi.getServer().getAllElectricity(map)
                 .observeOn(AndroidSchedulers.mainThread())

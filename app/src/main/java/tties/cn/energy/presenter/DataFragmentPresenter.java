@@ -16,8 +16,10 @@ import tties.cn.energy.model.IModel.DataModel;
 import tties.cn.energy.model.IModel.IDataFragmentModel;
 import tties.cn.energy.model.IModel.IDataModel;
 import tties.cn.energy.model.result.AllElectricitybean;
+import tties.cn.energy.model.result.DataAllbean;
 import tties.cn.energy.model.result.DataFragmentbean;
 import tties.cn.energy.model.result.Data_Electricbean;
+import tties.cn.energy.utils.DateUtil;
 import tties.cn.energy.view.iview.IDataFragmentView;
 import tties.cn.energy.view.iview.IDataView;
 
@@ -31,19 +33,21 @@ public class DataFragmentPresenter extends BasePresenter<IDataFragmentView> {
     private static final String TAG = "DataFragmentPresenter";
     IDataFragmentView view;
     IDataFragmentModel model;
+    DataAllbean dataAllbean=new DataAllbean();
     public DataFragmentPresenter(IDataFragmentView view){
         this.view=view;
         model=new DataFragmentModel();
     }
     public void getDataFragment(){
+        String baseDate=DateUtil.getCurrentYear()+"-"+(DateUtil.getCurrentMonth()-1);
         Map<String,Object> map=new HashMap<>();
-        map.put("userName","test");
-        map.put("password","E10ADC3949BA59ABBE56E057F20F883E");
-        map.put("objId","1486535776800");
-        map.put("objType","1");
-        map.put("baseDate","2017-03");
+        map.put("userName",dataAllbean.getUserName());
+        map.put("password",dataAllbean.getPassword());
+        map.put("objId",dataAllbean.getEnergyledgerId());
+        map.put("objType",1);
+        map.put("baseDate", baseDate);
         map.put("count","12");
-        map.put("eleAccountId","54");
+        map.put("eleAccountId",dataAllbean.getEleAccountId());
 
         model.getDataFragmentData().getDataFragemet(map).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
