@@ -1,5 +1,6 @@
 package tties.cn.energy.model.result;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,9 +10,9 @@ import java.util.List;
  */
 
 public class Data_Pressbean {
-    private List<LimitDataBean> limitData;
-    private List<MaxDataBean> maxData;
-    private List<MaxTimeDataBean> maxTimeData;
+    private List<LimitDataBean> limitData=new ArrayList<>();
+    private List<MaxDataBean> maxData=new ArrayList<>();
+    private List<MaxTimeDataBean> maxTimeData=new ArrayList<>();
 
     public List<LimitDataBean> getLimitData() {
         return limitData;

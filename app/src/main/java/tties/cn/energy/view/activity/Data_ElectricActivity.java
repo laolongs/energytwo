@@ -6,7 +6,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineDataSet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +20,7 @@ import tties.cn.energy.base.BaseActivity;
 import tties.cn.energy.chart.LineDataChart;
 import tties.cn.energy.common.Constants;
 import tties.cn.energy.model.result.AllElectricitybean;
+import tties.cn.energy.model.result.DataAllbean;
 import tties.cn.energy.model.result.Data_Electricbean;
 import tties.cn.energy.presenter.Data_ElectricPresenter;
 import tties.cn.energy.utils.ACache;
@@ -50,9 +53,9 @@ public class Data_ElectricActivity extends BaseActivity<Data_ElectricPresenter> 
     @BindView(R.id.data_electrical_time_tv)
     TextView dataElectricalTimeTv;
     private BottomStyleDialog dialog;
-    int num = 0;
+    double num = 0;
     MyTimePickerDialog dialogtime;
-
+    DataAllbean allbean=new DataAllbean();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,9 +124,12 @@ public class Data_ElectricActivity extends BaseActivity<Data_ElectricPresenter> 
                 Entry entry = new Entry(i, 0f);
                 entry.setY((float) bean.getDataList().get(i).getA());
                 values.add(entry);
-                String[] split = StringUtil.split(bean.getDataList().get(i).getFreezeTime(), " ");
-                listDate.add(split[0]);
+                String split = StringUtil.substring(bean.getDataList().get(i).getFreezeTime(),5,10);
+                listDate.add(split);
             }
+            XAxis xAxis = electricalChart.getXAxis();
+            xAxis.setLabelCount(bean.getDataList().size(),true);
+            xAxis.setLabelRotationAngle(-50);
             electricalNum.setText(num + "");
             electricalChart.setDataSet(values, "");
             electricalChart.setDayXAxis(listDate);
@@ -135,31 +141,35 @@ public class Data_ElectricActivity extends BaseActivity<Data_ElectricPresenter> 
 
     @Override
     public void setAllElectricity(final AllElectricitybean allElectricitybean) {
-        ACache.getInstance().put(Constants.CACHE_OPS_OBJID, allElectricitybean.getLedgerId());
-        ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE, 1);
-        ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, DateUtil.getCurrentYear()+"-"+DateUtil.getCurrentMonth());
-        mPresenter.getData_Electric();
-        dataElectricalTimeTv.setText(allElectricitybean.getLedgerName());
-        dialog = new BottomStyleDialog(Data_ElectricActivity.this, allElectricitybean);
-        dialog.setCliekAllElectricity(new BottomStyleDialog.OnCliekAllElectricity() {
-            @Override
-            public void OnCliekAllElectricityListener(int poaiton) {
-                if (poaiton == 0) {
-                    long ledgerId = allElectricitybean.getLedgerId();
-                    dataElectricalTimeTv.setText(allElectricitybean.getLedgerName());
-                    ACache.getInstance().put(Constants.CACHE_OPS_OBJID, ledgerId);
-                    ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE, 1);
+        if(allElectricitybean.getMeterList().size()>0){
+            ACache.getInstance().put(Constants.CACHE_OPS_OBJID, allElectricitybean.getLedgerId());
+            ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE, 1);
+            ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, DateUtil.getCurrentYear()+"-"+DateUtil.getCurrentMonth());
+            mPresenter.getData_Electric();
+            dataElectricalTimeTv.setText("总电量");
+            dialog = new BottomStyleDialog(Data_ElectricActivity.this, allElectricitybean);
+            dialog.setCliekAllElectricity(new BottomStyleDialog.OnCliekAllElectricity() {
+                @Override
+                public void OnCliekAllElectricityListener(int poaiton) {
+                    if (poaiton == 0) {
+                        long ledgerId = allElectricitybean.getLedgerId();
+                        dataElectricalTimeTv.setText("总电量");
+                        ACache.getInstance().put(Constants.CACHE_OPS_OBJID, ledgerId);
+                        ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE, 1);
 
-                }
-                if (poaiton > 0) {
-                    long meterId = allElectricitybean.getMeterList().get(poaiton - 1).getMeterId();
-                    dataElectricalTimeTv.setText(allElectricitybean.getMeterList().get(poaiton - 1).getMeterName());
-                    ACache.getInstance().put(Constants.CACHE_OPS_OBJID, meterId);
-                    ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE, 2);
+                    }
+                    if (poaiton > 0) {
+                        long meterId = allElectricitybean.getMeterList().get(poaiton - 1).getMeterId();
+                        dataElectricalTimeTv.setText(allElectricitybean.getMeterList().get(poaiton - 1).getMeterName());
+                        ACache.getInstance().put(Constants.CACHE_OPS_OBJID, meterId);
+                        ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE, 2);
 
+                    }
+                    mPresenter.getData_Electric();
                 }
-                mPresenter.getData_Electric();
-            }
-        });
+            });
+        }
+
     }
+
 }

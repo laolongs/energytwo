@@ -14,4 +14,5 @@ import tties.cn.energy.api.Api;
 
 public interface ILoginModel {
     public Api getloginData();
+    public Api getOpsLoginData();
 }

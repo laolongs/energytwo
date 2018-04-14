@@ -58,7 +58,7 @@ public class Opsbean implements Serializable{
          */
 
         private int count;
-        private List<QuestionListBean> questionList;
+        private List<QuestionListBean> questionList=new ArrayList<>();
 
         public int getCount() {
             return count;
@@ -133,9 +133,9 @@ public class Opsbean implements Serializable{
             private boolean hasquestion;
             private String dealDesc;
             private int status;
-            private List<DescriptionListBean> descriptionList;
-            private List<ScheduleListBean> scheduleList;
-            private List<AdviceListBean> adviceList;
+            private List<DescriptionListBean> descriptionList=new ArrayList<>();
+            private List<ScheduleListBean> scheduleList=new ArrayList<>();
+            private List<AdviceListBean> adviceList=new ArrayList<>();
 
             public int getPatrolItemTypeId() {
                 return patrolItemTypeId;
@@ -472,8 +472,8 @@ public class Opsbean implements Serializable{
                 private int questionDescriptionId;
                 private int staffId;
                 private String content;
-                private List<ImageListBean> imageList;
-                private List<ImageItem> imageBeanList;
+                private List<ImageListBean> imageList=new ArrayList<>();
+                private List<ImageItem> imageBeanList=new ArrayList<>();
                 public int getQuestionId() {
                     return questionId;
                 }

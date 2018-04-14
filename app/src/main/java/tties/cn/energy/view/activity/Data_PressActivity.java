@@ -8,6 +8,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.jzxiang.pickerview.TimePickerDialog;
@@ -128,15 +130,18 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
 //            List<String> listYDate = new ArrayList<String>();
             for (int i = 0; i < bean.getMaxTimeData().size(); i++) {
                 Entry entry = new Entry(i, 0f);
-//                String sub2 = new String();
-                String[] split = StringUtil.split(bean.getMaxTimeData().get(i).getVUMAXTIME(), ":");
-//                sub2 = split[0] + ":" + split[1];
-//                entry.setY(Float.parseFloat(split[0] + split[1]));
-                entry.setY(Float.parseFloat(split[0]));
+                String[] split1 = StringUtil.split(bean.getMaxTimeData().get(i).getVUMAXTIME(), ":");
+                entry.setY((float)Float.parseFloat(split1[0])/24*100);
                 values1.add(entry);
-                listDate.add(bean.getMaxTimeData().get(i).getFREEZETIME());
-//                listYDate.add(sub2);
+                String split = StringUtil.substring(bean.getMaxTimeData().get(i).getFREEZETIME(),5,10);
+                listDate.add(split);
             }
+            XAxis xAxis = dataPressChart2.getXAxis();
+            xAxis.setLabelCount(bean.getMaxTimeData().size(),true);
+            xAxis.setLabelRotationAngle(-50);
+            YAxis axisLeft = dataPressChart2.getAxisLeft();
+            axisLeft.setLabelCount(7,true);
+            axisLeft.setStartAtZero(true);
             dataPressChart2.setDataSet(values1, "");
             dataPressChart2.setDayXAxis(listDate);
 //            dataPressChart2.setDayYAxis(listYDate);
@@ -144,8 +149,7 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
                 @Override
                 public String getFormattedValue(float value, AxisBase axis) {
                     int i = (int) value;
-//                    i*100/24
-                    String str = i + ":00";
+                    String str = i*24/100 + ":00";
                     return str;
                 }
             });
@@ -160,9 +164,12 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
                 Entry entry = new Entry(i, 0f);
                 entry.setY((float) bean.getMaxData().get(i).getVUMAX());
                 values2.add(entry);
-                String[] split = StringUtil.split(bean.getMaxData().get(i).getFREEZETIME(), " ");
-                listDate2.add(split[0]);
+                String split = StringUtil.substring(bean.getMaxData().get(i).getFREEZETIME(),5,10);
+                listDate2.add(split);
             }
+            XAxis xAxis = dataPressChart1.getXAxis();
+            xAxis.setLabelCount(bean.getMaxData().size(),true);
+            xAxis.setLabelRotationAngle(-50);
             dataPressChart1.setDataSet(values2, "");
             dataPressChart1.setDayXAxis(listDate2);
             dataPressChart1.loadChart();
@@ -176,9 +183,12 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
                 Entry entry = new Entry(i, 0f);
                 entry.setY((float) bean.getLimitData().get(i).getVULIMIT());
                 values3.add(entry);
-                String[] split = StringUtil.split(bean.getLimitData().get(i).getFREEZETIME(), " ");
-                listDate3.add(split[0]);
+                String split = StringUtil.substring(bean.getLimitData().get(i).getFREEZETIME(),5,10);
+                listDate3.add(split);
             }
+            XAxis xAxis = dataPressChart3.getXAxis();
+            xAxis.setLabelCount(bean.getLimitData().size(),true);
+            xAxis.setLabelRotationAngle(-50);
             dataPressChart3.setDataSet(values3, "");
             dataPressChart3.setDayXAxis(listDate3);
             dataPressChart3.loadChart();
@@ -188,19 +198,23 @@ public class Data_PressActivity extends BaseActivity<Data_PressPresenter> implem
 
     @Override
     public void setAllElectricity(final AllElectricitybean allElectricitybean) {
-        ACache.getInstance().put(Constants.CACHE_OPS_OBJID, allElectricitybean.getMeterList().get(0).getMeterId());
-        ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, DateUtil.getCurrentYear()+"-"+DateUtil.getCurrentMonth());
-        mPresenter.getData_PressData();
-        dialog = new BottomStyleDialogTwo(Data_PressActivity.this, allElectricitybean);
-        dialog.setCliekAllElectricity(new BottomStyleDialogTwo.OnCliekAllElectricitytwo() {
-            @Override
-            public void OnCliekAllElectricityListener(int poaiton) {
-                long meterId = allElectricitybean.getMeterList().get(poaiton).getMeterId();
-                dataPressEleTv.setText(allElectricitybean.getMeterList().get(poaiton).getMeterName());
-                ACache.getInstance().put(Constants.CACHE_OPS_OBJID, meterId);
-                mPresenter.getData_PressData();
-            }
-        });
+        if(allElectricitybean.getMeterList().size()>0){
+            ACache.getInstance().put(Constants.CACHE_OPS_OBJID, allElectricitybean.getMeterList().get(0).getMeterId());
+            ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, DateUtil.getCurrentYear()+"-"+DateUtil.getCurrentMonth());
+            mPresenter.getData_PressData();
+            dataPressEleTv.setText(allElectricitybean.getMeterList().get(0).getMeterName());
+            dialog = new BottomStyleDialogTwo(Data_PressActivity.this, allElectricitybean);
+            dialog.setCliekAllElectricity(new BottomStyleDialogTwo.OnCliekAllElectricitytwo() {
+                @Override
+                public void OnCliekAllElectricityListener(int poaiton) {
+                    long meterId = allElectricitybean.getMeterList().get(poaiton).getMeterId();
+                    dataPressEleTv.setText(allElectricitybean.getMeterList().get(poaiton).getMeterName());
+                    ACache.getInstance().put(Constants.CACHE_OPS_OBJID, meterId);
+                    mPresenter.getData_PressData();
+                }
+            });
+        }
+
     }
 
 

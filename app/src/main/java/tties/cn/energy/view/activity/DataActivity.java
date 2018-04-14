@@ -8,6 +8,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.jzxiang.pickerview.TimePickerDialog;
@@ -26,6 +27,7 @@ import tties.cn.energy.base.BaseActivity;
 import tties.cn.energy.chart.LineDataChart;
 import tties.cn.energy.common.Constants;
 import tties.cn.energy.model.result.AllElectricitybean;
+import tties.cn.energy.model.result.DataAllbean;
 import tties.cn.energy.model.result.Databean;
 import tties.cn.energy.presenter.DataPresenter;
 import tties.cn.energy.utils.ACache;
@@ -76,6 +78,7 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
     private MyPopupWindow popupWindow;
     private BottomStyleDialog dialog;
     MyTimePickerDialog dialogtime;
+    DataAllbean allbean=new DataAllbean();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -219,9 +222,8 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
                 }
 
             }
-            LineDataSet lineDataSet = dataChart.setDataSet(values, "");
-            //设置有圆点
-            lineDataSet.setDrawCircles(true);
+            getChartXCount(dataChart);
+            dataChart.setDataSet(values, "");
             dataChart.setDayXAxis(listDate);
             dataChart.loadChart();
         }
@@ -230,33 +232,55 @@ public class DataActivity extends BaseActivity<DataPresenter> implements View.On
 
     @Override
     public void setAllElectricity(final AllElectricitybean allElectricitybean) {
-        ACache.getInstance().put(Constants.CACHE_OPS_OBJID,allElectricitybean.getLedgerId());
-        ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE,1);
-        ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, DateUtil.getCurrentYear()+"-"+DateUtil.getCurrentMonth());
-        mPresenter.getData();
-        mPresenter.getchartData();
-        dataElectricityTv.setText(allElectricitybean.getLedgerName());
-        dialog = new BottomStyleDialog(DataActivity.this, allElectricitybean);
-        dialog.setCliekAllElectricity(new BottomStyleDialog.OnCliekAllElectricity() {
-            @Override
-            public void OnCliekAllElectricityListener(int poaiton) {
-                if (poaiton == 0) {
-                    long ledgerId = allElectricitybean.getLedgerId();
-                    dataElectricityTv.setText(allElectricitybean.getLedgerName());
-                    ACache.getInstance().put(Constants.CACHE_OPS_OBJID,ledgerId);
-                    ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE,1);
+        if(allElectricitybean.getMeterList().size()>0){
+            ACache.getInstance().put(Constants.CACHE_OPS_OBJID,allElectricitybean.getLedgerId());
+            ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE,1);
+            ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, DateUtil.getCurrentYear()+"-"+DateUtil.getCurrentMonth());
+            mPresenter.getData();
+            mPresenter.getchartData();
+            dataElectricityTv.setText("总电量");
+            dialog = new BottomStyleDialog(DataActivity.this, allElectricitybean);
+            dialog.setCliekAllElectricity(new BottomStyleDialog.OnCliekAllElectricity() {
+                @Override
+                public void OnCliekAllElectricityListener(int poaiton) {
+                    if (poaiton == 0) {
+                        long ledgerId = allElectricitybean.getLedgerId();
+                        dataElectricityTv.setText("总电量");
+                        ACache.getInstance().put(Constants.CACHE_OPS_OBJID,ledgerId);
+                        ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE,1);
 
-                }
-                if (poaiton > 0) {
-                    long meterId = allElectricitybean.getMeterList().get(poaiton - 1).getMeterId();
-                    dataElectricityTv.setText(allElectricitybean.getMeterList().get(poaiton - 1).getMeterName());
-                    ACache.getInstance().put(Constants.CACHE_OPS_OBJID,meterId);
-                    ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE,2);
+                    }
+                    if (poaiton > 0) {
+                        long meterId = allElectricitybean.getMeterList().get(poaiton - 1).getMeterId();
+                        dataElectricityTv.setText(allElectricitybean.getMeterList().get(poaiton - 1).getMeterName());
+                        ACache.getInstance().put(Constants.CACHE_OPS_OBJID,meterId);
+                        ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE,2);
 
+                    }
+                    mPresenter.getData();
+                    mPresenter.getchartData();
                 }
-                mPresenter.getData();
-                mPresenter.getchartData();
-            }
-        });
+            });
+        }
+
+    }
+    //计算x数量
+    public void getChartXCount(LineDataChart lineDataChart){
+        //得到当前年月 确定chart表x轴加载的数量
+        int currentYear = DateUtil.getCurrentYear();
+        int currentMonth= DateUtil.getCurrentMonth();
+        XAxis xAxis = lineDataChart.getXAxis();
+//        xAxis.setLabelRotationAngle(0);
+        String baseData = allbean.getBaseData();
+        String[] split = StringUtil.split(baseData, "-");
+        if(split[0].equals(currentYear+"")){
+//            if(currentMonth>8){
+//                xAxis.setLabelRotationAngle(-50);
+//            }
+            xAxis.setLabelCount(currentMonth,true);
+        }else{
+            xAxis.setLabelCount(12,true);
+//            xAxis.setLabelRotationAngle(-50);
+        }
     }
 }

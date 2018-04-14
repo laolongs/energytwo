@@ -1,6 +1,7 @@
 package tties.cn.energy.model.result;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -51,7 +52,7 @@ public class OpsLoginbean implements Serializable {
          */
 
         private MaintUserBean maintUser;
-        private List<EnergyLedgerListBean> energyLedgerList;
+        private List<EnergyLedgerListBean> energyLedgerList=new ArrayList<>();
 
         public MaintUserBean getMaintUser() {
             return maintUser;

@@ -66,6 +66,10 @@ public class BarDataCharttwo extends BarChart {
          barSet.setColor(color); //设置是否显示柱子上面的数值
          barSet.setDrawValues(false); //设置柱子阴影颜色
          barSet.setBarShadowColor(Color.GRAY); //创建集合，存放所有组的柱形数据
+         barSet.setBarBorderColor(color);
+         barSet.setValueTextSize(9f);
+         barSet.setFormLineWidth(1f);
+         barSet.setFormSize(15.f);
          setList.add(barSet);
          return barSet;
     }
@@ -86,7 +90,7 @@ public class BarDataCharttwo extends BarChart {
         invalidate();
     }
 
-    private void setStyle() {
+    public void setStyle() {
         Description description = new Description();
         description.setEnabled(false);
         setDescription(description);//设置图表描述信息
@@ -114,9 +118,10 @@ public class BarDataCharttwo extends BarChart {
         xAxis.setAvoidFirstLastClipping(false);//图表将避免第一个和最后一个标签条目被减掉在图表或屏幕的边缘
         //xAxis.setLabelRotationAngle(10f);//设置x轴标签的旋转角度
 //        设置x轴显示标签数量  还有一个重载方法第二个参数为布尔值强制设置数量 如果启用会导致绘制点出现偏差
-        xAxis.setLabelCount(5);
-        xAxis.setPosition(XAxis.XAxisPosition.TOP);//把坐标轴放在上下 参数有：TOP, BOTTOM, BOTH_SIDED, TOP_INSIDE or BOTTOM_INSIDE.
-//        xAxis.setTextColor(Color.BLUE);//设置轴标签的颜色
+        xAxis.setLabelCount(12);
+//        xAxis.setLabelRotationAngle(-50);
+        int color = Color.parseColor("#9A9A9A");
+        xAxis.setTextColor(color);//设置轴标签的颜色
 //        xAxis.setTextSize(24f);//设置轴标签的大小
 //        xAxis.setGridLineWidth(10f);//设置竖线大小
 //        xAxis.setGridColor(Color.RED);//设置竖线颜色
@@ -140,20 +145,24 @@ public class BarDataCharttwo extends BarChart {
 
         //获取左边的轴线
         YAxis leftAxis = getAxisLeft();
+//        leftAxis.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
         //最大值，最小值
-//        leftAxis.setMaxWidth(144000);
-//        leftAxis.setMinWidth(0);
-        //leftAxis.setEnabled(false);
+//        leftAxis.setMaxWidth(0f);
+//        leftAxis.setMinWidth(-20000f);
+        //设置开始值
+//        leftAxis.setStartAtZero(true);
+        leftAxis.setEnabled(true);
         //设置网格线为虚线效果
-        //leftAxis.enableGridDashedLine(10f, 10f, 0f);
+        leftAxis.enableGridDashedLine(10f, 10f, 0f);
         //是否绘制0所在的网格线
         leftAxis.setDrawZeroLine(false);
         leftAxis.setAxisLineWidth(0f);
         leftAxis.setDrawAxisLine(false); //无轴线
+//        leftAxis.setDrawGridLines(false);
         // 设置y轴的标签数量
-//        leftAxis.setLabelCount(6,true);
+        leftAxis.setLabelCount(5,true);
 
-
+//        setEnabled(false);//是否启用轴，如果禁用，关于轴的设置所有属性都将被忽略
         setTouchEnabled(true); // 设置是否可以触摸
         setDragEnabled(true);// 是否可以拖拽
         setScaleEnabled(false);// 是否可以缩放 x和y轴, 默认是true
@@ -164,17 +173,22 @@ public class BarDataCharttwo extends BarChart {
         setHighlightPerDragEnabled(true);//能否拖拽高亮线(数据点与坐标的提示线)，默认是true
         setDragDecelerationEnabled(true);//拖拽滚动时，手放开是否会持续滚动，默认是true（false是拖到哪是哪，true拖拽之后还会有缓冲）
         setDragDecelerationFrictionCoef(0.99f);//与上面那个属性配合，持续滚动时的速度快慢，[0,1) 0代表立即停止。
-        //图例设置
-        Legend legend =getLegend();
-        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);//图例水平居中
-        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);//图例在图表上方
-        legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);//图例的方向为水平
-        legend.setDrawInside(false);//绘制在chart的外侧
-        legend.setDirection(Legend.LegendDirection.LEFT_TO_RIGHT);//图例中的文字方向
-        legend.setForm(Legend.LegendForm.SQUARE);//图例窗体的形状
-        legend.setFormSize(0f);//图例窗体的大小
-        legend.setTextSize(16f);//图例文字的大小
-        //legend.setYOffset(-2f);
+        //设置图列文字颜色
+
+        Legend l = getLegend();//图例
+        l.setEnabled(false);
+//        l.setPosition(Legend.LegendPosition.RIGHT_OF_CHART_INSIDE);//设置图例的位置
+//        l.setPosition(Legend.LegendPosition.ABOVE_CHART_CENTER);//设置图例的位置
+        l.setTextSize(10f);//设置文字大小
+        l.setForm(Legend.LegendForm.LINE);//正方形，圆形或线
+        l.setFormSize(10f); // 设置Form的大小
+        l.setWordWrapEnabled(true);//是否支持自动换行 目前只支持BelowChartLeft, BelowChartRight, BelowChartCenter
+        l.setFormLineWidth(3f);//设置Form的宽度
+        l.setTextColor(Color.WHITE);
+        l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
+        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
+        l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+        animateXY(1000, 1000);
     }
     public void setDayXAxis(List<String> dayList) {
         XAxis xAxis = getXAxis();

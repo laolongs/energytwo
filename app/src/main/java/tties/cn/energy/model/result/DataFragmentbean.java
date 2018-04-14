@@ -1,5 +1,6 @@
 package tties.cn.energy.model.result;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,7 +11,7 @@ import java.util.List;
 
 public class DataFragmentbean {
 
-    private List<Databean.DataListBean> dataList;
+    private List<Databean.DataListBean> dataList=new ArrayList<>();
 
     public List<Databean.DataListBean> getDataList() {
         return dataList;

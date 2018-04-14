@@ -21,6 +21,7 @@ import tties.cn.energy.model.IModel.ILoginModel;
 import tties.cn.energy.model.IModel.LoginModel;
 import tties.cn.energy.model.bean.EventBusBean;
 import tties.cn.energy.model.result.Loginbean;
+import tties.cn.energy.model.result.OpsLoginbean;
 import tties.cn.energy.utils.ACache;
 import tties.cn.energy.utils.EncryptUtil;
 import tties.cn.energy.utils.StringUtil;
@@ -81,9 +82,10 @@ public class LoginPresenter extends BasePresenter<ILoginView>  {
                             ACache.getInstance().put(Constants.CACHE_LOGIN_USERNAME, loginName);
                             ACache.getInstance().put(Constants.CACHE_LOGIN_PASSWORD, view.getLoginPass());
                             ACache.getInstance().put(Constants.CACHE_LOGIN_PASSWORDMD5, getPassword());
-                            Intent intent = new Intent(context, MainActivity.class);
-                            context.startActivity(intent);
-                            ((Activity)context).finish();
+                            getOpsloginData();
+//                            Intent intent = new Intent(context, MainActivity.class);
+//                            context.startActivity(intent);
+//                            ((Activity)context).finish();
 //                            MeterSend send = new MeterSend();
 //                            send.send(null);
                         } else {
@@ -140,5 +142,40 @@ public class LoginPresenter extends BasePresenter<ILoginView>  {
     }
     public void setPassword(String password) {
         this.loginPass = EncryptUtil.MD5Encrypt(password).toUpperCase();
+    }
+    public void getOpsloginData(){
+        //这个回来得数据暂时有误
+        Loginbean bean = ACache.getInstance().getAsObject(Constants.CACHE_USERINFO);//"1502183891109"
+//        long accountId = bean.getAccountId();
+        mainModel.getOpsLoginData().getOpsLogin(bean.getAccountId()+"").subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<OpsLoginbean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(OpsLoginbean value) {
+                        if(value != null&&value.getErrorCode()==0){
+
+                            Log.i(TAG, "onNext: "+value.getResult().getMaintUser().getStaffName());
+                            view.getOpsLoginData(value);
+                        }else{
+                            Log.i(TAG, "getOpsLoginData: "+"数据有误");
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.i(TAG, "onError: "+e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 }

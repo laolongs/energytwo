@@ -1,5 +1,6 @@
 package tties.cn.energy.model.result;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ public class Energy_TransformerTemperaturebean {
 
     private String errorMessage;
     private int errorCode;
-    private List<ResultBean> result;
+    private List<ResultBean> result=new ArrayList<>();
 
     public String getErrorMessage() {
         return errorMessage;
@@ -51,10 +52,10 @@ public class Energy_TransformerTemperaturebean {
          * time : 2018-01
          */
 
-        private int data;
+        private double data;
         private String time;
 
-        public int getData() {
+        public double getData() {
             return data;
         }
 

@@ -3,6 +3,7 @@
  */
 package tties.cn.energy.utils;
 
+import java.math.BigDecimal;
 import java.net.URLDecoder;
 
 /**
@@ -62,5 +63,16 @@ public class StringUtil {
         String sub=new String(value);
         String[] split = sub.split(value2);
         return split;
+    }
+    public static String substring(String value,int start,int end){
+        String sub=new String(value);
+        String split = sub.substring(start,end);
+        return split;
+    }
+    //保留精度值
+    public static double getBigDecimal(double num,int size){
+        BigDecimal b = new BigDecimal(num / size);
+        double df = b.setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue();
+        return df;
     }
 }

@@ -218,7 +218,7 @@
                 android:textSize="17sp"
                 android:textColor="@color/black"
                 android:layout_height="wrap_content"
-                android:text="1500kVA"
+                android:text="0kVA"
                 />
             <TextView
                 android:layout_weight="1"
@@ -232,7 +232,7 @@
                 android:textSize="17sp"
                 android:textColor="@color/black"
                 android:layout_height="wrap_content"
-                android:text="45000元"
+                android:text="0元"
                 />
             <TextView
                 android:layout_weight="3"
@@ -272,6 +272,7 @@
                 android:text="选择年度"
                 />
             <TextView
+                android:id="@+id/enerey_electrical_year"
                 android:gravity="center"
                 android:layout_weight="4"
                 android:layout_width="0dp"
@@ -293,15 +294,15 @@
             android:layout_marginLeft="@dimen/x6"
             android:layout_marginRight="@dimen/x6"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y230"
+            android:layout_height="320dp"
             android:orientation="vertical">
-                <tties.cn.energy.chart.LineDataChart
+                <tties.cn.energy.chart.LineDataFourChart
                     android:id="@+id/enerey_electrical_chart"
                     android:layout_below="@+id/electrical_r2"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/y200"
+                    android:layout_height="300dp"
                     android:padding="@dimen/x8" >
-                </tties.cn.energy.chart.LineDataChart>
+                </tties.cn.energy.chart.LineDataFourChart>
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

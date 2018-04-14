@@ -15,6 +15,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import tties.cn.energy.R;
 import tties.cn.energy.application.MyApplication;
+import tties.cn.energy.view.fragment.Questions_discussFragment;
+import tties.cn.energy.view.fragment.Questions_progressFragment;
 
 
 /**
@@ -32,10 +34,48 @@ public class MyQurestionTabAdapter extends FragmentPagerAdapter{
         this.list=list;
     }
 
-    @Override
-    public Fragment getItem(int position) {
-        return list.get(position);
-    }
+//    @Override
+//    public Fragment getItem(int position) {
+//        Fragment page = null;
+//        if (list.size() > position) {
+//            page = list.get(position);
+//            if (page != null) {
+//                return page;
+//            }
+//        }
+//        while (position>=list.size()) {
+//            list.add(null);
+//        }
+//        return list.get(position);
+//    }
+   @Override
+   public Fragment getItem(int position) {
+       Fragment page = null;
+       if (list.size() > position) {
+           page = list.get(position);
+           if (page != null) {
+               return page;
+           }
+       }
+       while (position>=list.size()) {
+           list.add(null);
+       }
+       switch (position%2) {
+           case 0:
+               page = new Questions_progressFragment();
+               list.set(position, page);
+               break;
+           case 1:
+               page = new Questions_discussFragment();
+               list.set(position, page);
+               break;
+
+           default:
+               break;
+       }
+       return page;
+
+   }
 
     @Override
     public int getCount() {
@@ -44,6 +84,7 @@ public class MyQurestionTabAdapter extends FragmentPagerAdapter{
 
     @Override
     public CharSequence getPageTitle(int position) {
+
         return array[position];
     }
 

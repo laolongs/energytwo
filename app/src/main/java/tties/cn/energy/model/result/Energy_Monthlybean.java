@@ -1,5 +1,6 @@
 package tties.cn.energy.model.result;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ public class Energy_Monthlybean {
 
     private String errorMessage;
     private int errorCode;
-    private List<ResultBean> result;
+    private List<ResultBean> result=new ArrayList<>();
 
     public String getErrorMessage() {
         return errorMessage;

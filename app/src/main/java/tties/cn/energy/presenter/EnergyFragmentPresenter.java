@@ -17,6 +17,7 @@ import tties.cn.energy.model.IModel.EnergyFragmentModel;
 import tties.cn.energy.model.IModel.IData_ElectricModel;
 import tties.cn.energy.model.IModel.IEnergyFragmentModel;
 import tties.cn.energy.model.result.AllElectricitybean;
+import tties.cn.energy.model.result.DataAllbean;
 import tties.cn.energy.model.result.Data_Electricbean;
 import tties.cn.energy.model.result.EnergyFragmentbean;
 import tties.cn.energy.model.result.Loginbean;
@@ -34,18 +35,16 @@ public class EnergyFragmentPresenter extends BasePresenter<IEnergyFragmentView> 
     private static final String TAG = "EnergyFragmentPresenter";
     IEnergyFragmentView view;
     IEnergyFragmentModel model;
+    DataAllbean dataAllbean=new DataAllbean();
     public EnergyFragmentPresenter(IEnergyFragmentView view){
         this.view=view;
         model=new EnergyFragmentModel();
     }
     public void getEnergyFragment(){
-        String name = ACache.getInstance().getAsObject(Constants.CACHE_LOGIN_USERNAME);
-        String pass = ACache.getInstance().getAsObject(Constants.CACHE_LOGIN_PASSWORDMD5);
-        Loginbean bean = ACache.getInstance().getAsObject(Constants.CACHE_USERINFO);
         Map<String,Object> map=new HashMap<>();
-        map.put("userName",name);
-        map.put("password",pass);
-        map.put("accountId",bean.getAccountId());
+        map.put("userName",dataAllbean.getUserName());
+        map.put("password",dataAllbean.getPassword());
+        map.put("accountId",dataAllbean.getEleAccountId());
         model.getEnergyFragmentData().getEnergyFragment(map).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<EnergyFragmentbean>() {

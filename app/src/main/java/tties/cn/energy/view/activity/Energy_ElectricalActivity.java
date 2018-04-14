@@ -6,11 +6,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -18,19 +17,23 @@ import butterknife.ButterKnife;
 import tties.cn.energy.R;
 import tties.cn.energy.base.BaseActivity;
 import tties.cn.energy.chart.LineDataChart;
+import tties.cn.energy.chart.LineDataFourChart;
+import tties.cn.energy.common.Constants;
 import tties.cn.energy.common.MyProgressRound;
 import tties.cn.energy.model.result.AllElectricitybean;
+import tties.cn.energy.model.result.DataAllbean;
 import tties.cn.energy.model.result.Databean;
-import tties.cn.energy.presenter.DataPresenter;
-import tties.cn.energy.presenter.MainPresenter;
+import tties.cn.energy.presenter.Energy_ElectricalPersenter;
+import tties.cn.energy.utils.ACache;
+import tties.cn.energy.utils.DateUtil;
 import tties.cn.energy.utils.StringUtil;
+import tties.cn.energy.view.dialog.MyTimePickerDialog;
 import tties.cn.energy.view.iview.IDataView;
-import tties.cn.energy.view.iview.IMainView;
 
 /**
  * 电度电量优化
  */
-public class Energy_ElectricalActivity extends BaseActivity<DataPresenter> implements IDataView {
+public class Energy_ElectricalActivity extends BaseActivity<Energy_ElectricalPersenter> implements IDataView {
     private static final String TAG = "Energy_ElectricalActivi";
     @BindView(R.id.electrical_myview)
     MyProgressRound electricalMyview;
@@ -53,7 +56,14 @@ public class Energy_ElectricalActivity extends BaseActivity<DataPresenter> imple
     @BindView(R.id.enerey_electrical_select)
     ImageView enereyElectricalSelect;
     @BindView(R.id.enerey_electrical_chart)
-    LineDataChart enereyElectricalChart;
+    LineDataFourChart enereyElectricalChart;
+    MyTimePickerDialog dialogtime;
+    @BindView(R.id.enerey_electrical_year)
+    TextView enereyElectricalYear;
+    DataAllbean dataAllbean=new DataAllbean();
+    private float cusp2;
+    private float hight2;
+    private float low2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +74,8 @@ public class Energy_ElectricalActivity extends BaseActivity<DataPresenter> imple
     }
 
     private void initView() {
-        mPresenter.getData();
-        mPresenter.getchartData();
+        dialogtime = new MyTimePickerDialog();
+        mPresenter.getEnergy_Electrical();
         toolbarText.setText("电度电费优化");
         toolbarLeft.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,12 +83,26 @@ public class Energy_ElectricalActivity extends BaseActivity<DataPresenter> imple
                 finish();
             }
         });
-
+        enereyElectricalYear.setText(DateUtil.getCurrentYear() + "年");
+        enereyElectricalSelect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogtime.getTimeYearPickerDialog(Energy_ElectricalActivity.this);
+                dialogtime.setOnTimeClick(new MyTimePickerDialog.OnTimeClick() {
+                    @Override
+                    public void OnTimeClickListener(String text) {
+                        ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, text+"-01");
+                        enereyElectricalYear.setText(text+"年");
+                        mPresenter.getEnergy_ElectricalChart();
+                    }
+                });
+            }
+        });
     }
 
     @Override
     protected void createPresenter() {
-        mPresenter=new DataPresenter(this);
+        mPresenter = new Energy_ElectricalPersenter(this);
     }
 
     @Override
@@ -88,46 +112,107 @@ public class Energy_ElectricalActivity extends BaseActivity<DataPresenter> imple
 
     @Override
     public void setDataData(Databean bean) {
-        int percentage=0;
-        double num=0;
-        int low=bean.getDataList().get(0).getSectorGuValue();
-        int hight=bean.getDataList().get(0).getSectorJianValue();
-        int cusp=bean.getDataList().get(0).getSectorFengValue();
-        num=low+hight+cusp;
-        Log.i(TAG, "setDataDatalow: "+low);
-        Log.i(TAG, "setDataDatanum: "+num);
-        enereyElectricalMonth.setText(bean.getDataList().get(0).getBaseDate()+"");
-        //尖峰
-        electricalMyview.setProgressMax(cusp,num);
-        //高峰
-        electricalMyview.setProgressCenter(hight,num);
-        //低谷
-        electricalMyview.setProgressMin(low,num);
-        enereyElectricalCusp.setText(bean.getDataList().get(0).getSectorJianValue()+"度");
-        enereyElectricalHight.setText(bean.getDataList().get(0).getSectorFengValue()+"度");
-        enereyElectricalLow.setText(bean.getDataList().get(0).getSectorGuValue()+"度");
-        enereyElectricalKva.setText(bean.getDataList().get(0).getTotalEnergy()+"kVA");
-        enereyElectricalPrice.setText((int)bean.getDataList().get(0).getTotalSum()+"元");
+        if (bean.getDataList().size() > 0) {
+            ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, DateUtil.getCurrentYear() + "-" + DateUtil.getCurrentMonth());
+            mPresenter.getEnergy_ElectricalChart();
+            int percentage = 0;
+            double num = 0;
+            int low = bean.getDataList().get(0).getSectorGuValue();
+            int cusp = bean.getDataList().get(0).getSectorJianValue();
+            int hight = bean.getDataList().get(0).getSectorFengValue();
+            num = low + hight + cusp;
+            Log.i(TAG, "setDataDatalow: " + low);
+            Log.i(TAG, "setDataDatanum: " + num);
+            enereyElectricalMonth.setText(bean.getDataList().get(0).getBaseDate() + "");
+            //尖峰
+            electricalMyview.setProgressMax(cusp, num);
+            //高峰
+            electricalMyview.setProgressCenter(hight, num);
+            //低谷
+            electricalMyview.setProgressMin(low, num);
+            enereyElectricalCusp.setText(bean.getDataList().get(0).getSectorJianValue() + "度");
+            enereyElectricalHight.setText(bean.getDataList().get(0).getSectorFengValue() + "度");
+            enereyElectricalLow.setText(bean.getDataList().get(0).getSectorGuValue() + "度");
+            enereyElectricalKva.setText(bean.getDataList().get(0).getTotalEnergy() + "kVA");
+            enereyElectricalPrice.setText((int) bean.getDataList().get(0).getTotalSum() + "元");
+        }
+
     }
 
     @Override
     public void setDataChartData(Databean bean) {
-        ArrayList<Entry> values = new ArrayList<>();
-        List<String> listDate = new ArrayList<String>();
-        for (int i = 0; i < bean.getDataList().size(); i++) {
-            Entry entry = new Entry(i, 0f);
-            entry.setY((float) bean.getDataList().get(i).getCost());
-            values.add(entry);
-            String[] split = StringUtil.split(bean.getDataList().get(i).getBaseDate(), "-");
-            listDate.add(split[1]+"月");
+
+        if(bean.getDataList().size()>0){
+            enereyElectricalChart.clearData();
+            ArrayList<Entry> values1 = new ArrayList<>();
+            ArrayList<Entry> values2 = new ArrayList<>();
+            ArrayList<Entry> values3 = new ArrayList<>();
+            List<String> listDate = new ArrayList<String>();
+            for (int i = 0; i < bean.getDataList().size(); i++) {
+                double num = 0;
+                int low = bean.getDataList().get(i).getSectorGuValue();
+                int cusp = bean.getDataList().get(i).getSectorJianValue();
+                int hight = bean.getDataList().get(i).getSectorFengValue();
+                Log.i(TAG, "setDataChartDatacusp: "+cusp);
+                Log.i(TAG, "setDataChartDatahight2: "+hight);
+                Log.i(TAG, "setDataChartDatalow: "+low);
+                num = low + hight + cusp;
+                Entry entry1 = new Entry(i, 0f);
+                Entry entry2 = new Entry(i, 0f);
+                Entry entry3 = new Entry(i, 0f);
+                if(num==0){
+                    cusp2 = (float) 0;
+                    hight2 = (float) 0;
+                    low2 = (float) 0;
+                }else{
+                    cusp2 = (float) (bean.getDataList().get(i).getSectorJianValue()/num*100);
+                    hight2 = (float) (bean.getDataList().get(i).getSectorFengValue()/num*100)+ cusp2;
+                    low2 = (float) (bean.getDataList().get(i).getSectorGuValue()/num*100)+ cusp2 + hight2;
+                }
+
+                Log.i(TAG, "setDataChartDatacusp2: "+cusp2);
+                Log.i(TAG, "setDataChartDatahight2: "+hight2);
+                Log.i(TAG, "setDataChartDatalow2: "+low2);
+                entry1.setY(cusp2);
+                entry2.setY(hight2);
+                entry3.setY(low2);
+                values1.add(entry1);
+                values2.add(entry2);
+                values3.add(entry3);
+                String[] split = StringUtil.split(bean.getDataList().get(i).getBaseDate(), "-");
+                listDate.add(split[1] + "月");
+            }
+            getChartXCount();
+            enereyElectricalChart.setDataSet3(values1, "尖峰");
+            enereyElectricalChart.setDataSet2(values2, "高峰");
+            enereyElectricalChart.setDataSet1(values3, "低谷");
+            enereyElectricalChart.setDayXAxis(listDate);
+            enereyElectricalChart.loadChart();
         }
-        enereyElectricalChart.setDataSet(values, "");
-        enereyElectricalChart.setDayXAxis(listDate);
-        enereyElectricalChart.loadChart();
+
     }
 
     @Override
     public void setAllElectricity(AllElectricitybean allElectricitybean) {
 
+    }
+    //计算x数量
+    public void getChartXCount(){
+        //得到当前年月 确定chart表x轴加载的数量
+        int currentYear = DateUtil.getCurrentYear();
+        int currentMonth= DateUtil.getCurrentMonth();
+        XAxis xAxis = enereyElectricalChart.getXAxis();
+//        xAxis.setLabelRotationAngle(0);
+        String baseData = dataAllbean.getBaseData();
+        String[] split = StringUtil.split(baseData, "-");
+        if(split[0].equals(currentYear+"")){
+//            if(currentMonth>8){
+//                xAxis.setLabelRotationAngle(-50);
+//            }
+            xAxis.setLabelCount(currentMonth,true);
+        }else{
+            xAxis.setLabelCount(12,true);
+//            xAxis.setLabelRotationAngle(-50);
+        }
     }
 }

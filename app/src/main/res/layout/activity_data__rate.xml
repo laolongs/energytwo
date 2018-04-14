@@ -194,11 +194,11 @@
                         android:textSize="17sp"
                         android:textColor="@color/black"/>
                 </LinearLayout>
-                <tties.cn.energy.chart.LineDataChart
+                <tties.cn.energy.chart.LineDataTwoChart
                     android:id="@+id/havakw_chart"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/y200">
-                </tties.cn.energy.chart.LineDataChart>
+                </tties.cn.energy.chart.LineDataTwoChart>
                 <tties.cn.energy.chart.LineDataChart
                     android:layout_marginTop="@dimen/y20"
                     android:id="@+id/nokvar_chart"

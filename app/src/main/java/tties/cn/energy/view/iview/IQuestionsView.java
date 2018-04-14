@@ -17,7 +17,6 @@ import tties.cn.energy.model.result.Opsbean;
  */
 
 public interface IQuestionsView extends BaseView {
-    public void setTabData(String[] array);
     public void setQuestionData(Opsbean bean);
     public void setQuestionDiscussData(Discussbean discussbean);
 }

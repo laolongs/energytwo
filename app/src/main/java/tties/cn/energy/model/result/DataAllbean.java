@@ -77,7 +77,14 @@ public class DataAllbean {
         }
         return baseDataDegault;
     }
-
+    //变压器使用容量比例（同页面有两个时间选择，所以单开一个）
+    public String getTransformerVolumeBaseData() {
+        String baseDataDegault=ACache.getInstance().getAsString(Constants.CACHE_OPS_BASEDATE);
+        if(baseDataDegault==null){
+            return DateUtil.getCurrentYear()+"-"+DateUtil.getCurrentMonth();
+        }
+        return baseDataDegault;
+    }
 
     public int getEleAccountId() {
         int eleAccountIdDefault= ACache.getInstance().getAsObject(Constants.CACHE_OPS_ELEACCOUNTID);;

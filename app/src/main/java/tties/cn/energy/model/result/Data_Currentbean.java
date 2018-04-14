@@ -1,5 +1,6 @@
 package tties.cn.energy.model.result;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,7 +10,7 @@ import java.util.List;
  */
 
 public class Data_Currentbean {
-    private List<DataListBean> dataList;
+    private List<DataListBean> dataList=new ArrayList<>();
 
     public List<DataListBean> getDataList() {
         return dataList;
@@ -47,16 +48,16 @@ public class Data_Currentbean {
         private double b;
         private double c;
         private Object d;
-        private int dm;
-        private int max;
+        private double dm;
+        private double max;
         private Object maxTime;
-        private int min;
+        private double min;
         private Object minTime;
-        private int upperTime;
-        private int lowerTime;
-        private int limitRate;
-        private int fpy;
-        private int monTime;
+        private double upperTime;
+        private double lowerTime;
+        private double limitRate;
+        private double fpy;
+        private double monTime;
         private Object md;
         private boolean hasOver;
 
@@ -108,7 +109,7 @@ public class Data_Currentbean {
             this.d = d;
         }
 
-        public int getDm() {
+        public double getDm() {
             return dm;
         }
 
@@ -116,7 +117,7 @@ public class Data_Currentbean {
             this.dm = dm;
         }
 
-        public int getMax() {
+        public double getMax() {
             return max;
         }
 
@@ -132,7 +133,7 @@ public class Data_Currentbean {
             this.maxTime = maxTime;
         }
 
-        public int getMin() {
+        public double getMin() {
             return min;
         }
 
@@ -148,7 +149,7 @@ public class Data_Currentbean {
             this.minTime = minTime;
         }
 
-        public int getUpperTime() {
+        public double getUpperTime() {
             return upperTime;
         }
 
@@ -156,7 +157,7 @@ public class Data_Currentbean {
             this.upperTime = upperTime;
         }
 
-        public int getLowerTime() {
+        public double getLowerTime() {
             return lowerTime;
         }
 
@@ -164,7 +165,7 @@ public class Data_Currentbean {
             this.lowerTime = lowerTime;
         }
 
-        public int getLimitRate() {
+        public double getLimitRate() {
             return limitRate;
         }
 
@@ -172,7 +173,7 @@ public class Data_Currentbean {
             this.limitRate = limitRate;
         }
 
-        public int getFpy() {
+        public double getFpy() {
             return fpy;
         }
 
@@ -180,7 +181,7 @@ public class Data_Currentbean {
             this.fpy = fpy;
         }
 
-        public int getMonTime() {
+        public double getMonTime() {
             return monTime;
         }
 
@@ -204,4 +205,5 @@ public class Data_Currentbean {
             this.hasOver = hasOver;
         }
     }
+
 }

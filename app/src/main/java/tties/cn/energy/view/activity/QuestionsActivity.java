@@ -112,17 +112,23 @@ public class QuestionsActivity extends BaseActivity<QuestionsPresenter> implemen
     List<Fragment> listFragment;
     private Questions_discussFragment discussFragment;
     private Questions_progressFragment progressFragment;
-    public String name;
-
+    public String name="暂无";
+    String[] array={"维修进度","问题讨论"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-        toolbarText.setText("问题详情");
         initView();
     }
 
     private void initView() {
+        toolbarText.setText("问题详情");
+        toolbarLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         listFragment = new ArrayList<>();
         //问题讨论
         discussFragment = new Questions_discussFragment();
@@ -132,7 +138,6 @@ public class QuestionsActivity extends BaseActivity<QuestionsPresenter> implemen
         questionId = intent.getStringExtra("questionId");
         Log.i(TAG, "initView: " + questionId);
         mPresenter.getQuestion(questionId);
-
         //联系人
         quLinkman.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,8 +151,6 @@ public class QuestionsActivity extends BaseActivity<QuestionsPresenter> implemen
         });
         //回复
         quReply.setOnClickListener(new View.OnClickListener() {
-
-
             @Override
             public void onClick(View view) {
 //                mPresenter.getDiscuss(questionId,"");
@@ -161,14 +164,22 @@ public class QuestionsActivity extends BaseActivity<QuestionsPresenter> implemen
                 builder.setView(inflate);
                 final AlertDialog dialog = builder.create();
                 dialog.show();
-                if(!name.isEmpty()){
+                if(!name.equals("暂无")){
                     staffname.setText(name);
+                }else{
+                    staffname.setText("我是替代品");
                 }
                 confirm.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        mPresenter.getDiscuss(questionId, editText.getText().toString());
-                        dialog.dismiss();
+                        String s = editText.getText().toString();
+                        if(!s.isEmpty()){
+                            mPresenter.getDiscuss(questionId, s);
+                            dialog.dismiss();
+                        }else{
+                            ToastUtil.showShort(QuestionsActivity.this, "回复信息不能为空！");
+                        }
+
                     }
                 });
                 cancel.setOnClickListener(new View.OnClickListener() {
@@ -179,21 +190,6 @@ public class QuestionsActivity extends BaseActivity<QuestionsPresenter> implemen
                 });
 //                Log.i(TAG, "onClick: "+userInfo.g);
                 ToastUtil.showShort(QuestionsActivity.this, "回复");
-
-//                builder.setTitle("问题讨论");
-
-//                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//
-//                    }
-//                });
-//                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        mPresenter.getDiscuss(questionId, editText.getText().toString());
-//                    }
-//                });
 
             }
         });
@@ -209,9 +205,9 @@ public class QuestionsActivity extends BaseActivity<QuestionsPresenter> implemen
         return R.layout.activity_questions;
     }
 
-
-    @Override
     public void setTabData(String[] array) {
+        listFragment.add(progressFragment);
+        listFragment.add(discussFragment);
         MyQurestionTabAdapter adapter = new MyQurestionTabAdapter(getSupportFragmentManager(), array, listFragment);
         quVp.setAdapter(adapter);
         quTab.setupWithViewPager(quVp);
@@ -221,33 +217,38 @@ public class QuestionsActivity extends BaseActivity<QuestionsPresenter> implemen
 
     @Override
     public void setQuestionData(Opsbean bean) {
-        if (bean.getResult().getQuestionList().size() >= 0) {
+        if (bean.getResult().getQuestionList().size() > 0) {
             getImageSelector(bean);
             getValueType(bean);
             listbean = bean.getResult().getQuestionList().get(0);
-            Log.i(TAG, "setQuestionData: " + bean.getResult().getQuestionList().get(0).getEquipmentName());
-            quesIndexTitle.setText(bean.getResult().getQuestionList().get(0).getEquipmentName());
-            staffTel = bean.getResult().getQuestionList().get(0).getMaintUser().getStaffTel();
-            quesIndex.setText(bean.getResult().getQuestionList().get(0).getQuestionIndex());
-            quesCreatetime.setText(bean.getResult().getQuestionList().get(0).getCreateTime());
-            quesAddress.setText(bean.getResult().getQuestionList().get(0).getDescription());
-            quesRank.setText(FaultType.getInfo(bean.getResult().getQuestionList().get(0).getFaultType()) + "");
-            discussFragment.setDiscussData(bean.getResult().getQuestionList().get(0).getAdviceList());
-            progressFragment.setProgressData(bean.getResult().getQuestionList().get(0).getScheduleList());
-            listFragment.add(progressFragment);
-            listFragment.add(discussFragment);
-            mPresenter.getQuestionsTabData();
+            Log.i(TAG, "setQuestionData: " + listbean.getEquipmentName());
+            quesIndexTitle.setText(listbean.getEquipmentName());
+            staffTel = listbean.getMaintUser().getStaffTel();
+            quesIndex.setText(listbean.getQuestionIndex());
+            quesCreatetime.setText(listbean.getCreateTime());
+            quesAddress.setText(listbean.getDescription());
+            quesRank.setText(FaultType.getInfo(listbean.getFaultType()) + "");
             initRecycleView(listbean);
-            name=bean.getResult().getQuestionList().get(0).getAdviceList().get(0).getMbStaff().getStaffName();
+            discussFragment.setQuestionId(questionId);
+            progressFragment.setQuestionId(questionId);
+            setTabData(array);
+//            setQuTabData();
+//            if(listbean.getAdviceList().size()>0) {
+                name = listbean.getMaintUser().getStaffName();
+//            }else{
+//                Log.i(TAG, "setQuestionData: "+"当前问题详情无运维人员信息");
+//            }
         } else {
             Log.i(TAG, "setQuestionData: " + "无数据");
         }
     }
 
+
     @Override
     public void setQuestionDiscussData(Discussbean discussbean) {
         if (discussbean.getErrorCode() == 0) {
-            mPresenter.getQuestion(questionId);
+            //这里调用fragment里的刷新方法
+            discussFragment.initData();
             ToastUtil.showShort(QuestionsActivity.this, "回复成功");
         } else {
             ToastUtil.showShort(QuestionsActivity.this, "回复失败");

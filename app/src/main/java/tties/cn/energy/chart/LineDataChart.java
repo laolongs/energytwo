@@ -83,22 +83,31 @@ public class LineDataChart extends  LineChart {
 
     public LineDataSet setDataSet(ArrayList<Entry> values, String label) {
         LineDataSet set = new LineDataSet(values, label);
+        int color = Color.parseColor("#38A6FE");
+        //设置点击交点后显示交高亮线的颜色
+        int HighLightcolor = Color.parseColor("#75BFF9");
+        int Fillcolor = Color.parseColor("#D2EBFF");
         //设置线条的颜色
-        set.setColor(Color.TRANSPARENT);
+        set.setColor(color);
         set.setCircleColor(Color.TRANSPARENT);
         set.setLineWidth(0f);//设置线宽
-        set.setCircleRadius(3f);//设置焦点圆心的大小
+        set.setCircleRadius(5f);//设置焦点圆心的大小
+//        set.setCircleHoleRadius(8f);
         set.enableDashedHighlightLine(10f, 5f, 0f);//点击后的高亮线的显示样式
         set.setHighlightLineWidth(2f);//设置点击交点后显示高亮线宽
         set.setHighlightEnabled(true);//是否禁用点击高亮线
-        set.setHighLightColor(Color.RED);//设置点击交点后显示交高亮线的颜色
+        set.setHighLightColor(HighLightcolor);//设置点击交点后显示交高亮线的颜色
         set.setValueTextSize(0f);//设置显示值的文字大小
         set.setDrawFilled(true);//设置禁用范围背景填充 设置包括的范围区域填充颜色
-        //设置线条为圆滑
-//        set.setDrawCubic(true);  //设置曲线为圆滑的线
-//        set.setCubicIntensity(50);
-//        set.setDrawCircles(true);  //设置有圆点
-        set.setFillColor(ContextCompat.getColor(MyApplication.getInstance(), R.color.chart_line_draw));
+        set.setCubicIntensity(500);
+//        set.setDrawValues(true);
+        set.setDrawCircles(true);  //设置有圆点
+        set.setCircleColor(color);
+        set.setFillColor(Fillcolor);
+        //设置曲线值的圆点是实心还是空心
+//        set.setDrawCircleHole(false);
+        //线模式为圆滑曲线（默认折线）
+        set.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
 
         setList.add(set);
         return set;
@@ -135,7 +144,7 @@ public class LineDataChart extends  LineChart {
         XAxis xAxis = getXAxis();
         xAxis.setEnabled(true);//设置轴启用或禁用 如果禁用以下的设置全部不生效
         xAxis.setDrawAxisLine(true);//是否绘制轴线
-        xAxis.setDrawGridLines(false);//设置x轴上每个点对应的线
+        xAxis.setDrawGridLines(true);//设置x轴上每个点对应的线
         xAxis.setDrawLabels(true);//绘制标签  指x轴上的对应数值
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);//设置x轴的显示位置
         //xAxis.setTextSize(20f);//设置字体
@@ -149,7 +158,7 @@ public class LineDataChart extends  LineChart {
         xAxis.setAvoidFirstLastClipping(false);//图表将避免第一个和最后一个标签条目被减掉在图表或屏幕的边缘
         //xAxis.setLabelRotationAngle(10f);//设置x轴标签的旋转角度
 //        设置x轴显示标签数量  还有一个重载方法第二个参数为布尔值强制设置数量 如果启用会导致绘制点出现偏差
-        xAxis.setLabelCount(5);
+        xAxis.setLabelCount(12,true);
 //        xAxis.setTextColor(Color.BLUE);//设置轴标签的颜色
 //        xAxis.setTextSize(24f);//设置轴标签的大小
 //        xAxis.setGridLineWidth(10f);//设置竖线大小
@@ -170,7 +179,7 @@ public class LineDataChart extends  LineChart {
         //是否绘制0所在的网格线
         rightAxis.setDrawZeroLine(false);
         rightAxis.setAxisLineWidth(0f);
-        rightAxis.setDrawAxisLine(false); //无轴线
+        rightAxis.setDrawAxisLine(true); //无轴线
 
         //获取左边的轴线
         YAxis leftAxis = getAxisLeft();
@@ -183,7 +192,7 @@ public class LineDataChart extends  LineChart {
         //是否绘制0所在的网格线
         leftAxis.setDrawZeroLine(false);
         leftAxis.setAxisLineWidth(0f);
-        leftAxis.setDrawAxisLine(false); //无轴线
+        leftAxis.setDrawAxisLine(true); //无轴线
         // 设置y轴的标签数量
 //        leftAxis.setLabelCount(6,true);
 

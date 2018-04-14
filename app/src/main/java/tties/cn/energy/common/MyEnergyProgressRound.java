@@ -143,7 +143,7 @@ public class MyEnergyProgressRound extends View{
         painttext.setStrokeWidth(5);
         String text2 = "分";
         float textWidth2 = painttext.measureText(text);
-        canvas.drawText(text2, getMeasuredWidth()/2-textWidth2/2 +30, getMeasuredHeight()/2 + mTextSize/2-10, painttext);
+        canvas.drawText(text2, getMeasuredWidth()/2-textWidth2/2 +43, getMeasuredHeight()/2 + mTextSize/2-10, painttext);
 //
         RectF rectF = new RectF(getMeasuredWidth()/2 - mRadiuSize,getMeasuredHeight()/2 - mRadiuSize,getMeasuredWidth()/2 + mRadiuSize  ,getMeasuredHeight()/2 + mRadiuSize);
         paint.setStrokeWidth(mRingSize);
@@ -151,9 +151,10 @@ public class MyEnergyProgressRound extends View{
         canvas.drawArc(rectF, -90, mProgressMax, false, paint);
     }
     public void setProgressMax(int progress){
-        mProgressMax = progress;
-        mCountProgress = progress*100/360;
+        mProgressMax = (360/100)*progress;
+        mCountProgress = progress;
         invalidate();
+
     }
 
 }

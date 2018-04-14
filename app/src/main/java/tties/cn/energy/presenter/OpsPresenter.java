@@ -13,6 +13,7 @@ import io.reactivex.schedulers.Schedulers;
 import tties.cn.energy.base.BasePresenter;
 import tties.cn.energy.common.Constants;
 import tties.cn.energy.model.IModel.OpsDataModel;
+import tties.cn.energy.model.result.DataAllbean;
 import tties.cn.energy.model.result.OpsLoginbean;
 import tties.cn.energy.model.result.Opsbean;
 import tties.cn.energy.utils.ACache;
@@ -26,12 +27,11 @@ import tties.cn.energy.view.iview.IOpsView;
 
 public class OpsPresenter extends BasePresenter<IOpsView> {
     private static final String TAG = "OpsPresenter";
-    OpsLoginbean bean = ACache.getInstance().getAsObject(Constants.CACHE_OPSLOGIN_USERINFO);
     IOpsView view;
     OpsDataModel model;
     int pagenum;
     int patrolType;
-
+    DataAllbean dataAllbean=new DataAllbean();
     public int getPatrolType() {
         return patrolType;
     }
@@ -51,10 +51,9 @@ public class OpsPresenter extends BasePresenter<IOpsView> {
         return pagenum;
     }
     public void getOpsRightData(){
+        String companyid = ACache.getInstance().getAsString(Constants.CACHE_OPS_COMPANDID);
         HashMap<String,Object> map=new HashMap<>();
-//        map.put("compamyId",bean.getResult().getEnergyLedgerList().get(0).getCompanyId());
-//        map.put("staffId",bean.getResult().getMaintUser().getStaffId());
-        map.put("companyId",23);
+        map.put("companyId",companyid);
         map.put("patrolType",getPatrolType());
         map.put("pagesize",10);
         map.put("pagenum",getPageNum());

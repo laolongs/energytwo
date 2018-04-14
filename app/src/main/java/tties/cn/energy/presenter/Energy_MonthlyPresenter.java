@@ -10,6 +10,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import tties.cn.energy.base.BasePresenter;
+import tties.cn.energy.common.Constants;
 import tties.cn.energy.model.IModel.Energy_MonthlyModel;
 import tties.cn.energy.model.IModel.Energy_TransformerModel;
 import tties.cn.energy.model.IModel.IEnergy_MonthlyModel;
@@ -19,6 +20,7 @@ import tties.cn.energy.model.result.Energy_TransformerDamgebean;
 import tties.cn.energy.model.result.Energy_TransformerListbean;
 import tties.cn.energy.model.result.Energy_TransformerTemperaturebean;
 import tties.cn.energy.model.result.Energy_TransformerVolumebean;
+import tties.cn.energy.utils.ACache;
 import tties.cn.energy.view.iview.IEnergy_MonthlyView;
 import tties.cn.energy.view.iview.IEnergy_TransformerView;
 
@@ -36,11 +38,12 @@ public class Energy_MonthlyPresenter extends BasePresenter<IEnergy_MonthlyView> 
         this.view=view;
         model=new Energy_MonthlyModel();
     }
-    //变压器列表
+    //月报， 运维 能效
     public void getEnergy_Monthly(int reportType){
+        String companyid = ACache.getInstance().getAsString(Constants.CACHE_OPS_COMPANDID);
         Map<String,Object> map=new HashMap<>();
         map.put("reportType",reportType);
-        map.put("companyId","23");
+        map.put("companyId",companyid);
         model.getEnergy_MonthlyData().getEnergy_Monthly(map).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Energy_Monthlybean>() {

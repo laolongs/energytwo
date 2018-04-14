@@ -8,6 +8,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.jzxiang.pickerview.TimePickerDialog;
@@ -99,7 +101,7 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
                     dialog.show();
                 }
 
-                ToastUtil.showShort(Data_NoActivity.this,"0000000");
+//                ToastUtil.showShort(Data_NoActivity.this,"0000000");
             }
         });
 
@@ -123,17 +125,20 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
             //不平衡最大值
             ArrayList<Entry> values1 = new ArrayList<>();
             List<String> listDate = new ArrayList<String>();
-//            List<String> listYDate = new ArrayList<String>();
             for (int i = 0; i < bean.getMaxTimeData().size(); i++) {
                 Entry entry = new Entry(i, 0f);
-//                String sub2 = new String();
-                String[] split = StringUtil.split(bean.getMaxTimeData().get(i).getIUMAXTIME(), ":");
-//                sub2 = split[0] + ":" + split[1];
-                entry.setY(Float.parseFloat(split[0]));
+                String[] split1 = StringUtil.split(bean.getMaxTimeData().get(i).getIUMAXTIME(), ":");
+                entry.setY((float)Float.parseFloat(split1[0])/24*100);
                 values1.add(entry);
-                listDate.add(bean.getMaxTimeData().get(i).getFREEZETIME());
-//                listYDate.add(sub2);
+                String split = StringUtil.substring(bean.getMaxTimeData().get(i).getFREEZETIME(),5,10);
+                listDate.add(split);
             }
+            XAxis xAxis = dataNoChart2.getXAxis();
+            xAxis.setLabelCount(bean.getMaxTimeData().size(),true);
+            xAxis.setLabelRotationAngle(-50);
+            YAxis axisLeft = dataNoChart2.getAxisLeft();
+            axisLeft.setLabelCount(7,true);
+            axisLeft.setStartAtZero(true);
             dataNoChart2.setDataSet(values1, "");
             dataNoChart2.setDayXAxis(listDate);
 //            dataNoChart2.setDayYAxis(listYDate);
@@ -141,8 +146,7 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
                 @Override
                 public String getFormattedValue(float value, AxisBase axis) {
                     int i = (int) value;
-//                    i*100/24
-                    String str = i + ":00";
+                    String str = i*24/100 + ":00";
                     return str;
                 }
             });
@@ -157,9 +161,12 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
                 Entry entry = new Entry(i, 0f);
                 entry.setY((float) bean.getMaxData().get(i).getIUMAX());
                 values2.add(entry);
-                String[] split = StringUtil.split(bean.getMaxData().get(i).getFREEZETIME(), " ");
-                listDate2.add(split[0]);
+                String split = StringUtil.substring(bean.getMaxData().get(i).getFREEZETIME(),5,10);
+                listDate2.add(split);
             }
+            XAxis xAxis = dataNoChart1.getXAxis();
+            xAxis.setLabelCount(bean.getMaxData().size(),true);
+            xAxis.setLabelRotationAngle(-50);
             dataNoChart1.setDataSet(values2, "");
             dataNoChart1.setDayXAxis(listDate2);
             dataNoChart1.loadChart();
@@ -173,9 +180,12 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
                 Entry entry = new Entry(i, 0f);
                 entry.setY((float) bean.getLimitData().get(i).getIULIMIT());
                 values3.add(entry);
-                String[] split = StringUtil.split(bean.getLimitData().get(i).getFREEZETIME(), " ");
-                listDate3.add(split[0]);
+                String split = StringUtil.substring(bean.getLimitData().get(i).getFREEZETIME(),5,10);
+                listDate3.add(split);
             }
+            XAxis xAxis = dataNoChart3.getXAxis();
+            xAxis.setLabelCount(bean.getLimitData().size(),true);
+            xAxis.setLabelRotationAngle(-50);
             dataNoChart3.setDataSet(values3, "");
             dataNoChart3.setDayXAxis(listDate3);
             dataNoChart3.loadChart();
@@ -184,18 +194,22 @@ public class Data_NoActivity extends BaseActivity<Data_NoPresenter> implements I
 
     @Override
     public void setAllElectricity(final AllElectricitybean allElectricitybean) {
-        ACache.getInstance().put(Constants.CACHE_OPS_OBJID, allElectricitybean.getMeterList().get(0).getMeterId());
-        ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, DateUtil.getCurrentYear()+"-"+DateUtil.getCurrentMonth());
-        mPresenter.getData_NoData();
-        dialog = new BottomStyleDialogTwo(Data_NoActivity.this, allElectricitybean);
-        dialog.setCliekAllElectricity(new BottomStyleDialogTwo.OnCliekAllElectricitytwo() {
-            @Override
-            public void OnCliekAllElectricityListener(int poaiton) {
-                long meterId = allElectricitybean.getMeterList().get(poaiton).getMeterId();
-                dataNoEleTv.setText(allElectricitybean.getMeterList().get(poaiton).getMeterName());
-                ACache.getInstance().put(Constants.CACHE_OPS_OBJID, meterId);
-                mPresenter.getData_NoData();
+        if(allElectricitybean.getMeterList().size()>0){
+            ACache.getInstance().put(Constants.CACHE_OPS_OBJID, allElectricitybean.getMeterList().get(0).getMeterId());
+            ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, DateUtil.getCurrentYear()+"-"+DateUtil.getCurrentMonth());
+            mPresenter.getData_NoData();
+            dataNoEleTv.setText(allElectricitybean.getMeterList().get(0).getMeterName());
+            dialog = new BottomStyleDialogTwo(Data_NoActivity.this, allElectricitybean);
+            dialog.setCliekAllElectricity(new BottomStyleDialogTwo.OnCliekAllElectricitytwo() {
+                @Override
+                public void OnCliekAllElectricityListener(int poaiton) {
+                    long meterId = allElectricitybean.getMeterList().get(poaiton).getMeterId();
+                    dataNoEleTv.setText(allElectricitybean.getMeterList().get(poaiton).getMeterName());
+                    ACache.getInstance().put(Constants.CACHE_OPS_OBJID, meterId);
+                    mPresenter.getData_NoData();
                 }
-        });
+            });
+        }
+
     }
 }

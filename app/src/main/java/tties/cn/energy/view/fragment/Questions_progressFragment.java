@@ -14,8 +14,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import tties.cn.energy.R;
+import tties.cn.energy.base.BaseFragment;
 import tties.cn.energy.model.result.Opsbean;
+import tties.cn.energy.presenter.QuestionsDiscussPresenter;
 import tties.cn.energy.view.adapter.Questions_progressAdapter;
+import tties.cn.energy.view.iview.IQuestionDiscussVIew;
 
 /**
  * Created by li on 2018/3/23
@@ -23,37 +26,51 @@ import tties.cn.energy.view.adapter.Questions_progressAdapter;
  * author：guojlli
  */
 
-public class Questions_progressFragment extends Fragment {
-    List<Opsbean.ResultBean.QuestionListBean.ScheduleListBean> bean;
-    @BindView(R.id.qu_tb_pr_rcy)
+public class Questions_progressFragment extends BaseFragment<QuestionsDiscussPresenter> implements IQuestionDiscussVIew {
+//    @BindView(R.id.qu_tb_pr_rcy)
     RecyclerView quTbPrRcy;
     Unbinder unbinder;
-
+    public String questionId;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
         View inflate = View.inflate(getActivity(), R.layout.fragment_questions_progress, null);
+        quTbPrRcy=inflate.findViewById(R.id.qu_tb_pr_rcy);
         unbinder = ButterKnife.bind(this, inflate);
-        initData();
+        initView();
         return inflate;
     }
 
-    private void initData() {
-        quTbPrRcy.setLayoutManager(new LinearLayoutManager(getActivity()));
-        Questions_progressAdapter adapter=new Questions_progressAdapter(getActivity(),getProgressData());
-        quTbPrRcy.setAdapter(adapter);
+    @Override
+    protected void createPresenter() {
+        mPresenter=new QuestionsDiscussPresenter(this);
     }
 
-    public void setProgressData(List<Opsbean.ResultBean.QuestionListBean.ScheduleListBean> bean) {
-        this.bean = bean;
-    }
-
-    public List<Opsbean.ResultBean.QuestionListBean.ScheduleListBean> getProgressData() {
-        return bean;
+    private void initView() {
+        mPresenter.getQuestionRefresh(getQuestionId());
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void setQuestionRefreshData(Opsbean bean) {
+        if(bean.getResult().getQuestionList().size()>0){
+            List<Opsbean.ResultBean.QuestionListBean.ScheduleListBean> scheduleList = bean.getResult().getQuestionList().get(0).getScheduleList();
+            quTbPrRcy.setLayoutManager(new LinearLayoutManager(getActivity()));
+            Questions_progressAdapter adapter=new Questions_progressAdapter(getActivity(),scheduleList);
+            quTbPrRcy.setAdapter(adapter);
+        }
+
+    }
+    public String getQuestionId() {
+        return questionId;
+    }
+
+    public void setQuestionId(String questionId) {
+        this.questionId = questionId;
     }
 }

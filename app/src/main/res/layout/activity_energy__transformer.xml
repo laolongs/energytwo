@@ -160,6 +160,7 @@
                 android:text="选择年度"
                 />
             <TextView
+                android:id="@+id/energy_transformer_year1"
                 android:gravity="center"
                 android:layout_weight="4"
                 android:layout_width="0dp"
@@ -218,6 +219,7 @@
                 android:text="选择年度"
                 />
             <TextView
+                android:id="@+id/energy_transformer_year2"
                 android:gravity="center"
                 android:layout_weight="4"
                 android:layout_width="0dp"
@@ -239,11 +241,11 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/y220"
             android:orientation="vertical">
-            <tties.cn.energy.chart.LineDataChart
+            <tties.cn.energy.chart.LineDataTwoChart
                 android:id="@+id/energy_transformer_chart2"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/y200">
-            </tties.cn.energy.chart.LineDataChart>
+            </tties.cn.energy.chart.LineDataTwoChart>
         </LinearLayout>
     </LinearLayout>
 

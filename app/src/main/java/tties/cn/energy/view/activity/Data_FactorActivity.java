@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
@@ -24,6 +25,7 @@ import tties.cn.energy.base.BaseActivity;
 import tties.cn.energy.chart.LineDataChart;
 import tties.cn.energy.common.Constants;
 import tties.cn.energy.model.result.AllElectricitybean;
+import tties.cn.energy.model.result.DataAllbean;
 import tties.cn.energy.model.result.Data_Factorbean;
 import tties.cn.energy.presenter.Data_FactorPresenter;
 import tties.cn.energy.utils.ACache;
@@ -58,16 +60,16 @@ public class Data_FactorActivity extends BaseActivity<Data_FactorPresenter> impl
     private BottomStyleDialog dialog;
     double num = 0;
     MyTimePickerDialog dialogtime;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
         initView();
-        mPresenter.getAllElectricityData();
+
     }
 
     private void initView() {
+        mPresenter.getAllElectricityData();
         dataFactorTv.setText(DateUtil.getCurrentYear()+"年"+DateUtil.getCurrentMonth()+"月");
         dialogtime = new MyTimePickerDialog();
         toolbarText.setText("功率因数");
@@ -122,17 +124,22 @@ public class Data_FactorActivity extends BaseActivity<Data_FactorPresenter> impl
             ArrayList<Entry> values = new ArrayList<>();
             List<String> listDate = new ArrayList<String>();
             for (int i = 0; i < bean.getDataList().size(); i++) {
-                num = num + bean.getDataList().get(i).getD();
+                num=num+Double.parseDouble(String.valueOf(bean.getDataList().get(i).getD()));
                 Entry entry = new Entry(i, 0f);
-                entry.setY((float) bean.getDataList().get(i).getD());
+                entry.setY((float) Float.parseFloat(String.valueOf(bean.getDataList().get(i).getD())));
                 values.add(entry);
-                String[] split = StringUtil.split(bean.getDataList().get(i).getFreezeTime(), " ");
-                listDate.add(split[0]);
+                String split = StringUtil.substring(bean.getDataList().get(i).getFreezeTime(),5,10);
+                listDate.add(split);
             }
             //保留三位小数
-            BigDecimal b = new BigDecimal(num / bean.getDataList().size());
-            double df = b.setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue();
-            factorNum.setText(df + "");
+//            BigDecimal b = new BigDecimal(num / bean.getDataList().size());
+//            double df = b.setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue();
+
+            double bigDecimal = StringUtil.getBigDecimal(num, bean.getDataList().size());
+            factorNum.setText(bigDecimal + "");
+            XAxis xAxis = dataFactorChart.getXAxis();
+            xAxis.setLabelCount(bean.getDataList().size(),true);
+            xAxis.setLabelRotationAngle(-50);
             dataFactorChart.setDataSet(values, "");
             dataFactorChart.setDayXAxis(listDate);
             dataFactorChart.loadChart();
@@ -142,31 +149,34 @@ public class Data_FactorActivity extends BaseActivity<Data_FactorPresenter> impl
 
     @Override
     public void setAllElectricity(final AllElectricitybean allElectricitybean) {
-        ACache.getInstance().put(Constants.CACHE_OPS_OBJID, allElectricitybean.getLedgerId());
-        ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE, 1);
-        ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, DateUtil.getCurrentYear()+"-"+DateUtil.getCurrentMonth());
-        mPresenter.getData_Electric();
-        dataFactorEleTv.setText(allElectricitybean.getLedgerName());
-        dialog = new BottomStyleDialog(Data_FactorActivity.this, allElectricitybean);
-        dialog.setCliekAllElectricity(new BottomStyleDialog.OnCliekAllElectricity() {
-            @Override
-            public void OnCliekAllElectricityListener(int poaiton) {
-                if (poaiton == 0) {
-                    long ledgerId = allElectricitybean.getLedgerId();
-                    dataFactorEleTv.setText(allElectricitybean.getLedgerName());
-                    ACache.getInstance().put(Constants.CACHE_OPS_OBJID, ledgerId);
-                    ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE, 1);
+        if(allElectricitybean.getMeterList().size()>0){
+            ACache.getInstance().put(Constants.CACHE_OPS_OBJID, allElectricitybean.getLedgerId());
+            ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE, 1);
+            ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, DateUtil.getCurrentYear()+"-"+DateUtil.getCurrentMonth());
+            mPresenter.getData_Electric();
+            dataFactorEleTv.setText("总电量");
+            dialog = new BottomStyleDialog(Data_FactorActivity.this, allElectricitybean);
+            dialog.setCliekAllElectricity(new BottomStyleDialog.OnCliekAllElectricity() {
+                @Override
+                public void OnCliekAllElectricityListener(int poaiton) {
+                    if (poaiton == 0) {
+                        long ledgerId = allElectricitybean.getLedgerId();
+                        dataFactorEleTv.setText("总电量");
+                        ACache.getInstance().put(Constants.CACHE_OPS_OBJID, ledgerId);
+                        ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE, 1);
 
-                }
-                if (poaiton > 0) {
-                    long meterId = allElectricitybean.getMeterList().get(poaiton - 1).getMeterId();
-                    dataFactorEleTv.setText(allElectricitybean.getMeterList().get(poaiton - 1).getMeterName());
-                    ACache.getInstance().put(Constants.CACHE_OPS_OBJID, meterId);
-                    ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE, 2);
+                    }
+                    if (poaiton > 0) {
+                        long meterId = allElectricitybean.getMeterList().get(poaiton - 1).getMeterId();
+                        dataFactorEleTv.setText(allElectricitybean.getMeterList().get(poaiton - 1).getMeterName());
+                        ACache.getInstance().put(Constants.CACHE_OPS_OBJID, meterId);
+                        ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE, 2);
 
+                    }
+                    mPresenter.getData_Electric();
                 }
-                mPresenter.getData_Electric();
-            }
-        });
+            });
+        }
+
     }
 }

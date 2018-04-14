@@ -9,9 +9,12 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import io.reactivex.functions.IntFunction;
 import tties.cn.energy.R;
+import tties.cn.energy.common.Constants;
 import tties.cn.energy.model.result.AllElectricitybean;
 import tties.cn.energy.model.result.OpsLoginbean;
+import tties.cn.energy.utils.ACache;
 
 /**
  * Created by li on 2018/3/28
@@ -20,7 +23,6 @@ import tties.cn.energy.model.result.OpsLoginbean;
  */
 
 public class MyElectricityAdapter extends BaseAdapter {
-
     private Context mContext;
     OpsLoginbean bean;
     public MyElectricityAdapter(Context context, OpsLoginbean bean) {
@@ -54,6 +56,8 @@ public class MyElectricityAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         final List<OpsLoginbean.ResultBean.EnergyLedgerListBean> energyLedgerList = bean.getResult().getEnergyLedgerList();
+        String ischeck = ACache.getInstance().getAsString(Constants.CACHE_ISCHECK);
+        energyLedgerList.get(Integer.parseInt(ischeck)).setIscheck(true);
         holder.check.setChecked(energyLedgerList.get(position).ischeck);
         holder.tvName.setText(energyLedgerList.get(position).getEnergyLedgerId()+"");
         holder.check.setOnClickListener(new View.OnClickListener() {
@@ -63,13 +67,9 @@ public class MyElectricityAdapter extends BaseAdapter {
                     if (i!=position){
                         energyLedgerList.get(i).setIscheck(false);
                     }else{
+                        ACache.getInstance().put(Constants.CACHE_ISCHECK,position+"");
                         energyLedgerList.get(i).setIscheck(true);
                     }
-                }
-                if(holder.check.isChecked()){
-                    energyLedgerList.get(position).setIscheck(true);
-                }else{
-                    energyLedgerList.get(position).setIscheck(false);
                 }
                 notifyDataSetChanged();
             }
@@ -83,4 +83,5 @@ public class MyElectricityAdapter extends BaseAdapter {
         CheckBox check;
         TextView tvName;
     }
+
 }

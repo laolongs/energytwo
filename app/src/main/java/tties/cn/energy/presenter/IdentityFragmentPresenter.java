@@ -26,17 +26,15 @@ public class IdentityFragmentPresenter extends BasePresenter<IIdentityFragmentVi
     private static final String TAG = "IdentityFragmentPresent";
     IIdentityFragmentView view;
     IIdentityFragmentModel model;
-    int EleAccountId=0;
-    long energyLedgerId=0;
     public IdentityFragmentPresenter(IIdentityFragmentView view){
         this.view=view;
         model= new IdentityFragmentModel();
     }
     public void getOpsloginData(){
         //这个回来得数据暂时有误
-        Loginbean bean = ACache.getInstance().getAsObject(Constants.CACHE_USERINFO);
-
-        model.getOpsLoginData().getOpsLogin("1502183891109").subscribeOn(Schedulers.io())
+        Loginbean bean = ACache.getInstance().getAsObject(Constants.CACHE_USERINFO);//"1502183891109"
+//        bean.getAccountId();
+        model.getOpsLoginData().getOpsLogin(bean.getAccountId()+"").subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<OpsLoginbean>() {
                     @Override
@@ -47,11 +45,7 @@ public class IdentityFragmentPresenter extends BasePresenter<IIdentityFragmentVi
                     @Override
                     public void onNext(OpsLoginbean value) {
                         if(value != null&&value.getErrorCode()==0){
-                            energyLedgerId=value.getResult().getEnergyLedgerList().get(0).getEnergyLedgerId();
-                            EleAccountId=value.getResult().getEnergyLedgerList().get(0).getEleAccountId();
-                            ACache.getInstance().put(Constants.CACHE_OPSLOGIN_USERINFO,value);
-                            ACache.getInstance().put(Constants.CACHE_OPS_ENERGYLEDGERID,energyLedgerId);
-                            ACache.getInstance().put(Constants.CACHE_OPS_ELEACCOUNTID,EleAccountId);
+
                             Log.i(TAG, "onNext: "+value.getResult().getMaintUser().getStaffName());
                             view.getOpsLoginData(value);
                         }else{

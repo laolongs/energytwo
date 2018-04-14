@@ -37,23 +37,15 @@ public class QuestionsPresenter extends BasePresenter<IQuestionsView> {
         this.view = view;
         this.model = new QuestionsModel();
     }
-    public void getQuestionsTabData(){
-        model.getQuestaionsTab(new QuestionsModel.CallBack() {
-            @Override
-            public void getTabArray(String[] array) {
-                view.setTabData(array);
-            }
-        });
-    }
     public void getQuestion(String questionId){
+        String companyid = ACache.getInstance().getAsString(Constants.CACHE_OPS_COMPANDID);
         HashMap<String,Object> map=new HashMap<>();
-//        map.put("compamyId",bean.getResult().getEnergyLedgerList().get(0).getCompanyId());
-//        map.put("staffId",bean.getResult().getMaintUser().getStaffId());
-        map.put("companyId",23);
-        map.put("patrolType",0);
+        map.put("companyId",companyid);
+        map.put("patrolType",0);//类型
         map.put("pagesize",10);
         map.put("pagenum",1);
         map.put("questionId",questionId);
+        Log.i(TAG, "getQuestion: "+companyid);
         model.getQuestionsData().getOpsQuertion(map).observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<Opsbean>() {
@@ -83,12 +75,13 @@ public class QuestionsPresenter extends BasePresenter<IQuestionsView> {
                     }
                 });
     }
+
     public void getDiscuss(String questionId,String content){
         OpsLoginbean opsLoginbean = ACache.getInstance().getAsObject(Constants.CACHE_OPSLOGIN_USERINFO);
-//        int staffId = opsLoginbean.getResult().getMaintUser().getStaffId();
+        int staffId = opsLoginbean.getResult().getMaintUser().getStaffId();
         HashMap<String,Object> map=new HashMap<>();
         map.put("questionId",questionId);//对应的问题id
-        map.put("staffId",266);//运维登录身份id
+        map.put("staffId",staffId);//运维登录身份id
         map.put("content",content);
         model.getQuestionsData().getdiscuss(map)
                 .subscribeOn(Schedulers.io())

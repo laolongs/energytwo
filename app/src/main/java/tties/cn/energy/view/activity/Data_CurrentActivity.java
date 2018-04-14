@@ -6,7 +6,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.jzxiang.pickerview.TimePickerDialog;
 import com.jzxiang.pickerview.data.Type;
 import com.jzxiang.pickerview.listener.OnDateSetListener;
@@ -21,6 +24,7 @@ import butterknife.ButterKnife;
 import tties.cn.energy.R;
 import tties.cn.energy.base.BaseActivity;
 import tties.cn.energy.chart.LineDataChart;
+import tties.cn.energy.chart.LineDataThreeChart;
 import tties.cn.energy.common.Constants;
 import tties.cn.energy.model.result.AllElectricitybean;
 import tties.cn.energy.model.result.Data_CurrentPressbean;
@@ -45,9 +49,9 @@ public class Data_CurrentActivity extends BaseActivity<Data_CurrentPresenter> im
     @BindView(R.id.toolbar_text)
     TextView toolbarText;
     @BindView(R.id.data_current_chart)
-    LineDataChart dataCurrentChart;
+    LineDataThreeChart dataCurrentChart;
     @BindView(R.id.data_currentpress_chart)
-    LineDataChart dataCurrentpressChart;
+    LineDataThreeChart dataCurrentpressChart;
     @BindView(R.id.data_current_time_tv)
     TextView dataCurrentTimeTv;
     @BindView(R.id.data_current_time)
@@ -56,7 +60,7 @@ public class Data_CurrentActivity extends BaseActivity<Data_CurrentPresenter> im
     LinearLayout dataCurrentAllelectric;
     @BindView(R.id.data_current_ele_tv)
     TextView dataCurrentEleTv;
-    private BottomStyleDialog dialog;
+    private BottomStyleDialogTwo dialog;
     MyTimePickerDialog dialogtime;
 
     @Override
@@ -132,12 +136,15 @@ public class Data_CurrentActivity extends BaseActivity<Data_CurrentPresenter> im
                 values1.add(entry1);
                 values2.add(entry2);
                 values3.add(entry3);
-                String[] split = StringUtil.split(bean.getDataList().get(i).getFreezeTime(), " ");
-                listDate.add(split[0]);
+                String split = StringUtil.substring(bean.getDataList().get(i).getFreezeTime(),5,10);
+                listDate.add(split);
             }
-            dataCurrentChart.setDataSet(values1, "");
-            dataCurrentChart.setDataSet(values2, "");
-            dataCurrentChart.setDataSet(values3, "");
+            XAxis xAxis = dataCurrentChart.getXAxis();
+            xAxis.setLabelCount(bean.getDataList().size(),true);
+            xAxis.setLabelRotationAngle(-50);
+            dataCurrentChart.setDataSet1(values1, "A相电流");
+            dataCurrentChart.setDataSet2(values2, "B相电流");
+            dataCurrentChart.setDataSet3(values3, "C相电流");
             dataCurrentChart.setDayXAxis(listDate);
             dataCurrentChart.loadChart();
         }
@@ -162,12 +169,15 @@ public class Data_CurrentActivity extends BaseActivity<Data_CurrentPresenter> im
                 values1.add(entry1);
                 values2.add(entry2);
                 values3.add(entry3);
-                String[] split = StringUtil.split(bean.getDataList().get(i).getFreezeTime(), " ");
-                listDate.add(split[0]);
+                String split = StringUtil.substring(bean.getDataList().get(i).getFreezeTime(),5,10);
+                listDate.add(split);
             }
-            dataCurrentpressChart.setDataSet(values1, "");
-            dataCurrentpressChart.setDataSet(values2, "");
-            dataCurrentpressChart.setDataSet(values3, "");
+            XAxis xAxis = dataCurrentpressChart.getXAxis();
+            xAxis.setLabelCount(bean.getDataList().size(),true);
+            xAxis.setLabelRotationAngle(-50);
+            dataCurrentpressChart.setDataSet1(values1, "A相电流");
+            dataCurrentpressChart.setDataSet2(values2, "B相电流");
+            dataCurrentpressChart.setDataSet3(values3, "C相电流");
             dataCurrentpressChart.setDayXAxis(listDate);
             dataCurrentpressChart.loadChart();
         }
@@ -176,33 +186,36 @@ public class Data_CurrentActivity extends BaseActivity<Data_CurrentPresenter> im
 
     @Override
     public void setAllElectricity(final AllElectricitybean allElectricitybean) {
-        ACache.getInstance().put(Constants.CACHE_OPS_OBJID, allElectricitybean.getLedgerId());
-        ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE, 1);
-        ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, DateUtil.getCurrentYear()+"-"+DateUtil.getCurrentMonth());
-        mPresenter.getData_CurrentData();
-        mPresenter.getData_CurrentPressKwData();
-        dataCurrentEleTv.setText(allElectricitybean.getMeterList().get(0).getMeterName());
-        dialog = new BottomStyleDialog(Data_CurrentActivity.this, allElectricitybean);
-        dialog.setCliekAllElectricity(new BottomStyleDialog.OnCliekAllElectricity() {
-            @Override
-            public void OnCliekAllElectricityListener(int poaiton) {
-                if (poaiton == 0) {
-                    long ledgerId = allElectricitybean.getLedgerId();
-                    dataCurrentEleTv.setText(allElectricitybean.getLedgerName());
-                    ACache.getInstance().put(Constants.CACHE_OPS_OBJID, ledgerId);
-                    ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE,1);
-
-                }
-                if (poaiton > 0) {
-                    long meterId = allElectricitybean.getMeterList().get(poaiton - 1).getMeterId();
-                    dataCurrentEleTv.setText(allElectricitybean.getMeterList().get(poaiton - 1).getMeterName());
+        if(allElectricitybean.getMeterList().size()>0){
+            ACache.getInstance().put(Constants.CACHE_OPS_OBJID, allElectricitybean.getLedgerId());
+            ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE, 1);
+            ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, DateUtil.getCurrentYear()+"-"+DateUtil.getCurrentMonth());
+            mPresenter.getData_CurrentData();
+            mPresenter.getData_CurrentPressKwData();
+            dataCurrentEleTv.setText(allElectricitybean.getMeterList().get(0).getMeterName());
+            dialog = new BottomStyleDialogTwo(Data_CurrentActivity.this, allElectricitybean);
+            dialog.setCliekAllElectricity(new BottomStyleDialogTwo.OnCliekAllElectricitytwo() {
+                @Override
+                public void OnCliekAllElectricityListener(int poaiton) {
+//                if (poaiton == 0) {
+//                    long ledgerId = allElectricitybean.getLedgerId();
+//                    dataCurrentEleTv.setText(allElectricitybean.getLedgerName());
+//                    ACache.getInstance().put(Constants.CACHE_OPS_OBJID, ledgerId);
+//                    ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE,1);
+//
+//                }
+//                if (poaiton > 0) {
+                    long meterId = allElectricitybean.getMeterList().get(poaiton).getMeterId();
+                    dataCurrentEleTv.setText(allElectricitybean.getMeterList().get(poaiton).getMeterName());
                     ACache.getInstance().put(Constants.CACHE_OPS_OBJID, meterId);
                     ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE, 2);
 
+//                }
+                    mPresenter.getData_CurrentData();
+                    mPresenter.getData_CurrentPressKwData();
                 }
-                mPresenter.getData_CurrentData();
-                mPresenter.getData_CurrentPressKwData();
-            }
-        });
+            });
+        }
+
     }
 }

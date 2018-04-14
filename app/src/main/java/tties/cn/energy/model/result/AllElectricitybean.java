@@ -1,5 +1,6 @@
 package tties.cn.energy.model.result;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ public class AllElectricitybean {
 
     private long ledgerId;
     private String ledgerName;
-    private List<MeterListBean> meterList;
+    private List<MeterListBean> meterList=new ArrayList<>();
 
     public long getLedgerId() {
         return ledgerId;

@@ -124,6 +124,11 @@ public class Energy_ForcePresenter extends BasePresenter<IEnergy_ForceView> {
         map.put("baseDate",baseDate);
         map.put("eleAccountId",dataAllbean.getEleAccountId());
         map.put("count",12);
+        Log.i(TAG, "onErrordata: "+dataAllbean.getUserName());
+        Log.i(TAG, "onErrordata: "+dataAllbean.getPassword());
+        Log.i(TAG, "onErrordata: "+dataAllbean.getEnergyledgerId());
+        Log.i(TAG, "onErrordata: "+baseDate);
+        Log.i(TAG, "onErrordata: "+dataAllbean.getEleAccountId());
         model.getEnergy_ForcechargeData().getDataFragemet(map).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<DataFragmentbean>() {

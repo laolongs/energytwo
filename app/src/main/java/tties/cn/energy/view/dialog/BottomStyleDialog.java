@@ -67,7 +67,7 @@ public class BottomStyleDialog extends Dialog implements AdapterView.OnItemClick
         mLv.setAdapter(mAdapter);
         View inflate = View.inflate(getContext(), R.layout.item_dialog, null);
         TextView viewhead = inflate.findViewById(R.id.tv_item_dialog_name);
-        viewhead.setText(allElectricitybean.getLedgerName());
+        viewhead.setText("总电量");
         mLv.addHeaderView(inflate);
         mLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

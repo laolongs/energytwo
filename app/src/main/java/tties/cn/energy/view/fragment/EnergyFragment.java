@@ -80,12 +80,6 @@ public class EnergyFragment extends BaseFragment<EnergyFragmentPresenter> implem
     private void initView() {
         mPresenter.getEnergyFragment();
         energyToolbarText.setText("电力能效");
-//        energyBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-//            @Override
-//            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
-//                ToastUtil.showShort(getActivity(), String.format("" + v, b ? 1 : 0));
-//            }
-//        });
     }
 
     @Override
@@ -138,9 +132,13 @@ public class EnergyFragment extends BaseFragment<EnergyFragmentPresenter> implem
 
     @Override
     public void setEnergyFragmentData(EnergyFragmentbean bean) {
-        energyBar.setRating((float) bean.getStartScore() / 20);
-//        tasksView.setProgress(bean.getTotalScore());
-        tasksView.setProgressMax(bean.getTotalScore());
-        energyUsermark.setText("您目前击败了"+bean.getRank() + "%的同行用户");
+        if(bean.getTotalScore()==0) {
+            tasksView.setVisibility(View.INVISIBLE);
+        }else{
+            tasksView.setVisibility(View.VISIBLE);
+            tasksView.setProgressMax(bean.getTotalScore());
+        }
+            energyBar.setRating((float) bean.getStartScore() / 20);
+            energyUsermark.setText("您目前击败了"+bean.getRank() + "%的同行用户");
     }
 }

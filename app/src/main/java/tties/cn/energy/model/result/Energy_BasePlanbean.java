@@ -19,16 +19,16 @@ public class Energy_BasePlanbean {
      * bestType : 1
      */
 
-    private int volumeValue;
+    private double volumeValue;
     private String baseDate;
-    private int bestFee;
-    private int demandValue;
-    private int demandFee;
-    private int volumeFee;
-    private int bestValue;
-    private int bestType;
+    private double bestFee;
+    private double demandValue;
+    private double demandFee;
+    private double volumeFee;
+    private double bestValue;
+    private double bestType;
 
-    public int getVolumeValue() {
+    public double getVolumeValue() {
         return volumeValue;
     }
 
@@ -44,7 +44,7 @@ public class Energy_BasePlanbean {
         this.baseDate = baseDate;
     }
 
-    public int getBestFee() {
+    public double getBestFee() {
         return bestFee;
     }
 
@@ -52,7 +52,7 @@ public class Energy_BasePlanbean {
         this.bestFee = bestFee;
     }
 
-    public int getDemandValue() {
+    public double getDemandValue() {
         return demandValue;
     }
 
@@ -60,7 +60,7 @@ public class Energy_BasePlanbean {
         this.demandValue = demandValue;
     }
 
-    public int getDemandFee() {
+    public double getDemandFee() {
         return demandFee;
     }
 
@@ -68,7 +68,7 @@ public class Energy_BasePlanbean {
         this.demandFee = demandFee;
     }
 
-    public int getVolumeFee() {
+    public double getVolumeFee() {
         return volumeFee;
     }
 
@@ -76,7 +76,7 @@ public class Energy_BasePlanbean {
         this.volumeFee = volumeFee;
     }
 
-    public int getBestValue() {
+    public double getBestValue() {
         return bestValue;
     }
 
@@ -84,7 +84,7 @@ public class Energy_BasePlanbean {
         this.bestValue = bestValue;
     }
 
-    public int getBestType() {
+    public double getBestType() {
         return bestType;
     }
 

@@ -39,14 +39,8 @@
                     android:gravity="center"
                     android:layout_marginTop="@dimen/y5"
                     android:layout_height="wrap_content">
-                    <!--<tties.cn.energy.common.CircleProgressBar-->
-                        <!--android:id="@+id/tasks_view"-->
-                        <!--android:layout_width="@dimen/y120"-->
-                        <!--android:layout_height="@dimen/x120"-->
-                        <!--app:radius="50dip"-->
-                        <!--app:ringColor="#649EE3"-->
-                        <!--app:strokeWidth="10dip"/>-->
                     <tties.cn.energy.common.MyEnergyProgressRound
+                        android:visibility="invisible"
                         android:id="@+id/tasks_view"
                         android:layout_width="@dimen/y120"
                         android:layout_height="@dimen/y120"

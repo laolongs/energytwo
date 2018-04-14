@@ -85,6 +85,7 @@
                     android:orientation="vertical"
                     android:layout_weight="1">
                     <RadioButton
+                        android:padding="@dimen/y8"
                         android:id="@+id/ops_rcy_left_bt1"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
@@ -96,6 +97,7 @@
                         android:text="全部"
                         />
                     <RadioButton
+                        android:padding="@dimen/y8"
                         android:id="@+id/ops_rcy_left_bt2"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
@@ -107,6 +109,7 @@
                         android:text="房间"
                         />
                     <RadioButton
+                        android:padding="@dimen/y8"
                         android:id="@+id/ops_rcy_left_bt3"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
@@ -118,6 +121,7 @@
                         android:text="柜子"
                         />
                     <RadioButton
+                        android:padding="@dimen/y8"
                         android:id="@+id/ops_rcy_left_bt4"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
@@ -129,6 +133,7 @@
                         android:text="变压器"
                         />
                     <RadioButton
+                        android:padding="@dimen/y8"
                         android:id="@+id/ops_rcy_left_bt5"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
@@ -140,6 +145,7 @@
                         android:text="绝缘器"
                     />
                     <RadioButton
+                        android:padding="@dimen/y8"
                         android:id="@+id/ops_rcy_left_bt6"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
@@ -150,6 +156,10 @@
                         android:textColor="@drawable/selector_radiobtn_ops_text"
                         android:text="环境"
                     />
+                    <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                       />
                 </RadioGroup>
             <View
                 android:layout_width="@dimen/x2"

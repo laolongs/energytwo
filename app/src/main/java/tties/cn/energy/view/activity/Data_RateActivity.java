@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.jzxiang.pickerview.TimePickerDialog;
@@ -24,8 +25,10 @@ import tties.cn.energy.R;
 import tties.cn.energy.application.MyApplication;
 import tties.cn.energy.base.BaseActivity;
 import tties.cn.energy.chart.LineDataChart;
+import tties.cn.energy.chart.LineDataTwoChart;
 import tties.cn.energy.common.Constants;
 import tties.cn.energy.model.result.AllElectricitybean;
+import tties.cn.energy.model.result.DataAllbean;
 import tties.cn.energy.model.result.Data_HaveKwbean;
 import tties.cn.energy.model.result.Data_NoKvarbean;
 import tties.cn.energy.presenter.Data_RatePresenter;
@@ -58,7 +61,7 @@ public class Data_RateActivity extends BaseActivity<Data_RatePresenter> implemen
     @BindView(R.id.nokvar_year)
     TextView nokvarYear;
     @BindView(R.id.havakw_chart)
-    LineDataChart havakwChart;
+    LineDataTwoChart havakwChart;
     @BindView(R.id.nokvar_chart)
     LineDataChart nokvarChart;
     @BindView(R.id.data_rate_tv)
@@ -71,6 +74,7 @@ public class Data_RateActivity extends BaseActivity<Data_RatePresenter> implemen
     TextView dataRateEleTv;
     private BottomStyleDialog dialog;
     MyTimePickerDialog dialogtime;
+    DataAllbean allbean=new DataAllbean();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -136,14 +140,15 @@ public class Data_RateActivity extends BaseActivity<Data_RatePresenter> implemen
             List<String> listDate = new ArrayList<String>();
             for (int i = 0; i < data_haveKwbean.getDataList().size(); i++) {
                 Entry entry = new Entry(i, 0f);
-                entry.setY((float) data_haveKwbean.getDataList().get(i).getD());
+                entry.setY((float)Float.parseFloat(String.valueOf(data_haveKwbean.getDataList().get(i).getD())) );
                 values.add(entry);
-                String[] split = StringUtil.split(data_haveKwbean.getDataList().get(i).getFreezeTime(), " ");
-                listDate.add(split[0]);
+                String split = StringUtil.substring(data_haveKwbean.getDataList().get(i).getFreezeTime(),5,10);
+                listDate.add(split);
             }
+            XAxis xAxis = havakwChart.getXAxis();
+            xAxis.setLabelCount(data_haveKwbean.getDataList().size(),true);
+            xAxis.setLabelRotationAngle(-50);
             LineDataSet lineDataSet = havakwChart.setDataSet(values, "");
-            //图标填充色
-            lineDataSet.setFillColor(ContextCompat.getColor(MyApplication.getInstance(), R.color.analysis_textview_right));
             havakwChart.setDayXAxis(listDate);
             havakwChart.loadChart();
         }
@@ -158,11 +163,14 @@ public class Data_RateActivity extends BaseActivity<Data_RatePresenter> implemen
             List<String> listDate = new ArrayList<String>();
             for (int i = 0; i < data_noKvarbean.getDataList().size(); i++) {
                 Entry entry = new Entry(i, 0f);
-                entry.setY((float) data_noKvarbean.getDataList().get(i).getD());
+                entry.setY((float) Float.parseFloat(String.valueOf(data_noKvarbean.getDataList().get(i).getD())));
                 values.add(entry);
-                String[] split = StringUtil.split(data_noKvarbean.getDataList().get(i).getFreezeTime(), " ");
-                listDate.add(split[0]);
+                String split = StringUtil.substring(data_noKvarbean.getDataList().get(i).getFreezeTime(),5,10);
+                listDate.add(split);
             }
+            XAxis xAxis = nokvarChart.getXAxis();
+            xAxis.setLabelCount(data_noKvarbean.getDataList().size(),true);
+            xAxis.setLabelRotationAngle(-50);
             nokvarChart.setDataSet(values, "");
             nokvarChart.setDayXAxis(listDate);
             nokvarChart.loadChart();
@@ -172,34 +180,38 @@ public class Data_RateActivity extends BaseActivity<Data_RatePresenter> implemen
 
     @Override
     public void setAllElectricity(final AllElectricitybean allElectricitybean) {
-        ACache.getInstance().put(Constants.CACHE_OPS_OBJID, allElectricitybean.getLedgerId());
-        ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE, 1);
-        ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, DateUtil.getCurrentYear() + "-" + DateUtil.getCurrentMonth());
-        mPresenter.getData_HaveKwData();
-        mPresenter.getData_NoKvarKwData();
-        dataRateEleTv.setText(allElectricitybean.getLedgerName());
-        dialog = new BottomStyleDialog(Data_RateActivity.this, allElectricitybean);
-        dialog.setCliekAllElectricity(new BottomStyleDialog.OnCliekAllElectricity() {
-            @Override
-            public void OnCliekAllElectricityListener(int poaiton) {
-                if (poaiton == 0) {
-                    long ledgerId = allElectricitybean.getLedgerId();
-                    dataRateEleTv.setText(allElectricitybean.getLedgerName());
-                    ACache.getInstance().put(Constants.CACHE_OPS_OBJID, ledgerId);
-                    ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE, 1);
+        if(allElectricitybean.getMeterList().size()>0){
+            ACache.getInstance().put(Constants.CACHE_OPS_OBJID, allElectricitybean.getLedgerId());
+            ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE, 1);
+            ACache.getInstance().put(Constants.CACHE_OPS_BASEDATE, DateUtil.getCurrentYear() + "-" + DateUtil.getCurrentMonth());
+            mPresenter.getData_HaveKwData();
+            mPresenter.getData_NoKvarKwData();
+            dataRateEleTv.setText("总电量");
+            dialog = new BottomStyleDialog(Data_RateActivity.this, allElectricitybean);
+            dialog.setCliekAllElectricity(new BottomStyleDialog.OnCliekAllElectricity() {
+                @Override
+                public void OnCliekAllElectricityListener(int poaiton) {
+                    if (poaiton == 0) {
+                        long ledgerId = allElectricitybean.getLedgerId();
+                        dataRateEleTv.setText("总电量");
+                        ACache.getInstance().put(Constants.CACHE_OPS_OBJID, ledgerId);
+                        ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE, 1);
+
+                    }
+                    if (poaiton > 0) {
+                        long meterId = allElectricitybean.getMeterList().get(poaiton - 1).getMeterId();
+                        dataRateEleTv.setText(allElectricitybean.getMeterList().get(poaiton - 1).getMeterName());
+                        ACache.getInstance().put(Constants.CACHE_OPS_OBJID, meterId);
+                        ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE, 2);
+
+                    }
+                    mPresenter.getData_HaveKwData();
+                    mPresenter.getData_NoKvarKwData();
 
                 }
-                if (poaiton > 0) {
-                    long meterId = allElectricitybean.getMeterList().get(poaiton - 1).getMeterId();
-                    dataRateEleTv.setText(allElectricitybean.getMeterList().get(poaiton - 1).getMeterName());
-                    ACache.getInstance().put(Constants.CACHE_OPS_OBJID, meterId);
-                    ACache.getInstance().put(Constants.CACHE_OPS_OBJTYPE, 2);
+            });
+        }
 
-                }
-                mPresenter.getData_HaveKwData();
-                mPresenter.getData_NoKvarKwData();
-
-            }
-        });
     }
+
 }

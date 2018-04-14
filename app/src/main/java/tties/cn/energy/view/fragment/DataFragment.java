@@ -24,9 +24,11 @@ import butterknife.Unbinder;
 import tties.cn.energy.R;
 import tties.cn.energy.base.BaseFragment;
 import tties.cn.energy.chart.BarDataChart;
+import tties.cn.energy.chart.BarDataCharttwo;
 import tties.cn.energy.chart.LineDataChart;
 import tties.cn.energy.model.result.DataFragmentbean;
 import tties.cn.energy.presenter.DataFragmentPresenter;
+import tties.cn.energy.utils.DateUtil;
 import tties.cn.energy.utils.StringUtil;
 import tties.cn.energy.view.activity.DataActivity;
 import tties.cn.energy.view.activity.Data_CurrentActivity;
@@ -44,7 +46,7 @@ import tties.cn.energy.view.iview.IDataFragmentView;
  */
 
 public class DataFragment extends BaseFragment<DataFragmentPresenter> implements View.OnClickListener, IDataFragmentView {
-
+    private static final String TAG = "DataFragment";
     @BindView(R.id.data_toolbar_text)
     TextView toolbarText;
     @BindView(R.id.data_toolbar)
@@ -70,9 +72,7 @@ public class DataFragment extends BaseFragment<DataFragmentPresenter> implements
 //    LineDataChart datafragmentChart;
 //    @BindView(R.id.datafragment_price)
     TextView datafragmentPrice;
-    int mYear;
-    int mMonth;
-    private BarDataChart datafragmentChart;
+    BarDataChart datafragmentChart;
 
     @Nullable
     @Override
@@ -94,10 +94,7 @@ public class DataFragment extends BaseFragment<DataFragmentPresenter> implements
     }
 
     private void initView() {
-        Calendar c = Calendar.getInstance();
-        mYear = c.get(Calendar.YEAR); // 获取当前年份
-        mMonth = c.get(Calendar.MONTH)+1;// 获取当前月份
-        datafragmentTimeTv.setText(mMonth+"月");
+        datafragmentTimeTv.setText(DateUtil.getCurrentMonth()+"月");
         toolbarText.setText("电力数据");
         mPresenter.getDataFragment();
     }
@@ -159,14 +156,20 @@ public class DataFragment extends BaseFragment<DataFragmentPresenter> implements
 
     @Override
     public void setDataFragmentData(DataFragmentbean bean) {
-        ArrayList<BarEntry> values = new ArrayList<>();
-        for (int i =bean.getDataList().size()-1 ; i >=0; i--) {
+        if(bean.getDataList().size()>0){
+            datafragmentChart.clearData();
+            ArrayList<BarEntry> values = new ArrayList<>();
+            for (int i =bean.getDataList().size()-1 ; i >=0; i--) {
+//        for (int i =0 ; i <bean.getDataList().size(); i++) {
                 BarEntry entry = new BarEntry(i, 0f);
+                Log.i(TAG, "setDataFragmentData: "+(float)bean.getDataList().get(i).getCost());
                 entry.setY((float) bean.getDataList().get(i).getCost());
                 values.add(entry);
+            }
+            datafragmentChart.setDataSet(values, "");
+            datafragmentChart.loadChart();
+            datafragmentPrice.setText(bean.getDataList().get(0).getCost()+"");
         }
-        datafragmentChart.setDataSet(values, "");
-        datafragmentChart.loadChart();
-        datafragmentPrice.setText(bean.getDataList().get(0).getCost()+"");
+
     }
 }

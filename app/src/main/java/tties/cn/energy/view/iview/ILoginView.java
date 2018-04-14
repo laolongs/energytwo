@@ -1,6 +1,7 @@
 package tties.cn.energy.view.iview;
 
 import tties.cn.energy.base.BaseView;
+import tties.cn.energy.model.result.OpsLoginbean;
 import tties.cn.energy.utils.StringUtil;
 
 /**
@@ -12,4 +13,5 @@ import tties.cn.energy.utils.StringUtil;
 public interface ILoginView extends BaseView {
     public String getLoginName();
     public String getLoginPass();
+    public void getOpsLoginData(OpsLoginbean opsLoginbean);
 }

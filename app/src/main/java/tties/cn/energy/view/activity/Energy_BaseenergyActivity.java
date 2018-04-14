@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import tties.cn.energy.R;
 import tties.cn.energy.base.BaseActivity;
 import tties.cn.energy.chart.LineDataChart;
 import tties.cn.energy.common.Constants;
+import tties.cn.energy.model.result.DataAllbean;
 import tties.cn.energy.model.result.Databean;
 import tties.cn.energy.model.result.Energy_BasePlanbean;
 import tties.cn.energy.presenter.Energy_BaseenergyPresenter;
@@ -65,6 +67,7 @@ public class Energy_BaseenergyActivity extends BaseActivity<Energy_BaseenergyPre
     @BindView(R.id.energy_base_year)
     TextView energyBaseYear;
     MyTimePickerDialog dialogtime;
+    DataAllbean allbean=new DataAllbean();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,6 +125,7 @@ public class Energy_BaseenergyActivity extends BaseActivity<Energy_BaseenergyPre
             } else {
                 energyBaseType.setText("需量");
             }
+
             energyBasePrice.setText(bean.getDataList().get(0).getBaseSum() + "元");
             energyBaseMonthmax.setText(bean.getDataList().get(0).getMaxMD() + "kW");
             energyBaseTime.setText(bean.getDataList().get(0).getMaxMDDate() + "");
@@ -142,6 +146,7 @@ public class Energy_BaseenergyActivity extends BaseActivity<Energy_BaseenergyPre
                 String[] split = StringUtil.split(bean.getDataList().get(i).getBaseDate(), "-");
                 listDate.add(split[1]);
             }
+            getChartXCount(energyBaseChart);
             energyBaseChart.setDataSet(values, "");
             energyBaseChart.setDayXAxis(listDate);
             energyBaseChart.loadChart();
@@ -162,5 +167,24 @@ public class Energy_BaseenergyActivity extends BaseActivity<Energy_BaseenergyPre
         energyBasePlanAllprice1.setText(bean.getBestFee() + "元");
         energyBasePlanAllprice2.setText(bean.getVolumeFee() + "元");
         energyBasePlanAllprice3.setText(bean.getDemandFee() + "元");
+    }
+    //计算x数量
+    public void getChartXCount(LineDataChart lineDataChart){
+        //得到当前年月 确定chart表x轴加载的数量
+        int currentYear = DateUtil.getCurrentYear();
+        int currentMonth= DateUtil.getCurrentMonth();
+        XAxis xAxis = lineDataChart.getXAxis();
+//        xAxis.setLabelRotationAngle(0);
+        String baseData = allbean.getBaseData();
+        String[] split = StringUtil.split(baseData, "-");
+        if(split[0].equals(currentYear+"")){
+//            if(currentMonth>8){
+//                xAxis.setLabelRotationAngle(-50);
+//            }
+            xAxis.setLabelCount(currentMonth,true);
+        }else{
+            xAxis.setLabelCount(12,true);
+//            xAxis.setLabelRotationAngle(-50);
+        }
     }
 }

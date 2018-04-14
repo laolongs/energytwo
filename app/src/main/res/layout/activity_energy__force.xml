@@ -163,11 +163,11 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/y220"
             android:orientation="vertical">
-            <tties.cn.energy.chart.LineDataChart
+            <tties.cn.energy.chart.BarDataCharttwo
                 android:id="@+id/energy_force_chart2"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/y200">
-            </tties.cn.energy.chart.LineDataChart>
+            </tties.cn.energy.chart.BarDataCharttwo>
         </LinearLayout>
     </LinearLayout>
 

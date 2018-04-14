@@ -1,6 +1,7 @@
 package tties.cn.energy.model.result;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,7 +33,7 @@ public class Loginbean implements Serializable {
     private int errorCode;
     private boolean loginFlag;
     private int firstFlag;
-    private List<BookInfo> bookInfo;
+    private List<BookInfo> bookInfo=new ArrayList<>();
 
     public long getLedgerId() {
         return ledgerId;

@@ -16,11 +16,13 @@ import tties.cn.energy.model.IModel.Energy_TransformerModel;
 import tties.cn.energy.model.IModel.IDataModel;
 import tties.cn.energy.model.IModel.IEnergy_TransformerModel;
 import tties.cn.energy.model.result.AllElectricitybean;
+import tties.cn.energy.model.result.DataAllbean;
 import tties.cn.energy.model.result.Databean;
 import tties.cn.energy.model.result.Energy_TransformerDamgebean;
 import tties.cn.energy.model.result.Energy_TransformerListbean;
 import tties.cn.energy.model.result.Energy_TransformerTemperaturebean;
 import tties.cn.energy.model.result.Energy_TransformerVolumebean;
+import tties.cn.energy.utils.DateUtil;
 import tties.cn.energy.view.iview.IDataView;
 import tties.cn.energy.view.iview.IEnergy_TransformerView;
 
@@ -34,6 +36,7 @@ public class Energy_TransformerPresenter extends BasePresenter<IEnergy_Transform
     private static final String TAG = "Energy_TransformerPrese";
     IEnergy_TransformerView view;
     IEnergy_TransformerModel model;
+    DataAllbean dataAllbean=new DataAllbean();
     public Energy_TransformerPresenter(IEnergy_TransformerView view){
         this.view=view;
         model=new Energy_TransformerModel();
@@ -41,7 +44,7 @@ public class Energy_TransformerPresenter extends BasePresenter<IEnergy_Transform
     //变压器列表
     public void getEnergy_TransformerList(){
         Map<String,Object> map=new HashMap<>();
-        map.put("eleAccountId","54");
+        map.put("eleAccountId",dataAllbean.getEleAccountId());
         model.getEnergy_TransformerListData().getEnergy_TransformerList(map).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Energy_TransformerListbean>() {
@@ -55,13 +58,13 @@ public class Energy_TransformerPresenter extends BasePresenter<IEnergy_Transform
                         if(value!=null&&value.getErrorCode()==0){
                             view.setEnergy_TransformerListbeanData(value);
                         }else{
-                            Log.i(TAG, "onError: "+"数据有误");
+                            Log.i(TAG, "onError000: "+"数据有误");
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.i(TAG, "onError: "+e.getMessage());
+                        Log.i(TAG, "onError000: "+e.getMessage());
                     }
 
                     @Override
@@ -72,10 +75,14 @@ public class Energy_TransformerPresenter extends BasePresenter<IEnergy_Transform
     }
     //变压器变损
     public void getEnergy_TransformerDamge(int transformerId){
+        String baseDate= DateUtil.getCurrentYear()+"-"+(DateUtil.getCurrentMonth()-1);
         Map<String,Object> map=new HashMap<>();
         map.put("transformerId",transformerId);
-        map.put("eleAccountId",54);
-        map.put("baseDate","2018");
+        map.put("eleAccountId",dataAllbean.getEleAccountId());
+        map.put("baseDate",baseDate);
+
+        Log.i(TAG, "onErrordata: "+transformerId);
+        Log.i(TAG, "onErrordata: "+dataAllbean.getEleAccountId());
         model.getEnergy_TransformerDamgeData().getEnergy_TransformerDamge(map).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Energy_TransformerDamgebean>() {
@@ -89,13 +96,13 @@ public class Energy_TransformerPresenter extends BasePresenter<IEnergy_Transform
                         if(value!=null&&value.getErrorCode()==0){
                             view.setEnergy_TransformerDamgebeanData(value);
                         }else{
-                            Log.i(TAG, "onError: "+"数据有误");
+                            Log.i(TAG, "onError111: "+"数据有误");
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.i(TAG, "onError: "+e.getMessage());
+                        Log.i(TAG, "onError111: "+e.getMessage());
                     }
 
                     @Override
@@ -108,7 +115,9 @@ public class Energy_TransformerPresenter extends BasePresenter<IEnergy_Transform
     public void getEnergy_TransformerTemperature(int transformerId){
         Map<String,Object> map=new HashMap<>();
         map.put("transformerId",transformerId);
-        map.put("baseDate","2018");
+        map.put("baseDate",dataAllbean.getBaseData());
+        Log.i(TAG, "onErrordata: "+transformerId);
+        Log.i(TAG, "onErrordata: "+dataAllbean.getBaseData());
         model.getEnergy_TransformerTemperatureData().getEnergy_TransformerTemperature(map).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Energy_TransformerTemperaturebean>() {
@@ -122,13 +131,13 @@ public class Energy_TransformerPresenter extends BasePresenter<IEnergy_Transform
                         if(value!=null&&value.getErrorCode()==0){
                             view.setEnergy_TransformerTemperaturebeanData(value);
                         }else{
-                            Log.i(TAG, "onError: "+"数据有误");
+                            Log.i(TAG, "onError2222: "+"数据有误");
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.i(TAG, "onError: "+e.getMessage());
+                        Log.i(TAG, "onError222: "+e.getMessage());
                     }
 
                     @Override
@@ -140,11 +149,16 @@ public class Energy_TransformerPresenter extends BasePresenter<IEnergy_Transform
     //变压器容量
     public void getEnergy_TransformerVolume(int transformerId){
         Map<String,Object> map=new HashMap<>();
-        map.put("userName","test");
-        map.put("password","E10ADC3949BA59ABBE56E057F20F883E");
+        map.put("userName",dataAllbean.getUserName());
+        map.put("password",dataAllbean.getPassword());
         map.put("transformerId",transformerId);
-        map.put("eleAccountId","54");
-        map.put("baseDate","2018");
+        map.put("eleAccountId",dataAllbean.getEleAccountId());
+        map.put("baseDate",dataAllbean.getTransformerVolumeBaseData());
+        Log.i(TAG, "onErrordata: "+dataAllbean.getUserName());
+        Log.i(TAG, "onErrordata: "+dataAllbean.getPassword());
+        Log.i(TAG, "onErrordata: "+transformerId);
+        Log.i(TAG, "onErrordata: "+dataAllbean.getEleAccountId());
+        Log.i(TAG, "onErrordata: "+dataAllbean.getTransformerVolumeBaseData());
         model.getEnergy_TransformerVolumeData().getEnergy_TransformerVolume(map).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Energy_TransformerVolumebean>() {
@@ -158,13 +172,13 @@ public class Energy_TransformerPresenter extends BasePresenter<IEnergy_Transform
                         if(value!=null&&value.getErrorCode()==0){
                             view.setEnergy_TransformerVolumebeanData(value);
                         }else{
-                            Log.i(TAG, "onError: "+"数据有误");
+                            Log.i(TAG, "onError333: "+"数据有误");
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.i(TAG, "onError: "+e.getMessage());
+                        Log.i(TAG, "onError333: "+e.getMessage());
                     }
 
                     @Override

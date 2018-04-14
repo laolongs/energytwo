@@ -59,9 +59,9 @@ public class AboutActivity extends AppCompatActivity{
         ButterKnife.bind(this);
         initToolBar();
         initClick();
-        Versionbean versionResult = ACache.getInstance().getAsObject(Constants.CACHEE_VERSION);
-        textviewCurversion.setText(versionResult.getVersionName());
-        textviewNewversion.setText(AppUtils.getVersionName());
+//        Versionbean versionResult = ACache.getInstance().getAsObject(Constants.CACHEE_VERSION);
+//        textviewCurversion.setText(versionResult.getVersionName());
+//        textviewNewversion.setText(AppUtils.getVersionName());
         textviewAbout.setText("天天智电是以探索“智慧售电”新模式为特点，以构建“设备智能化、信息一体化、大数据增值服务”为己任的现代化智慧售电公司。广州天天智慧售电有限公司已是经广东省经济和信息化委员会批准设立的第三类独立售电公司。");
 
     }

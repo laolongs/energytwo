@@ -20,7 +20,7 @@
             <LinearLayout
                 android:id="@+id/data_current_ll"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="360dp"
                 android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -35,17 +35,17 @@
                         android:textSize="17sp"
                         android:textColor="@color/black"/>
                 </LinearLayout>
-                <tties.cn.energy.chart.LineDataChart
+                <tties.cn.energy.chart.LineDataThreeChart
                     android:id="@+id/data_current_chart"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp">
-                </tties.cn.energy.chart.LineDataChart>
+                    android:layout_height="300dp">
+                </tties.cn.energy.chart.LineDataThreeChart>
             </LinearLayout>
             <LinearLayout
                 android:layout_below="@+id/data_current_ll"
                 android:id="@+id/data_currentpress_ll"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="360dp"
                 android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -60,11 +60,11 @@
                         android:textSize="17sp"
                         android:textColor="@color/black"/>
                 </LinearLayout>
-                <tties.cn.energy.chart.LineDataChart
+                <tties.cn.energy.chart.LineDataThreeChart
                     android:id="@+id/data_currentpress_chart"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp">
-                </tties.cn.energy.chart.LineDataChart>
+                    android:layout_height="300dp">
+                </tties.cn.energy.chart.LineDataThreeChart>
             </LinearLayout>
             <View
                 android:layout_below="@+id/data_currentpress_ll"
