@@ -473,7 +473,7 @@ public class Opsbean implements Serializable{
                 private int staffId;
                 private String content;
                 private List<ImageListBean> imageList=new ArrayList<>();
-                private List<ImageItem> imageBeanList=new ArrayList<>();
+                private List<ImageItem> imageBeanList;
                 public int getQuestionId() {
                     return questionId;
                 }
@@ -519,7 +519,7 @@ public class Opsbean implements Serializable{
                         this.imageBeanList = new ArrayList<>();
                         for (ImageListBean result : imageList) {
                             ImageItem imageItem = new ImageItem();
-                            imageItem.path = Constants.OpsBASE_RUL + result.getImagePath();
+                            imageItem.path = Constants.OpsBASE_RULIMG + result.getImagePath();
                             this.imageBeanList.add(imageItem);
                         }
                     }

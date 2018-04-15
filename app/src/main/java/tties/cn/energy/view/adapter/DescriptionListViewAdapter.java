@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,9 @@ import android.widget.ListView;
 import com.bumptech.glide.Glide;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
+import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.lzy.imagepicker.ui.ImagePreviewActivity;
+import com.lzy.imagepicker.ui.ImagePreviewDelActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +35,7 @@ import tties.cn.energy.view.activity.QuestionsActivity;
  */
 
 public class DescriptionListViewAdapter extends BaseAdapter {
+    private static final String TAG = "DescriptionListViewAdap";
     Context context;
     Opsbean.ResultBean.QuestionListBean.DescriptionListBean bean;
     public DescriptionListViewAdapter(Context context,Opsbean.ResultBean.QuestionListBean.DescriptionListBean bean){
@@ -40,6 +44,7 @@ public class DescriptionListViewAdapter extends BaseAdapter {
     }
     @Override
     public int getCount() {
+        Log.i(TAG, "bindsize: "+bean.getImageList().size());
         return bean!=null?bean.getImageList().size():0;
     }
 
@@ -61,9 +66,8 @@ public class DescriptionListViewAdapter extends BaseAdapter {
             holder=new ViewHolder();
             holder.recyclerView=view.findViewById(R.id.recyclerView);
             view.setTag(holder);
-        }else{
-            holder=(ViewHolder) view.getTag();
         }
+        holder=(ViewHolder) view.getTag();
         if (bean.getImageList() != null) {
             ImageAdapter adapter = new ImageAdapter(context, bean.getImageList());
             DescriptionListViewAdapter.OnRecyclerViewItemClickListener clickListener = new DescriptionListViewAdapter.OnRecyclerViewItemClickListener() {
@@ -72,13 +76,14 @@ public class DescriptionListViewAdapter extends BaseAdapter {
 
                     String path = bean.getImageList().get(i).path;
                     //打开预览
-                    Intent intentPreview = new Intent(context, ImagePreviewActivity.class);
+                    Intent intentPreview = new Intent(context, ImagePreviewDelActivity.class);
                     ImageItem item = new ImageItem();
                     item.path = path;
                     List<ImageItem> list = new ArrayList<>();
                     list.add(item);
+                    Log.i(TAG, "bind: "+item.path);
                     intentPreview.putExtra(ImagePicker.EXTRA_IMAGE_ITEMS, (ArrayList<ImageItem>) list);
-                    intentPreview.putExtra(ImagePicker.EXTRA_SELECTED_IMAGE_POSITION, 0);
+                    intentPreview.putExtra(ImagePicker.EXTRA_SELECTED_IMAGE_POSITION, pos);
                     intentPreview.putExtra(ImagePicker.EXTRA_FROM_ITEMS, true);
                     ((QuestionsActivity)context).startActivityForResult(intentPreview, 101);
                 }
@@ -152,10 +157,7 @@ public class DescriptionListViewAdapter extends BaseAdapter {
                 itemView.setOnClickListener(this);
                 //根据条目位置设置图片
                 ImageItem item = mData.get(position);
-//                ImagePicker.getInstance().getImageLoader().displayImage((QuestionsActivity) context, item.path, iv_img, 0, 0);
-                ImagePicker.getInstance().getImageLoader().displayImage((QuestionsActivity) context, item.path, iv_img, 0, 0);
-//                Glide.with(context).load(item.path).into(iv_img);
-//
+                ImagePicker.getInstance().getImageLoader().displayImage((Activity) context, item.path, iv_img, 0, 0);
                 clickPosition = position;
             }
 

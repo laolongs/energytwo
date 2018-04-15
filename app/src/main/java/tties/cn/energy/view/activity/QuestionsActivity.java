@@ -25,6 +25,10 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.lzy.imagepicker.ImagePicker;
+import com.lzy.imagepicker.bean.ImageItem;
 
 import org.w3c.dom.Text;
 
@@ -42,6 +46,7 @@ import tties.cn.energy.model.result.Loginbean;
 import tties.cn.energy.model.result.Opsbean;
 import tties.cn.energy.presenter.QuestionsPresenter;
 import tties.cn.energy.utils.ToastUtil;
+import tties.cn.energy.view.adapter.ImagePickerAdapter;
 import tties.cn.energy.view.adapter.MyQurestionTabAdapter;
 import tties.cn.energy.view.adapter.QuestionListAdapter;
 import tties.cn.energy.view.fragment.Questions_discussFragment;
@@ -114,6 +119,10 @@ public class QuestionsActivity extends BaseActivity<QuestionsPresenter> implemen
     private Questions_progressFragment progressFragment;
     public String name="暂无";
     String[] array={"维修进度","问题讨论"};
+    private ImagePickerAdapter adapter;
+    private ArrayList<ImageItem> selImageList; //当前选择的所有图片
+    private int maxImgCount = 8;               //允许选择图片最大数
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,6 +131,9 @@ public class QuestionsActivity extends BaseActivity<QuestionsPresenter> implemen
     }
 
     private void initView() {
+        selImageList = new ArrayList<>();
+        adapter = new ImagePickerAdapter(this, selImageList, maxImgCount);
+
         toolbarText.setText("问题详情");
         toolbarLeft.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -417,4 +429,20 @@ public class QuestionsActivity extends BaseActivity<QuestionsPresenter> implemen
 
         }
     }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == ImagePicker.RESULT_CODE_BACK) {
+            //预览图片返回
+            if (data != null && requestCode == 101) {
+                List<ImageItem> images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_IMAGE_ITEMS);
+                if (images == null || images.size() == 0) {
+                    selImageList.clear();
+                    selImageList.addAll(images);
+                    adapter.setImages(selImageList);
+                }
+            }
+        }
+    }
+
 }
